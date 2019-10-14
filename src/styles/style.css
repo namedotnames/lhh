@@ -1,7 +1,9 @@
 body {
     margin:auto;
     padding:50px 10px;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Georgia', serif;
+    background-color: #151515;
+    color: #fbfbfb;
 }
 
 img {
@@ -13,17 +15,11 @@ img {
 }
 
 .sans-serif {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Georgia', serif;
 }
-
-/* choose a light or dark theme to add to the body tag. */
 .dark-theme {
-    background-color: #151515;
-    color: #fbfbfb;
-}
-.light-theme {
-    background-color: white;
-    color: black;
+
+
 }
 
 .header {
