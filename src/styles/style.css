@@ -18,6 +18,7 @@ img {
     font-family: 'Georgia', serif;
 }
 
+
 .header {
     padding-top:20px;
     padding-bottom:20px;
@@ -80,7 +81,7 @@ h2.subhead {
 }
 
 p.body-text {
-    font-size: 1.1rem;
+    font-size: 20rem;
     line-height: 1.4;
     margin-top:0;
     margin-bottom:15px;
