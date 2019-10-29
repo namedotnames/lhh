@@ -1,7 +1,8 @@
 # lhh
 <b>Guns in America</b>
 
-This is a look at data from the CDC that shows guns help people kill themselves.
+This is a look at the <a href=“https://wonder.cdc.gov/mcd.html”>Multiple Cause of Death</a> data from the CDC. It is county-level national mortality and population data spanning the years 1999-2017. The data comes from death certificates filed in the U.S. of residents.
+
 
 <b>Prerequisites</b>
 
