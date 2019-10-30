@@ -9,6 +9,9 @@ Also included is data from the Department of Veterans Affairs. It shows that a l
 
 Link to data: https://www.mentalhealth.va.gov/suicide_prevention/data.asp 
 
+Link to viz site: https://flourish.studio/
+
+
 <b>Prerequisites</b>
 
 Sawhorse 
