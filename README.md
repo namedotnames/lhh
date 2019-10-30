@@ -5,7 +5,7 @@ This is a look at the Multiple Cause of Death data from the CDC. It is county-le
 
 Link to data: <a href=“https://wonder.cdc.gov/mcd.html”> https://wonder.cdc.gov/mcd.html </a>
 
-Also included is data from the Department of Veterans Affairs. It shows that a large majority of veteran commit suicides with a firearm.
+Also included is data from the Department of Veterans Affairs. It shows that a large majority of veterans commit suicides with a firearm.
 
 Link to data: https://www.mentalhealth.va.gov/suicide_prevention/data.asp 
 
