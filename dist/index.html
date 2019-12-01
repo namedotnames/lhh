@@ -1,10 +1,5 @@
 <link href="https://fonts.googleapis.com/css?family=Special+Elite&display=swap" rel="stylesheet"> 
-<style>#grad1 {
-  height: 200px;
-  background-color: #f3f3f3;
-}
-
-body {
+<style>body {
   background-color: #f3f3f3;;
 }
 
@@ -13,14 +8,48 @@ body {
 }
 p.padding {
   padding-top: .15cm;
+}
+.wrapper {
+  /* layout */
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  -webkit-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+}
+
+.slide {
+  /* layout */
+  height: 100vh;
+  min-width: 100vh;
+  flex: 1;
+  display: flex;
+  /* content styling OPTIONAL*/
+  align-items: center;
+  justify-content: center;
+  padding: 10vh;
+  /* background styling */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.inner {
+  color: white;
+  font-size: 1.3em;
+}
+
+
+/* Background images on each slide */
+
+.a {
+  background-color: red;
+  background-image: url(https://media3.giphy.com/media/1AgjJa5aX1vmIvx8Zr/giphy.gif);
 }</style> 
+<body>
 
-<div id="grad1">
-<p class="padding"></p><h1 align="center">Lily Hue Hoagland</h1><p></p>
+<p class="padding"></p><h1 align="center"><i>Lily Hue</i> Hoagland</h1><p></p>
 
-  <p align="center">if (writing): {write = "something worth reading"};</p>
-  <p align="center">else: {"do something worth writing about"}</p> 
-</div>
 
    <style>ul {
      list-style-type: none;
@@ -86,7 +115,7 @@ p.padding {
    <li class="dropdown">
        <a href="javascript:void(0)" class="dropbtn">News</a>
        <div class="dropdown-content">
-         <a href="/mekong.html">Death is the Mekong River</a>
+         <a href="/mekong.html">Death of the Mekong River</a>
          <a href="/firearms.html">Guns in America</a>
          <a href="/bloomberg.html">Champion of Culture</a>
        </div>
@@ -117,25 +146,27 @@ p.padding {
      </div>
    </nav>
 <p class="padding"></p><h2 style="font-family: 'Special Elite', cursive;">NEWS</h2><p></p>
-<hr>
+<br>
 <a href="/firearms.html">
   <div>
     <div>
       <div>
         <div>
-          <i>The Unspoken Cost of Firearm Access</i>
+          The Unspoken Cost of Firearm Access
         </div>
       </div>
       <img src="/handguns-free.2c66b3d2.jpg" width="300" height="200">
      </div>
    </div>
 </a>
+
+
 <a href="/mekong.html">
   <div>
     <div>
       <div>
         <div>
-          <i>Death of the Mekong River</i>
+          Death of the Mekong River
         </div>
       </div>
       <img src="/mekong.db73a5bb.jpg" width="300" height="200">
@@ -148,7 +179,7 @@ p.padding {
     <div>
       <div>
         <div>
-          <i>Champion of Culture</i>
+          Champion of Culture
         </div>
       </div>
       <img src="/bloomberg.487e96aa.png" width="300" height="200">
@@ -157,12 +188,12 @@ p.padding {
 </a>
 
 <p class="padding"></p><h2 style="font-family: 'Special Elite', cursive;">GRAPHICS</h2><p></p>
-<hr>
+<br>
 <a href="/sample.html">
   <div>
     <div>
       <div>
-        <i>A Week on Broadway</i>
+        A Week on Broadway
         </div>
       </div>
       <img src="/broadway.25fdcb64.png" width="300" height="200">
@@ -173,7 +204,7 @@ p.padding {
   <div>
     <div>
       <div>
-        <i>The Middle Class</i>
+        The Middle Class
         </div>
       </div>
       <img src="/income.f6778ac1.png" width="300" height="200">
@@ -181,14 +212,14 @@ p.padding {
    
 </a>
 <p class="padding"></p><h2 style="font-family: 'Special Elite', cursive;">ARTS & CULTURE</h2><p></p>
-<hr>
+<br>
 
 <a href="/judd.html">
   <div>
     <div>
       <div>
         <div>
-          <i>The Dimensions of Space</i>
+          The Dimensions of Space
         </div>
       </div>
       <img src="/judd.e469f4ec.png" width="300" height="200">
@@ -201,7 +232,7 @@ p.padding {
     <div>
       <div>
         <div>
-          <i>Madeline and the City</i>
+          Madeline and the City
         </div>
       </div>
       <img src="/madeline.776c1616.png" width="300" height="200">
@@ -214,14 +245,17 @@ p.padding {
     <div>
       <div>
         <div>
-          <i>Delight in the Erudite</i>
+          Delight in the Erudite
         </div>
       </div>
       <img src="/morgan02.1e5abdd4.jpg" width="300" height="200">
      </div>
    </div>
 </a>
-
+<hr>
+<p align="center">if (writing): {write="something worth reading"}; </p>
+<p align="center">else: {do something worth writing about} </p>
+</body>
     
    
 
