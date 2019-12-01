@@ -1,4 +1,8 @@
+<head>
 <link href="https://fonts.googleapis.com/css?family=Special+Elite&display=swap" rel="stylesheet"> 
+<link href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i&display=swap" rel="stylesheet"> 
+</head>
+
 <style>
 
 body {
@@ -11,53 +15,21 @@ body {
 p.padding {
   padding-top: .15cm;
 }
-.wrapper {
-  /* layout */
-  width: 100%;
-  height: 100vh;
-  display: flex;
-  -webkit-flex-wrap: nowrap;
-  flex-wrap: nowrap;
+.flexcontainer {
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+   justify-content: center;
 }
-
-.slide {
-  /* layout */
-  height: 100vh;
-  min-width: 100vh;
-  flex: 1;
-  display: flex;
-  /* content styling OPTIONAL*/
-  align-items: center;
-  justify-content: center;
-  padding: 10vh;
-  /* background styling */
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-.inner {
-  color: white;
-  font-size: 1.3em;
-}
-
-
-/* Background images on each slide */
-
-.a {
-  background-color: red;
-  background-image: url(https://media3.giphy.com/media/1AgjJa5aX1vmIvx8Zr/giphy.gif);
-}
-
 </style> 
 <body>
 
-<p class="padding"><h1 align="center"><i>Lily Hue</i> Hoagland</h1></p>
+<p class="padding"><h1 style="font-family: 'Libre Baskerville', serif"> <p style="text-align: center"><i>Lily Hue</i> Hoagland</h1></p></p>
 
 
    {{> base/navbar }} 
 
-<p class="padding"><h2 style="font-family: 'Special Elite', cursive;">NEWS</h2></p>
+<p class="padding"></p><h2 style="font-family: 'Libre Baskerville', serif;">NEWS</h2></p>
 <br>
 <a href="firearms.hbs">
   <div >
@@ -99,7 +71,7 @@ p.padding {
    </div>
 </a>
 
-<p class="padding"><h2 style="font-family: 'Special Elite', cursive;">GRAPHICS</h2></p>
+<p class="padding"><h2 style="font-family: 'Libre Baskerville', serif;">GRAPHICS</h2></p>
 <br>
 <a href="sample.hbs">
   <div >
@@ -123,7 +95,7 @@ p.padding {
      </div>
    </div>
 </a>
-<p class="padding"><h2 style="font-family: 'Special Elite', cursive;">ARTS & CULTURE</h2></p>
+<p class="padding"><h2 style="font-family: 'Libre Baskerville', serif;">ARTS & CULTURE</h2></p>
 <br>
 
 <a href="judd.hbs">
