@@ -1,5 +1,10 @@
 <link href="https://fonts.googleapis.com/css?family=Special+Elite&display=swap" rel="stylesheet"> 
 <style>
+#grad1 {
+  height: 200px;
+  background-color: #cccccc;
+  background-image: linear-gradient(lightgrey, grey);
+}
 
 body {
   background-color: #EEEEEE;
@@ -9,18 +14,20 @@ body {
     text-align:center;
 }
 p.padding {
-  padding-top: 1.5cm;
+  padding-top: .5cm;
 }
 
 
 </style> 
 
-<h1 align="center">Lily Hue Hoagland</h1>
+<div id="grad1">
+<p class="padding"><h1 align="center">Lily Hue Hoagland</h1></p>
 
   <p align="center">if (writing): {write = "something worth reading"};</p>
   <p align="center">else: {"do something worth writing about"}</p> 
+</div>
 
-    {{> base/navbar }}
+   {{> base/navbar }} 
 
 <p class="padding"><h2 style="font-family: 'Special Elite', cursive;">NEWS</h2></p>
 <hr>
