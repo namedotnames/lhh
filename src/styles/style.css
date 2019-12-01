@@ -18,6 +18,11 @@ img {
     font-family: 'Georgia', sans-serif;
 }
 
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
 
 .header {
     padding-top:20px;
