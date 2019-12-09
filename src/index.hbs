@@ -1,12 +1,55 @@
 <head>
   
 <link href="https://fonts.googleapis.com/css?family=Old+Standard+TT:400,400i|Spectral+SC:200,200i&display=swap" rel="stylesheet"> 
+
 </head>
+
 
 <style>
 
+* {
+  box-sizing: border-box;
+  &::before, &::after {
+    box-sizing: border-box;
+  }
+}
 body {
   background-color: #f3f3f3;;
+}
+
+#container {
+  margin: auto;
+  padding: 0 1rem;
+  max-width: 48rem;
+  width: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
+}
+
+.link {
+  position: relative;
+  transition: clip-path 275ms ease;
+  &:hover span::before, &:focus span::before {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  span {
+    position: relative;
+    display: inline-block;
+    color: blue;
+    &::before {
+      position: absolute;
+      content: attr(data-content);
+      color: $darkblue;
+      text-decoration: underline;
+      text-decoration-color: darkblue;
+      clip-path: polygon(0 0, 0 0, 0% 100%, 0 100%);
+      transition: clip-path 275ms ease;
+    }
+  }
 }
 
 .text-center {
@@ -51,8 +94,13 @@ h1 {
 <p class="padding"><h1><i style="font-family: 'Old Standard TT', serif">Lily Hue</i> Hoagland</h1></p>
 </div>
 
-   {{> base/navbar }} 
+<div id="container">
+  <p>Lopsem ipsum yada <a class="link" href="mekong.hbs"><span data-content="chamomile">mekong</span></a>
 
+
+
+   {{> base/navbar }} 
+<div id="container">
 <p class="padding"><h3 style="font-family: 'Old Standard TT', serif;">NEWS</h3></p>
 
 <p class="padding"><a href="mekong.hbs">
@@ -125,10 +173,13 @@ h1 {
   </div>
   </a>
 </p>
+</div>
 
 <hr>
+<div id="container">
 <p align="center">if (writing): {write = "something worth reading"}; </p>
 <p align="center">else: {do = "something worth writing about"} </p>
+</div>
 </body>
     
    
