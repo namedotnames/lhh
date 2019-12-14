@@ -87,7 +87,7 @@ h2.subhead {
 }
 
 p.body-text {
-    font-size: 20rem;
+    font-size: 1.2rem;
     line-height: 1.4;
     margin-top:0;
     margin-bottom:15px;
@@ -125,7 +125,7 @@ h4.nameline {
 
 
 p.note {
-    font-size:0.85rem;
+    font-size:0.45rem;
 }
 
 /* chart styles */
