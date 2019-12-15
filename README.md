@@ -2,7 +2,7 @@
 
 <b>Women in STEM</b>
 
-This is a look at how women's careers in STEM are reflected as scissor graphs, because while they might start as high percentages of STEM students, as they advance in education and into the professional sector. UNESCO's Institute of Statistics has extensive data on the subject.
+This is a look at how women's careers in STEM are reflected as scissor graphs, because while they might start as high percentages of STEM students, as they advance in education and into the professional sector, their numbers dwindle. UNESCO's Institute of Statistics has extensive data on the subject.
 
 Link to data: http://uis.unesco.org/sites/default/files/documents/saga-toolkit-wp2-2017-en.pdf 
 
