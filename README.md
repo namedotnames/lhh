@@ -1,13 +1,13 @@
-# lhh
-<b>Guns in America</b>
+#lhh
+<b>Women in STEM</b>
 
-This is a look at the Multiple Cause of Death data from the CDC. It is county-level national mortality and population data spanning the years 1999-2017. The data comes from death certificates filed in the U.S. of residents, and shows that there are more gun deaths as the result of suicide than homicide.
+This is a look at how women's careers in STEM are reflected as scissor graphs, because while they might start as high percentages of STEM students, as they advance in education and into the professional sector. UNESCO's Institute of Statistics has extensive data on the subject.
 
-Link to data: <a href=“https://wonder.cdc.gov/mcd.html”> https://wonder.cdc.gov/mcd.html </a>
+Link to data: http://uis.unesco.org/sites/default/files/documents/saga-toolkit-wp2-2017-en.pdf 
 
-Also included is data from the Department of Veterans Affairs. It shows that a large majority of veterans commit suicide with a firearm.
+Also included is data from the Association of American Colleges, which shows that women are now the majority of U.S. medical students.
 
-Link to data: https://www.mentalhealth.va.gov/suicide_prevention/data.asp 
+Link to data: https://www.aamc.org/system/files/2019-12/2019%20AAMC%20Fall%20Applicant%2C%20Matriculant%2C%20and%20Enrollment%20Data%20Tables_0.pdf 
 
 Link to viz site: https://flourish.studio/
 
