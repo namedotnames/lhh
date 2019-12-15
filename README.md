@@ -1,4 +1,5 @@
 #lhh
+
 <b>Women in STEM</b>
 
 This is a look at how women's careers in STEM are reflected as scissor graphs, because while they might start as high percentages of STEM students, as they advance in education and into the professional sector. UNESCO's Institute of Statistics has extensive data on the subject.
