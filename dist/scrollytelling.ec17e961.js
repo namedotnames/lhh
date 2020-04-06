@@ -129,7 +129,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.dependencies = exports.devDependencies = exports.scripts = exports.files = exports.repository = exports.module = exports.jsdelivr = exports.unpkg = exports.main = exports.author = exports.license = exports.homepage = exports.keywords = exports.description = exports.version = exports.name = void 0;
 var name = "d3";
 exports.name = name;
-var version = "5.12.0";
+var version = "5.15.1";
 exports.version = version;
 var description = "Data-Driven Documents";
 exports.description = description;
@@ -1322,7 +1322,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 },{"./bisect":"../node_modules/d3-array/src/bisect.js","./ascending":"../node_modules/d3-array/src/ascending.js","./bisector":"../node_modules/d3-array/src/bisector.js","./cross":"../node_modules/d3-array/src/cross.js","./descending":"../node_modules/d3-array/src/descending.js","./deviation":"../node_modules/d3-array/src/deviation.js","./extent":"../node_modules/d3-array/src/extent.js","./histogram":"../node_modules/d3-array/src/histogram.js","./threshold/freedmanDiaconis":"../node_modules/d3-array/src/threshold/freedmanDiaconis.js","./threshold/scott":"../node_modules/d3-array/src/threshold/scott.js","./threshold/sturges":"../node_modules/d3-array/src/threshold/sturges.js","./max":"../node_modules/d3-array/src/max.js","./mean":"../node_modules/d3-array/src/mean.js","./median":"../node_modules/d3-array/src/median.js","./merge":"../node_modules/d3-array/src/merge.js","./min":"../node_modules/d3-array/src/min.js","./pairs":"../node_modules/d3-array/src/pairs.js","./permute":"../node_modules/d3-array/src/permute.js","./quantile":"../node_modules/d3-array/src/quantile.js","./range":"../node_modules/d3-array/src/range.js","./scan":"../node_modules/d3-array/src/scan.js","./shuffle":"../node_modules/d3-array/src/shuffle.js","./sum":"../node_modules/d3-array/src/sum.js","./ticks":"../node_modules/d3-array/src/ticks.js","./transpose":"../node_modules/d3-array/src/transpose.js","./variance":"../node_modules/d3-array/src/variance.js","./zip":"../node_modules/d3-array/src/zip.js"}],"../node_modules/d3-axis/src/array.js":[function(require,module,exports) {
 "use strict";
 
@@ -1539,7 +1539,7 @@ var noop = {
 
 function dispatch() {
   for (var i = 0, n = arguments.length, _ = {}, t; i < n; ++i) {
-    if (!(t = arguments[i] + "") || t in _) throw new Error("illegal type: " + t);
+    if (!(t = arguments[i] + "") || t in _ || /[\s.]/.test(t)) throw new Error("illegal type: " + t);
     _[t] = [];
   }
 
@@ -1647,10 +1647,10 @@ Object.defineProperty(exports, "dispatch", {
   }
 });
 
-var _dispatch = _interopRequireDefault(require("./dispatch"));
+var _dispatch = _interopRequireDefault(require("./dispatch.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./dispatch":"../node_modules/d3-dispatch/src/dispatch.js"}],"../node_modules/d3-selection/src/namespaces.js":[function(require,module,exports) {
+},{"./dispatch.js":"../node_modules/d3-dispatch/src/dispatch.js"}],"../node_modules/d3-selection/src/namespaces.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -2625,11 +2625,15 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = _default;
 
 function selection_cloneShallow() {
-  return this.parentNode.insertBefore(this.cloneNode(false), this.nextSibling);
+  var clone = this.cloneNode(false),
+      parent = this.parentNode;
+  return parent ? parent.insertBefore(clone, this.nextSibling) : clone;
 }
 
 function selection_cloneDeep() {
-  return this.parentNode.insertBefore(this.cloneNode(true), this.nextSibling);
+  var clone = this.cloneNode(true),
+      parent = this.parentNode;
+  return parent ? parent.insertBefore(clone, this.nextSibling) : clone;
 }
 
 function _default(deep) {
@@ -3408,7 +3412,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 // Ignore right-click, since that should open the context menu.
 function defaultFilter() {
@@ -3620,7 +3624,7 @@ var _nodrag = _interopRequireWildcard(require("./nodrag.js"));
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 },{"./drag.js":"../node_modules/d3-drag/src/drag.js","./nodrag.js":"../node_modules/d3-drag/src/nodrag.js"}],"../node_modules/d3-color/src/define.js":[function(require,module,exports) {
@@ -3660,11 +3664,11 @@ exports.hslConvert = hslConvert;
 exports.hsl = hsl;
 exports.brighter = exports.darker = void 0;
 
-var _define = _interopRequireWildcard(require("./define"));
+var _define = _interopRequireWildcard(require("./define.js"));
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function Color() {}
 
@@ -3675,8 +3679,7 @@ exports.brighter = brighter;
 var reI = "\\s*([+-]?\\d+)\\s*",
     reN = "\\s*([+-]?\\d*\\.?\\d+(?:[eE][+-]?\\d+)?)\\s*",
     reP = "\\s*([+-]?\\d*\\.?\\d+(?:[eE][+-]?\\d+)?)%\\s*",
-    reHex3 = /^#([0-9a-f]{3})$/,
-    reHex6 = /^#([0-9a-f]{6})$/,
+    reHex = /^#([0-9a-f]{3,8})$/,
     reRgbInteger = new RegExp("^rgb\\(" + [reI, reI, reI] + "\\)$"),
     reRgbPercent = new RegExp("^rgb\\(" + [reP, reP, reP] + "\\)$"),
     reRgbaInteger = new RegExp("^rgba\\(" + [reI, reI, reI, reN] + "\\)$"),
@@ -3861,11 +3864,14 @@ function color_formatRgb() {
 }
 
 function color(format) {
-  var m;
+  var m, l;
   format = (format + "").trim().toLowerCase();
-  return (m = reHex3.exec(format)) ? (m = parseInt(m[1], 16), new Rgb(m >> 8 & 0xf | m >> 4 & 0x0f0, m >> 4 & 0xf | m & 0xf0, (m & 0xf) << 4 | m & 0xf, 1) // #f00
-  ) : (m = reHex6.exec(format)) ? rgbn(parseInt(m[1], 16)) // #ff0000
-  : (m = reRgbInteger.exec(format)) ? new Rgb(m[1], m[2], m[3], 1) // rgb(255, 0, 0)
+  return (m = reHex.exec(format)) ? (l = m[1].length, m = parseInt(m[1], 16), l === 6 ? rgbn(m) // #ff0000
+  : l === 3 ? new Rgb(m >> 8 & 0xf | m >> 4 & 0xf0, m >> 4 & 0xf | m & 0xf0, (m & 0xf) << 4 | m & 0xf, 1) // #f00
+  : l === 8 ? new Rgb(m >> 24 & 0xff, m >> 16 & 0xff, m >> 8 & 0xff, (m & 0xff) / 0xff) // #ff000000
+  : l === 4 ? new Rgb(m >> 12 & 0xf | m >> 8 & 0xf0, m >> 8 & 0xf | m >> 4 & 0xf0, m >> 4 & 0xf | m & 0xf0, ((m & 0xf) << 4 | m & 0xf) / 0xff) // #f000
+  : null // invalid hex
+  ) : (m = reRgbInteger.exec(format)) ? new Rgb(m[1], m[2], m[3], 1) // rgb(255, 0, 0)
   : (m = reRgbPercent.exec(format)) ? new Rgb(m[1] * 255 / 100, m[2] * 255 / 100, m[3] * 255 / 100, 1) // rgb(100%, 0%, 0%)
   : (m = reRgbaInteger.exec(format)) ? rgba(m[1], m[2], m[3], m[4]) // rgba(255, 0, 0, 1)
   : (m = reRgbaPercent.exec(format)) ? rgba(m[1] * 255 / 100, m[2] * 255 / 100, m[3] * 255 / 100, m[4]) // rgb(100%, 0%, 0%, 1)
@@ -4012,7 +4018,7 @@ function Hsl(h, s, l, opacity) {
 function hsl2rgb(h, m1, m2) {
   return (h < 60 ? m1 + (m2 - m1) * h / 60 : h < 180 ? m2 : h < 240 ? m1 + (m2 - m1) * (240 - h) / 60 : m1) * 255;
 }
-},{"./define":"../node_modules/d3-color/src/define.js"}],"../node_modules/d3-color/src/math.js":[function(require,module,exports) {
+},{"./define.js":"../node_modules/d3-color/src/define.js"}],"../node_modules/d3-color/src/math.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -4037,15 +4043,15 @@ exports.lch = lch;
 exports.hcl = hcl;
 exports.Hcl = Hcl;
 
-var _define = _interopRequireWildcard(require("./define"));
+var _define = _interopRequireWildcard(require("./define.js"));
 
-var _color = require("./color");
+var _color = require("./color.js");
 
-var _math = require("./math");
+var _math = require("./math.js");
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 // https://observablehq.com/@mbostock/lab-and-rgb
 var K = 18,
@@ -4165,7 +4171,7 @@ function hcl2lab(o) {
     return hcl2lab(this).rgb();
   }
 }));
-},{"./define":"../node_modules/d3-color/src/define.js","./color":"../node_modules/d3-color/src/color.js","./math":"../node_modules/d3-color/src/math.js"}],"../node_modules/d3-color/src/cubehelix.js":[function(require,module,exports) {
+},{"./define.js":"../node_modules/d3-color/src/define.js","./color.js":"../node_modules/d3-color/src/color.js","./math.js":"../node_modules/d3-color/src/math.js"}],"../node_modules/d3-color/src/cubehelix.js":[function(require,module,exports) {
 
 "use strict";
 
@@ -4175,15 +4181,15 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = cubehelix;
 exports.Cubehelix = Cubehelix;
 
-var _define = _interopRequireWildcard(require("./define"));
+var _define = _interopRequireWildcard(require("./define.js"));
 
-var _color = require("./color");
+var _color = require("./color.js");
 
-var _math = require("./math");
+var _math = require("./math.js");
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 var A = -0.14861,
     B = +1.78277,
@@ -4238,7 +4244,7 @@ function Cubehelix(h, s, l, opacity) {
     return new _color.Rgb(255 * (l + a * (A * cosh + B * sinh)), 255 * (l + a * (C * cosh + D * sinh)), 255 * (l + a * (E * cosh)), this.opacity);
   }
 }));
-},{"./define":"../node_modules/d3-color/src/define.js","./color":"../node_modules/d3-color/src/color.js","./math":"../node_modules/d3-color/src/math.js"}],"../node_modules/d3-color/src/index.js":[function(require,module,exports) {
+},{"./define.js":"../node_modules/d3-color/src/define.js","./color.js":"../node_modules/d3-color/src/color.js","./math.js":"../node_modules/d3-color/src/math.js"}],"../node_modules/d3-color/src/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -4293,18 +4299,18 @@ Object.defineProperty(exports, "cubehelix", {
   }
 });
 
-var _color = _interopRequireWildcard(require("./color"));
+var _color = _interopRequireWildcard(require("./color.js"));
 
-var _lab = _interopRequireWildcard(require("./lab"));
+var _lab = _interopRequireWildcard(require("./lab.js"));
 
-var _cubehelix = _interopRequireDefault(require("./cubehelix"));
+var _cubehelix = _interopRequireDefault(require("./cubehelix.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-},{"./color":"../node_modules/d3-color/src/color.js","./lab":"../node_modules/d3-color/src/lab.js","./cubehelix":"../node_modules/d3-color/src/cubehelix.js"}],"../node_modules/d3-interpolate/src/basis.js":[function(require,module,exports) {
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+},{"./color.js":"../node_modules/d3-color/src/color.js","./lab.js":"../node_modules/d3-color/src/lab.js","./cubehelix.js":"../node_modules/d3-color/src/cubehelix.js"}],"../node_modules/d3-interpolate/src/basis.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -4338,7 +4344,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _basis = require("./basis");
+var _basis = require("./basis.js");
 
 function _default(values) {
   var n = values.length;
@@ -4351,7 +4357,7 @@ function _default(values) {
     return (0, _basis.basis)((t - i / n) * n, v0, v1, v2, v3);
   };
 }
-},{"./basis":"../node_modules/d3-interpolate/src/basis.js"}],"../node_modules/d3-interpolate/src/color.js":[function(require,module,exports) {
+},{"./basis.js":"../node_modules/d3-interpolate/src/basis.js"}],"../node_modules/d3-interpolate/src/color.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -4361,7 +4367,7 @@ exports.hue = hue;
 exports.gamma = gamma;
 exports.default = nogamma;
 
-var _constant = _interopRequireDefault(require("./constant"));
+var _constant = _interopRequireDefault(require("./constant.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4392,7 +4398,7 @@ function nogamma(a, b) {
   var d = b - a;
   return d ? linear(a, d) : (0, _constant.default)(isNaN(a) ? b : a);
 }
-},{"./constant":"../node_modules/d3-array/src/constant.js"}],"../node_modules/d3-interpolate/src/rgb.js":[function(require,module,exports) {
+},{"./constant.js":"../node_modules/d3-array/src/constant.js"}],"../node_modules/d3-interpolate/src/rgb.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -4402,15 +4408,15 @@ exports.rgbBasisClosed = exports.rgbBasis = exports.default = void 0;
 
 var _d3Color = require("d3-color");
 
-var _basis = _interopRequireDefault(require("./basis"));
+var _basis = _interopRequireDefault(require("./basis.js"));
 
-var _basisClosed = _interopRequireDefault(require("./basisClosed"));
+var _basisClosed = _interopRequireDefault(require("./basisClosed.js"));
 
-var _color = _interopRequireWildcard(require("./color"));
+var _color = _interopRequireWildcard(require("./color.js"));
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4470,19 +4476,54 @@ var rgbBasis = rgbSpline(_basis.default);
 exports.rgbBasis = rgbBasis;
 var rgbBasisClosed = rgbSpline(_basisClosed.default);
 exports.rgbBasisClosed = rgbBasisClosed;
-},{"d3-color":"../node_modules/d3-color/src/index.js","./basis":"../node_modules/d3-interpolate/src/basis.js","./basisClosed":"../node_modules/d3-interpolate/src/basisClosed.js","./color":"../node_modules/d3-interpolate/src/color.js"}],"../node_modules/d3-interpolate/src/array.js":[function(require,module,exports) {
+},{"d3-color":"../node_modules/d3-color/src/index.js","./basis.js":"../node_modules/d3-interpolate/src/basis.js","./basisClosed.js":"../node_modules/d3-interpolate/src/basisClosed.js","./color.js":"../node_modules/d3-interpolate/src/color.js"}],"../node_modules/d3-interpolate/src/numberArray.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = _default;
+exports.isNumberArray = isNumberArray;
 
-var _value = _interopRequireDefault(require("./value"));
+function _default(a, b) {
+  if (!b) b = [];
+  var n = a ? Math.min(b.length, a.length) : 0,
+      c = b.slice(),
+      i;
+  return function (t) {
+    for (i = 0; i < n; ++i) c[i] = a[i] * (1 - t) + b[i] * t;
+
+    return c;
+  };
+}
+
+function isNumberArray(x) {
+  return ArrayBuffer.isView(x) && !(x instanceof DataView);
+}
+},{}],"../node_modules/d3-interpolate/src/array.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = _default;
+exports.genericArray = genericArray;
+
+var _value = _interopRequireDefault(require("./value.js"));
+
+var _numberArray = _interopRequireWildcard(require("./numberArray.js"));
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _default(a, b) {
+  return ((0, _numberArray.isNumberArray)(b) ? _numberArray.default : genericArray)(a, b);
+}
+
+function genericArray(a, b) {
   var nb = b ? b.length : 0,
       na = a ? Math.min(nb, a.length) : 0,
       x = new Array(na),
@@ -4499,7 +4540,7 @@ function _default(a, b) {
     return c;
   };
 }
-},{"./value":"../node_modules/d3-interpolate/src/value.js"}],"../node_modules/d3-interpolate/src/date.js":[function(require,module,exports) {
+},{"./value.js":"../node_modules/d3-interpolate/src/value.js","./numberArray.js":"../node_modules/d3-interpolate/src/numberArray.js"}],"../node_modules/d3-interpolate/src/date.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -4509,8 +4550,8 @@ exports.default = _default;
 
 function _default(a, b) {
   var d = new Date();
-  return a = +a, b -= a, function (t) {
-    return d.setTime(a + b * t), d;
+  return a = +a, b = +b, function (t) {
+    return d.setTime(a * (1 - t) + b * t), d;
   };
 }
 },{}],"../node_modules/d3-interpolate/src/number.js":[function(require,module,exports) {
@@ -4522,8 +4563,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = _default;
 
 function _default(a, b) {
-  return a = +a, b -= a, function (t) {
-    return a + b * t;
+  return a = +a, b = +b, function (t) {
+    return a * (1 - t) + b * t;
   };
 }
 },{}],"../node_modules/d3-interpolate/src/object.js":[function(require,module,exports) {
@@ -4534,7 +4575,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _value = _interopRequireDefault(require("./value"));
+var _value = _interopRequireDefault(require("./value.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4559,7 +4600,7 @@ function _default(a, b) {
     return c;
   };
 }
-},{"./value":"../node_modules/d3-interpolate/src/value.js"}],"../node_modules/d3-interpolate/src/string.js":[function(require,module,exports) {
+},{"./value.js":"../node_modules/d3-interpolate/src/value.js"}],"../node_modules/d3-interpolate/src/string.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -4567,7 +4608,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _number = _interopRequireDefault(require("./number"));
+var _number = _interopRequireDefault(require("./number.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4643,7 +4684,7 @@ function _default(a, b) {
     return s.join("");
   });
 }
-},{"./number":"../node_modules/d3-interpolate/src/number.js"}],"../node_modules/d3-interpolate/src/value.js":[function(require,module,exports) {
+},{"./number.js":"../node_modules/d3-interpolate/src/number.js"}],"../node_modules/d3-interpolate/src/value.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -4653,28 +4694,34 @@ exports.default = _default;
 
 var _d3Color = require("d3-color");
 
-var _rgb = _interopRequireDefault(require("./rgb"));
+var _rgb = _interopRequireDefault(require("./rgb.js"));
 
-var _array = _interopRequireDefault(require("./array"));
+var _array = require("./array.js");
 
-var _date = _interopRequireDefault(require("./date"));
+var _date = _interopRequireDefault(require("./date.js"));
 
-var _number = _interopRequireDefault(require("./number"));
+var _number = _interopRequireDefault(require("./number.js"));
 
-var _object = _interopRequireDefault(require("./object"));
+var _object = _interopRequireDefault(require("./object.js"));
 
-var _string = _interopRequireDefault(require("./string"));
+var _string = _interopRequireDefault(require("./string.js"));
 
-var _constant = _interopRequireDefault(require("./constant"));
+var _constant = _interopRequireDefault(require("./constant.js"));
+
+var _numberArray = _interopRequireWildcard(require("./numberArray.js"));
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _default(a, b) {
   var t = typeof b,
       c;
-  return b == null || t === "boolean" ? (0, _constant.default)(b) : (t === "number" ? _number.default : t === "string" ? (c = (0, _d3Color.color)(b)) ? (b = c, _rgb.default) : _string.default : b instanceof _d3Color.color ? _rgb.default : b instanceof Date ? _date.default : Array.isArray(b) ? _array.default : typeof b.valueOf !== "function" && typeof b.toString !== "function" || isNaN(b) ? _object.default : _number.default)(a, b);
+  return b == null || t === "boolean" ? (0, _constant.default)(b) : (t === "number" ? _number.default : t === "string" ? (c = (0, _d3Color.color)(b)) ? (b = c, _rgb.default) : _string.default : b instanceof _d3Color.color ? _rgb.default : b instanceof Date ? _date.default : (0, _numberArray.isNumberArray)(b) ? _numberArray.default : Array.isArray(b) ? _array.genericArray : typeof b.valueOf !== "function" && typeof b.toString !== "function" || isNaN(b) ? _object.default : _number.default)(a, b);
 }
-},{"d3-color":"../node_modules/d3-color/src/index.js","./rgb":"../node_modules/d3-interpolate/src/rgb.js","./array":"../node_modules/d3-interpolate/src/array.js","./date":"../node_modules/d3-interpolate/src/date.js","./number":"../node_modules/d3-interpolate/src/number.js","./object":"../node_modules/d3-interpolate/src/object.js","./string":"../node_modules/d3-interpolate/src/string.js","./constant":"../node_modules/d3-array/src/constant.js"}],"../node_modules/d3-interpolate/src/discrete.js":[function(require,module,exports) {
+},{"d3-color":"../node_modules/d3-color/src/index.js","./rgb.js":"../node_modules/d3-interpolate/src/rgb.js","./array.js":"../node_modules/d3-interpolate/src/array.js","./date.js":"../node_modules/d3-interpolate/src/date.js","./number.js":"../node_modules/d3-interpolate/src/number.js","./object.js":"../node_modules/d3-interpolate/src/object.js","./string.js":"../node_modules/d3-interpolate/src/string.js","./constant.js":"../node_modules/d3-array/src/constant.js","./numberArray.js":"../node_modules/d3-interpolate/src/numberArray.js"}],"../node_modules/d3-interpolate/src/discrete.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -4696,7 +4743,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _color = require("./color");
+var _color = require("./color.js");
 
 function _default(a, b) {
   var i = (0, _color.hue)(+a, +b);
@@ -4705,7 +4752,7 @@ function _default(a, b) {
     return x - 360 * Math.floor(x / 360);
   };
 }
-},{"./color":"../node_modules/d3-interpolate/src/color.js"}],"../node_modules/d3-interpolate/src/round.js":[function(require,module,exports) {
+},{"./color.js":"../node_modules/d3-interpolate/src/color.js"}],"../node_modules/d3-interpolate/src/round.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -4714,8 +4761,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = _default;
 
 function _default(a, b) {
-  return a = +a, b -= a, function (t) {
-    return Math.round(a + b * t);
+  return a = +a, b = +b, function (t) {
+    return Math.round(a * (1 - t) + b * t);
   };
 }
 },{}],"../node_modules/d3-interpolate/src/transform/decompose.js":[function(require,module,exports) {
@@ -4761,11 +4808,11 @@ Object.defineProperty(exports, "__esModule", {
 exports.parseCss = parseCss;
 exports.parseSvg = parseSvg;
 
-var _decompose = _interopRequireWildcard(require("./decompose"));
+var _decompose = _interopRequireWildcard(require("./decompose.js"));
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 var cssNode, cssRoot, cssView, svgNode;
 
@@ -4787,7 +4834,7 @@ function parseSvg(value) {
   value = value.matrix;
   return (0, _decompose.default)(value.a, value.b, value.c, value.d, value.e, value.f);
 }
-},{"./decompose":"../node_modules/d3-interpolate/src/transform/decompose.js"}],"../node_modules/d3-interpolate/src/transform/index.js":[function(require,module,exports) {
+},{"./decompose.js":"../node_modules/d3-interpolate/src/transform/decompose.js"}],"../node_modules/d3-interpolate/src/transform/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -4795,9 +4842,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.interpolateTransformSvg = exports.interpolateTransformCss = void 0;
 
-var _number = _interopRequireDefault(require("../number"));
+var _number = _interopRequireDefault(require("../number.js"));
 
-var _parse = require("./parse");
+var _parse = require("./parse.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4888,7 +4935,7 @@ var interpolateTransformCss = interpolateTransform(_parse.parseCss, "px, ", "px)
 exports.interpolateTransformCss = interpolateTransformCss;
 var interpolateTransformSvg = interpolateTransform(_parse.parseSvg, ", ", ")", ")");
 exports.interpolateTransformSvg = interpolateTransformSvg;
-},{"../number":"../node_modules/d3-interpolate/src/number.js","./parse":"../node_modules/d3-interpolate/src/transform/parse.js"}],"../node_modules/d3-interpolate/src/zoom.js":[function(require,module,exports) {
+},{"../number.js":"../node_modules/d3-interpolate/src/number.js","./parse.js":"../node_modules/d3-interpolate/src/transform/parse.js"}],"../node_modules/d3-interpolate/src/zoom.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -4963,11 +5010,11 @@ exports.hslLong = exports.default = void 0;
 
 var _d3Color = require("d3-color");
 
-var _color = _interopRequireWildcard(require("./color"));
+var _color = _interopRequireWildcard(require("./color.js"));
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function hsl(hue) {
   return function (start, end) {
@@ -4990,7 +5037,7 @@ var _default = hsl(_color.hue);
 exports.default = _default;
 var hslLong = hsl(_color.default);
 exports.hslLong = hslLong;
-},{"d3-color":"../node_modules/d3-color/src/index.js","./color":"../node_modules/d3-interpolate/src/color.js"}],"../node_modules/d3-interpolate/src/lab.js":[function(require,module,exports) {
+},{"d3-color":"../node_modules/d3-color/src/index.js","./color.js":"../node_modules/d3-interpolate/src/color.js"}],"../node_modules/d3-interpolate/src/lab.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -5000,7 +5047,7 @@ exports.default = lab;
 
 var _d3Color = require("d3-color");
 
-var _color = _interopRequireDefault(require("./color"));
+var _color = _interopRequireDefault(require("./color.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5017,7 +5064,7 @@ function lab(start, end) {
     return start + "";
   };
 }
-},{"d3-color":"../node_modules/d3-color/src/index.js","./color":"../node_modules/d3-interpolate/src/color.js"}],"../node_modules/d3-interpolate/src/hcl.js":[function(require,module,exports) {
+},{"d3-color":"../node_modules/d3-color/src/index.js","./color.js":"../node_modules/d3-interpolate/src/color.js"}],"../node_modules/d3-interpolate/src/hcl.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -5027,11 +5074,11 @@ exports.hclLong = exports.default = void 0;
 
 var _d3Color = require("d3-color");
 
-var _color = _interopRequireWildcard(require("./color"));
+var _color = _interopRequireWildcard(require("./color.js"));
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function hcl(hue) {
   return function (start, end) {
@@ -5054,7 +5101,7 @@ var _default = hcl(_color.hue);
 exports.default = _default;
 var hclLong = hcl(_color.default);
 exports.hclLong = hclLong;
-},{"d3-color":"../node_modules/d3-color/src/index.js","./color":"../node_modules/d3-interpolate/src/color.js"}],"../node_modules/d3-interpolate/src/cubehelix.js":[function(require,module,exports) {
+},{"d3-color":"../node_modules/d3-color/src/index.js","./color.js":"../node_modules/d3-interpolate/src/color.js"}],"../node_modules/d3-interpolate/src/cubehelix.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -5064,11 +5111,11 @@ exports.cubehelixLong = exports.default = void 0;
 
 var _d3Color = require("d3-color");
 
-var _color = _interopRequireWildcard(require("./color"));
+var _color = _interopRequireWildcard(require("./color.js"));
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function cubehelix(hue) {
   return function cubehelixGamma(y) {
@@ -5098,7 +5145,7 @@ var _default = cubehelix(_color.hue);
 exports.default = _default;
 var cubehelixLong = cubehelix(_color.default);
 exports.cubehelixLong = cubehelixLong;
-},{"d3-color":"../node_modules/d3-color/src/index.js","./color":"../node_modules/d3-interpolate/src/color.js"}],"../node_modules/d3-interpolate/src/piecewise.js":[function(require,module,exports) {
+},{"d3-color":"../node_modules/d3-color/src/index.js","./color.js":"../node_modules/d3-interpolate/src/color.js"}],"../node_modules/d3-interpolate/src/piecewise.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -5186,6 +5233,12 @@ Object.defineProperty(exports, "interpolateNumber", {
   enumerable: true,
   get: function () {
     return _number.default;
+  }
+});
+Object.defineProperty(exports, "interpolateNumberArray", {
+  enumerable: true,
+  get: function () {
+    return _numberArray.default;
   }
 });
 Object.defineProperty(exports, "interpolateObject", {
@@ -5297,52 +5350,54 @@ Object.defineProperty(exports, "quantize", {
   }
 });
 
-var _value = _interopRequireDefault(require("./value"));
+var _value = _interopRequireDefault(require("./value.js"));
 
-var _array = _interopRequireDefault(require("./array"));
+var _array = _interopRequireDefault(require("./array.js"));
 
-var _basis = _interopRequireDefault(require("./basis"));
+var _basis = _interopRequireDefault(require("./basis.js"));
 
-var _basisClosed = _interopRequireDefault(require("./basisClosed"));
+var _basisClosed = _interopRequireDefault(require("./basisClosed.js"));
 
-var _date = _interopRequireDefault(require("./date"));
+var _date = _interopRequireDefault(require("./date.js"));
 
-var _discrete = _interopRequireDefault(require("./discrete"));
+var _discrete = _interopRequireDefault(require("./discrete.js"));
 
-var _hue = _interopRequireDefault(require("./hue"));
+var _hue = _interopRequireDefault(require("./hue.js"));
 
-var _number = _interopRequireDefault(require("./number"));
+var _number = _interopRequireDefault(require("./number.js"));
 
-var _object = _interopRequireDefault(require("./object"));
+var _numberArray = _interopRequireDefault(require("./numberArray.js"));
 
-var _round = _interopRequireDefault(require("./round"));
+var _object = _interopRequireDefault(require("./object.js"));
 
-var _string = _interopRequireDefault(require("./string"));
+var _round = _interopRequireDefault(require("./round.js"));
 
-var _index = require("./transform/index");
+var _string = _interopRequireDefault(require("./string.js"));
 
-var _zoom = _interopRequireDefault(require("./zoom"));
+var _index = require("./transform/index.js");
 
-var _rgb = _interopRequireWildcard(require("./rgb"));
+var _zoom = _interopRequireDefault(require("./zoom.js"));
 
-var _hsl = _interopRequireWildcard(require("./hsl"));
+var _rgb = _interopRequireWildcard(require("./rgb.js"));
 
-var _lab = _interopRequireDefault(require("./lab"));
+var _hsl = _interopRequireWildcard(require("./hsl.js"));
 
-var _hcl = _interopRequireWildcard(require("./hcl"));
+var _lab = _interopRequireDefault(require("./lab.js"));
 
-var _cubehelix = _interopRequireWildcard(require("./cubehelix"));
+var _hcl = _interopRequireWildcard(require("./hcl.js"));
 
-var _piecewise = _interopRequireDefault(require("./piecewise"));
+var _cubehelix = _interopRequireWildcard(require("./cubehelix.js"));
 
-var _quantize = _interopRequireDefault(require("./quantize"));
+var _piecewise = _interopRequireDefault(require("./piecewise.js"));
+
+var _quantize = _interopRequireDefault(require("./quantize.js"));
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./value":"../node_modules/d3-interpolate/src/value.js","./array":"../node_modules/d3-interpolate/src/array.js","./basis":"../node_modules/d3-interpolate/src/basis.js","./basisClosed":"../node_modules/d3-interpolate/src/basisClosed.js","./date":"../node_modules/d3-interpolate/src/date.js","./discrete":"../node_modules/d3-interpolate/src/discrete.js","./hue":"../node_modules/d3-interpolate/src/hue.js","./number":"../node_modules/d3-interpolate/src/number.js","./object":"../node_modules/d3-interpolate/src/object.js","./round":"../node_modules/d3-interpolate/src/round.js","./string":"../node_modules/d3-interpolate/src/string.js","./transform/index":"../node_modules/d3-interpolate/src/transform/index.js","./zoom":"../node_modules/d3-interpolate/src/zoom.js","./rgb":"../node_modules/d3-interpolate/src/rgb.js","./hsl":"../node_modules/d3-interpolate/src/hsl.js","./lab":"../node_modules/d3-interpolate/src/lab.js","./hcl":"../node_modules/d3-interpolate/src/hcl.js","./cubehelix":"../node_modules/d3-interpolate/src/cubehelix.js","./piecewise":"../node_modules/d3-interpolate/src/piecewise.js","./quantize":"../node_modules/d3-interpolate/src/quantize.js"}],"../node_modules/d3-timer/src/timer.js":[function(require,module,exports) {
+},{"./value.js":"../node_modules/d3-interpolate/src/value.js","./array.js":"../node_modules/d3-interpolate/src/array.js","./basis.js":"../node_modules/d3-interpolate/src/basis.js","./basisClosed.js":"../node_modules/d3-interpolate/src/basisClosed.js","./date.js":"../node_modules/d3-interpolate/src/date.js","./discrete.js":"../node_modules/d3-interpolate/src/discrete.js","./hue.js":"../node_modules/d3-interpolate/src/hue.js","./number.js":"../node_modules/d3-interpolate/src/number.js","./numberArray.js":"../node_modules/d3-interpolate/src/numberArray.js","./object.js":"../node_modules/d3-interpolate/src/object.js","./round.js":"../node_modules/d3-interpolate/src/round.js","./string.js":"../node_modules/d3-interpolate/src/string.js","./transform/index.js":"../node_modules/d3-interpolate/src/transform/index.js","./zoom.js":"../node_modules/d3-interpolate/src/zoom.js","./rgb.js":"../node_modules/d3-interpolate/src/rgb.js","./hsl.js":"../node_modules/d3-interpolate/src/hsl.js","./lab.js":"../node_modules/d3-interpolate/src/lab.js","./hcl.js":"../node_modules/d3-interpolate/src/hcl.js","./cubehelix.js":"../node_modules/d3-interpolate/src/cubehelix.js","./piecewise.js":"../node_modules/d3-interpolate/src/piecewise.js","./quantize.js":"../node_modules/d3-interpolate/src/quantize.js"}],"../node_modules/d3-timer/src/timer.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -5489,7 +5544,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _timer = require("./timer");
+var _timer = require("./timer.js");
 
 function _default(callback, delay, time) {
   var t = new _timer.Timer();
@@ -5500,7 +5555,7 @@ function _default(callback, delay, time) {
   }, delay, time);
   return t;
 }
-},{"./timer":"../node_modules/d3-timer/src/timer.js"}],"../node_modules/d3-timer/src/interval.js":[function(require,module,exports) {
+},{"./timer.js":"../node_modules/d3-timer/src/timer.js"}],"../node_modules/d3-timer/src/interval.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -5508,7 +5563,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _timer = require("./timer");
+var _timer = require("./timer.js");
 
 function _default(callback, delay, time) {
   var t = new _timer.Timer(),
@@ -5522,7 +5577,7 @@ function _default(callback, delay, time) {
   }, delay, time);
   return t;
 }
-},{"./timer":"../node_modules/d3-timer/src/timer.js"}],"../node_modules/d3-timer/src/index.js":[function(require,module,exports) {
+},{"./timer.js":"../node_modules/d3-timer/src/timer.js"}],"../node_modules/d3-timer/src/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -5559,14 +5614,14 @@ Object.defineProperty(exports, "interval", {
   }
 });
 
-var _timer = require("./timer");
+var _timer = require("./timer.js");
 
-var _timeout = _interopRequireDefault(require("./timeout"));
+var _timeout = _interopRequireDefault(require("./timeout.js"));
 
-var _interval = _interopRequireDefault(require("./interval"));
+var _interval = _interopRequireDefault(require("./interval.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./timer":"../node_modules/d3-timer/src/timer.js","./timeout":"../node_modules/d3-timer/src/timeout.js","./interval":"../node_modules/d3-timer/src/interval.js"}],"../node_modules/d3-transition/src/transition/schedule.js":[function(require,module,exports) {
+},{"./timer.js":"../node_modules/d3-timer/src/timer.js","./timeout.js":"../node_modules/d3-timer/src/timeout.js","./interval.js":"../node_modules/d3-timer/src/interval.js"}],"../node_modules/d3-transition/src/transition/schedule.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -5744,7 +5799,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _schedule = require("./transition/schedule");
+var _schedule = require("./transition/schedule.js");
 
 function _default(node, name) {
   var schedules = node.__transition,
@@ -5770,7 +5825,7 @@ function _default(node, name) {
 
   if (empty) delete node.__transition;
 }
-},{"./transition/schedule":"../node_modules/d3-transition/src/transition/schedule.js"}],"../node_modules/d3-transition/src/selection/interrupt.js":[function(require,module,exports) {
+},{"./transition/schedule.js":"../node_modules/d3-transition/src/transition/schedule.js"}],"../node_modules/d3-transition/src/selection/interrupt.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -5778,7 +5833,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _interrupt = _interopRequireDefault(require("../interrupt"));
+var _interrupt = _interopRequireDefault(require("../interrupt.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5787,7 +5842,7 @@ function _default(name) {
     (0, _interrupt.default)(this, name);
   });
 }
-},{"../interrupt":"../node_modules/d3-transition/src/interrupt.js"}],"../node_modules/d3-transition/src/transition/tween.js":[function(require,module,exports) {
+},{"../interrupt.js":"../node_modules/d3-transition/src/interrupt.js"}],"../node_modules/d3-transition/src/transition/tween.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -5796,7 +5851,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = _default;
 exports.tweenValue = tweenValue;
 
-var _schedule = require("./schedule");
+var _schedule = require("./schedule.js");
 
 function tweenRemove(id, name) {
   var tween0, tween1;
@@ -5880,7 +5935,7 @@ function tweenValue(transition, name, value) {
     return (0, _schedule.get)(node, id).value[name];
   };
 }
-},{"./schedule":"../node_modules/d3-transition/src/transition/schedule.js"}],"../node_modules/d3-transition/src/transition/interpolate.js":[function(require,module,exports) {
+},{"./schedule.js":"../node_modules/d3-transition/src/transition/schedule.js"}],"../node_modules/d3-transition/src/transition/interpolate.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -5908,9 +5963,9 @@ var _d3Interpolate = require("d3-interpolate");
 
 var _d3Selection = require("d3-selection");
 
-var _tween = require("./tween");
+var _tween = require("./tween.js");
 
-var _interpolate = _interopRequireDefault(require("./interpolate"));
+var _interpolate = _interopRequireDefault(require("./interpolate.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5977,7 +6032,7 @@ function _default(name, value) {
       i = fullname === "transform" ? _d3Interpolate.interpolateTransformSvg : _interpolate.default;
   return this.attrTween(name, typeof value === "function" ? (fullname.local ? attrFunctionNS : attrFunction)(fullname, i, (0, _tween.tweenValue)(this, "attr." + name, value)) : value == null ? (fullname.local ? attrRemoveNS : attrRemove)(fullname) : (fullname.local ? attrConstantNS : attrConstant)(fullname, i, value));
 }
-},{"d3-interpolate":"../node_modules/d3-interpolate/src/index.js","d3-selection":"../node_modules/d3-selection/src/index.js","./tween":"../node_modules/d3-transition/src/transition/tween.js","./interpolate":"../node_modules/d3-transition/src/transition/interpolate.js"}],"../node_modules/d3-transition/src/transition/attrTween.js":[function(require,module,exports) {
+},{"d3-interpolate":"../node_modules/d3-interpolate/src/index.js","d3-selection":"../node_modules/d3-selection/src/index.js","./tween.js":"../node_modules/d3-transition/src/transition/tween.js","./interpolate.js":"../node_modules/d3-transition/src/transition/interpolate.js"}],"../node_modules/d3-transition/src/transition/attrTween.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -5989,13 +6044,13 @@ var _d3Selection = require("d3-selection");
 
 function attrInterpolate(name, i) {
   return function (t) {
-    this.setAttribute(name, i(t));
+    this.setAttribute(name, i.call(this, t));
   };
 }
 
 function attrInterpolateNS(fullname, i) {
   return function (t) {
-    this.setAttributeNS(fullname.space, fullname.local, i(t));
+    this.setAttributeNS(fullname.space, fullname.local, i.call(this, t));
   };
 }
 
@@ -6041,7 +6096,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _schedule = require("./schedule");
+var _schedule = require("./schedule.js");
 
 function delayFunction(id, value) {
   return function () {
@@ -6059,7 +6114,7 @@ function _default(value) {
   var id = this._id;
   return arguments.length ? this.each((typeof value === "function" ? delayFunction : delayConstant)(id, value)) : (0, _schedule.get)(this.node(), id).delay;
 }
-},{"./schedule":"../node_modules/d3-transition/src/transition/schedule.js"}],"../node_modules/d3-transition/src/transition/duration.js":[function(require,module,exports) {
+},{"./schedule.js":"../node_modules/d3-transition/src/transition/schedule.js"}],"../node_modules/d3-transition/src/transition/duration.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -6067,7 +6122,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _schedule = require("./schedule");
+var _schedule = require("./schedule.js");
 
 function durationFunction(id, value) {
   return function () {
@@ -6085,7 +6140,7 @@ function _default(value) {
   var id = this._id;
   return arguments.length ? this.each((typeof value === "function" ? durationFunction : durationConstant)(id, value)) : (0, _schedule.get)(this.node(), id).duration;
 }
-},{"./schedule":"../node_modules/d3-transition/src/transition/schedule.js"}],"../node_modules/d3-transition/src/transition/ease.js":[function(require,module,exports) {
+},{"./schedule.js":"../node_modules/d3-transition/src/transition/schedule.js"}],"../node_modules/d3-transition/src/transition/ease.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -6093,7 +6148,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _schedule = require("./schedule");
+var _schedule = require("./schedule.js");
 
 function easeConstant(id, value) {
   if (typeof value !== "function") throw new Error();
@@ -6106,7 +6161,7 @@ function _default(value) {
   var id = this._id;
   return arguments.length ? this.each(easeConstant(id, value)) : (0, _schedule.get)(this.node(), id).ease;
 }
-},{"./schedule":"../node_modules/d3-transition/src/transition/schedule.js"}],"../node_modules/d3-transition/src/transition/filter.js":[function(require,module,exports) {
+},{"./schedule.js":"../node_modules/d3-transition/src/transition/schedule.js"}],"../node_modules/d3-transition/src/transition/filter.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -6116,7 +6171,7 @@ exports.default = _default;
 
 var _d3Selection = require("d3-selection");
 
-var _index = require("./index");
+var _index = require("./index.js");
 
 function _default(match) {
   if (typeof match !== "function") match = (0, _d3Selection.matcher)(match);
@@ -6131,7 +6186,7 @@ function _default(match) {
 
   return new _index.Transition(subgroups, this._parents, this._name, this._id);
 }
-},{"d3-selection":"../node_modules/d3-selection/src/index.js","./index":"../node_modules/d3-transition/src/transition/index.js"}],"../node_modules/d3-transition/src/transition/merge.js":[function(require,module,exports) {
+},{"d3-selection":"../node_modules/d3-selection/src/index.js","./index.js":"../node_modules/d3-transition/src/transition/index.js"}],"../node_modules/d3-transition/src/transition/merge.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -6139,7 +6194,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _index = require("./index");
+var _index = require("./index.js");
 
 function _default(transition) {
   if (transition._id !== this._id) throw new Error();
@@ -6158,7 +6213,7 @@ function _default(transition) {
 
   return new _index.Transition(merges, this._parents, this._name, this._id);
 }
-},{"./index":"../node_modules/d3-transition/src/transition/index.js"}],"../node_modules/d3-transition/src/transition/on.js":[function(require,module,exports) {
+},{"./index.js":"../node_modules/d3-transition/src/transition/index.js"}],"../node_modules/d3-transition/src/transition/on.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -6166,7 +6221,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _schedule = require("./schedule");
+var _schedule = require("./schedule.js");
 
 function start(name) {
   return (name + "").trim().split(/^|\s+/).every(function (t) {
@@ -6195,7 +6250,7 @@ function _default(name, listener) {
   var id = this._id;
   return arguments.length < 2 ? (0, _schedule.get)(this.node(), id).on.on(name) : this.each(onFunction(id, name, listener));
 }
-},{"./schedule":"../node_modules/d3-transition/src/transition/schedule.js"}],"../node_modules/d3-transition/src/transition/remove.js":[function(require,module,exports) {
+},{"./schedule.js":"../node_modules/d3-transition/src/transition/schedule.js"}],"../node_modules/d3-transition/src/transition/remove.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -6226,13 +6281,13 @@ exports.default = _default;
 
 var _d3Selection = require("d3-selection");
 
-var _index = require("./index");
+var _index = require("./index.js");
 
-var _schedule = _interopRequireWildcard(require("./schedule"));
+var _schedule = _interopRequireWildcard(require("./schedule.js"));
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _default(select) {
   var name = this._name,
@@ -6251,7 +6306,7 @@ function _default(select) {
 
   return new _index.Transition(subgroups, this._parents, name, id);
 }
-},{"d3-selection":"../node_modules/d3-selection/src/index.js","./index":"../node_modules/d3-transition/src/transition/index.js","./schedule":"../node_modules/d3-transition/src/transition/schedule.js"}],"../node_modules/d3-transition/src/transition/selectAll.js":[function(require,module,exports) {
+},{"d3-selection":"../node_modules/d3-selection/src/index.js","./index.js":"../node_modules/d3-transition/src/transition/index.js","./schedule.js":"../node_modules/d3-transition/src/transition/schedule.js"}],"../node_modules/d3-transition/src/transition/selectAll.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -6261,13 +6316,13 @@ exports.default = _default;
 
 var _d3Selection = require("d3-selection");
 
-var _index = require("./index");
+var _index = require("./index.js");
 
-var _schedule = _interopRequireWildcard(require("./schedule"));
+var _schedule = _interopRequireWildcard(require("./schedule.js"));
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _default(select) {
   var name = this._name,
@@ -6291,7 +6346,7 @@ function _default(select) {
 
   return new _index.Transition(subgroups, parents, name, id);
 }
-},{"d3-selection":"../node_modules/d3-selection/src/index.js","./index":"../node_modules/d3-transition/src/transition/index.js","./schedule":"../node_modules/d3-transition/src/transition/schedule.js"}],"../node_modules/d3-transition/src/transition/selection.js":[function(require,module,exports) {
+},{"d3-selection":"../node_modules/d3-selection/src/index.js","./index.js":"../node_modules/d3-transition/src/transition/index.js","./schedule.js":"../node_modules/d3-transition/src/transition/schedule.js"}],"../node_modules/d3-transition/src/transition/selection.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -6318,11 +6373,11 @@ var _d3Interpolate = require("d3-interpolate");
 
 var _d3Selection = require("d3-selection");
 
-var _schedule = require("./schedule");
+var _schedule = require("./schedule.js");
 
-var _tween = require("./tween");
+var _tween = require("./tween.js");
 
-var _interpolate = _interopRequireDefault(require("./interpolate"));
+var _interpolate = _interopRequireDefault(require("./interpolate.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -6385,7 +6440,7 @@ function _default(name, value, priority) {
   var i = (name += "") === "transform" ? _d3Interpolate.interpolateTransformCss : _interpolate.default;
   return value == null ? this.styleTween(name, styleNull(name, i)).on("end.style." + name, styleRemove(name)) : typeof value === "function" ? this.styleTween(name, styleFunction(name, i, (0, _tween.tweenValue)(this, "style." + name, value))).each(styleMaybeRemove(this._id, name)) : this.styleTween(name, styleConstant(name, i, value), priority).on("end.style." + name, null);
 }
-},{"d3-interpolate":"../node_modules/d3-interpolate/src/index.js","d3-selection":"../node_modules/d3-selection/src/index.js","./schedule":"../node_modules/d3-transition/src/transition/schedule.js","./tween":"../node_modules/d3-transition/src/transition/tween.js","./interpolate":"../node_modules/d3-transition/src/transition/interpolate.js"}],"../node_modules/d3-transition/src/transition/styleTween.js":[function(require,module,exports) {
+},{"d3-interpolate":"../node_modules/d3-interpolate/src/index.js","d3-selection":"../node_modules/d3-selection/src/index.js","./schedule.js":"../node_modules/d3-transition/src/transition/schedule.js","./tween.js":"../node_modules/d3-transition/src/transition/tween.js","./interpolate.js":"../node_modules/d3-transition/src/transition/interpolate.js"}],"../node_modules/d3-transition/src/transition/styleTween.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -6395,7 +6450,7 @@ exports.default = _default;
 
 function styleInterpolate(name, i, priority) {
   return function (t) {
-    this.style.setProperty(name, i(t), priority);
+    this.style.setProperty(name, i.call(this, t), priority);
   };
 }
 
@@ -6427,7 +6482,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _tween = require("./tween");
+var _tween = require("./tween.js");
 
 function textConstant(value) {
   return function () {
@@ -6445,7 +6500,7 @@ function textFunction(value) {
 function _default(value) {
   return this.tween("text", typeof value === "function" ? textFunction((0, _tween.tweenValue)(this, "text", value)) : textConstant(value == null ? "" : value + ""));
 }
-},{"./tween":"../node_modules/d3-transition/src/transition/tween.js"}],"../node_modules/d3-transition/src/transition/transition.js":[function(require,module,exports) {
+},{"./tween.js":"../node_modules/d3-transition/src/transition/tween.js"}],"../node_modules/d3-transition/src/transition/textTween.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -6453,13 +6508,47 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _index = require("./index");
+function textInterpolate(i) {
+  return function (t) {
+    this.textContent = i.call(this, t);
+  };
+}
 
-var _schedule = _interopRequireWildcard(require("./schedule"));
+function textTween(value) {
+  var t0, i0;
+
+  function tween() {
+    var i = value.apply(this, arguments);
+    if (i !== i0) t0 = (i0 = i) && textInterpolate(i);
+    return t0;
+  }
+
+  tween._value = value;
+  return tween;
+}
+
+function _default(value) {
+  var key = "text";
+  if (arguments.length < 1) return (key = this.tween(key)) && key._value;
+  if (value == null) return this.tween(key, null);
+  if (typeof value !== "function") throw new Error();
+  return this.tween(key, textTween(value));
+}
+},{}],"../node_modules/d3-transition/src/transition/transition.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = _default;
+
+var _index = require("./index.js");
+
+var _schedule = _interopRequireWildcard(require("./schedule.js"));
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _default() {
   var name = this._name,
@@ -6482,7 +6571,7 @@ function _default() {
 
   return new _index.Transition(groups, this._parents, name, id1);
 }
-},{"./index":"../node_modules/d3-transition/src/transition/index.js","./schedule":"../node_modules/d3-transition/src/transition/schedule.js"}],"../node_modules/d3-transition/src/transition/end.js":[function(require,module,exports) {
+},{"./index.js":"../node_modules/d3-transition/src/transition/index.js","./schedule.js":"../node_modules/d3-transition/src/transition/schedule.js"}],"../node_modules/d3-transition/src/transition/end.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -6490,7 +6579,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _schedule = require("./schedule");
+var _schedule = require("./schedule.js");
 
 function _default() {
   var on0,
@@ -6527,7 +6616,7 @@ function _default() {
     });
   });
 }
-},{"./schedule":"../node_modules/d3-transition/src/transition/schedule.js"}],"../node_modules/d3-transition/src/transition/index.js":[function(require,module,exports) {
+},{"./schedule.js":"../node_modules/d3-transition/src/transition/schedule.js"}],"../node_modules/d3-transition/src/transition/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -6539,41 +6628,43 @@ exports.newId = newId;
 
 var _d3Selection = require("d3-selection");
 
-var _attr = _interopRequireDefault(require("./attr"));
+var _attr = _interopRequireDefault(require("./attr.js"));
 
-var _attrTween = _interopRequireDefault(require("./attrTween"));
+var _attrTween = _interopRequireDefault(require("./attrTween.js"));
 
-var _delay = _interopRequireDefault(require("./delay"));
+var _delay = _interopRequireDefault(require("./delay.js"));
 
-var _duration = _interopRequireDefault(require("./duration"));
+var _duration = _interopRequireDefault(require("./duration.js"));
 
-var _ease = _interopRequireDefault(require("./ease"));
+var _ease = _interopRequireDefault(require("./ease.js"));
 
-var _filter = _interopRequireDefault(require("./filter"));
+var _filter = _interopRequireDefault(require("./filter.js"));
 
-var _merge = _interopRequireDefault(require("./merge"));
+var _merge = _interopRequireDefault(require("./merge.js"));
 
-var _on = _interopRequireDefault(require("./on"));
+var _on = _interopRequireDefault(require("./on.js"));
 
-var _remove = _interopRequireDefault(require("./remove"));
+var _remove = _interopRequireDefault(require("./remove.js"));
 
-var _select = _interopRequireDefault(require("./select"));
+var _select = _interopRequireDefault(require("./select.js"));
 
-var _selectAll = _interopRequireDefault(require("./selectAll"));
+var _selectAll = _interopRequireDefault(require("./selectAll.js"));
 
-var _selection = _interopRequireDefault(require("./selection"));
+var _selection = _interopRequireDefault(require("./selection.js"));
 
-var _style = _interopRequireDefault(require("./style"));
+var _style = _interopRequireDefault(require("./style.js"));
 
-var _styleTween = _interopRequireDefault(require("./styleTween"));
+var _styleTween = _interopRequireDefault(require("./styleTween.js"));
 
-var _text = _interopRequireDefault(require("./text"));
+var _text = _interopRequireDefault(require("./text.js"));
 
-var _transition = _interopRequireDefault(require("./transition"));
+var _textTween = _interopRequireDefault(require("./textTween.js"));
 
-var _tween = _interopRequireDefault(require("./tween"));
+var _transition = _interopRequireDefault(require("./transition.js"));
 
-var _end = _interopRequireDefault(require("./end"));
+var _tween = _interopRequireDefault(require("./tween.js"));
+
+var _end = _interopRequireDefault(require("./end.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -6615,6 +6706,7 @@ Transition.prototype = transition.prototype = {
   style: _style.default,
   styleTween: _styleTween.default,
   text: _text.default,
+  textTween: _textTween.default,
   remove: _remove.default,
   tween: _tween.default,
   delay: _delay.default,
@@ -6622,7 +6714,7 @@ Transition.prototype = transition.prototype = {
   ease: _ease.default,
   end: _end.default
 };
-},{"d3-selection":"../node_modules/d3-selection/src/index.js","./attr":"../node_modules/d3-transition/src/transition/attr.js","./attrTween":"../node_modules/d3-transition/src/transition/attrTween.js","./delay":"../node_modules/d3-transition/src/transition/delay.js","./duration":"../node_modules/d3-transition/src/transition/duration.js","./ease":"../node_modules/d3-transition/src/transition/ease.js","./filter":"../node_modules/d3-transition/src/transition/filter.js","./merge":"../node_modules/d3-transition/src/transition/merge.js","./on":"../node_modules/d3-transition/src/transition/on.js","./remove":"../node_modules/d3-transition/src/transition/remove.js","./select":"../node_modules/d3-transition/src/transition/select.js","./selectAll":"../node_modules/d3-transition/src/transition/selectAll.js","./selection":"../node_modules/d3-transition/src/transition/selection.js","./style":"../node_modules/d3-transition/src/transition/style.js","./styleTween":"../node_modules/d3-transition/src/transition/styleTween.js","./text":"../node_modules/d3-transition/src/transition/text.js","./transition":"../node_modules/d3-transition/src/transition/transition.js","./tween":"../node_modules/d3-transition/src/transition/tween.js","./end":"../node_modules/d3-transition/src/transition/end.js"}],"../node_modules/d3-ease/src/linear.js":[function(require,module,exports) {
+},{"d3-selection":"../node_modules/d3-selection/src/index.js","./attr.js":"../node_modules/d3-transition/src/transition/attr.js","./attrTween.js":"../node_modules/d3-transition/src/transition/attrTween.js","./delay.js":"../node_modules/d3-transition/src/transition/delay.js","./duration.js":"../node_modules/d3-transition/src/transition/duration.js","./ease.js":"../node_modules/d3-transition/src/transition/ease.js","./filter.js":"../node_modules/d3-transition/src/transition/filter.js","./merge.js":"../node_modules/d3-transition/src/transition/merge.js","./on.js":"../node_modules/d3-transition/src/transition/on.js","./remove.js":"../node_modules/d3-transition/src/transition/remove.js","./select.js":"../node_modules/d3-transition/src/transition/select.js","./selectAll.js":"../node_modules/d3-transition/src/transition/selectAll.js","./selection.js":"../node_modules/d3-transition/src/transition/selection.js","./style.js":"../node_modules/d3-transition/src/transition/style.js","./styleTween.js":"../node_modules/d3-transition/src/transition/styleTween.js","./text.js":"../node_modules/d3-transition/src/transition/text.js","./textTween.js":"../node_modules/d3-transition/src/transition/textTween.js","./transition.js":"../node_modules/d3-transition/src/transition/transition.js","./tween.js":"../node_modules/d3-transition/src/transition/tween.js","./end.js":"../node_modules/d3-transition/src/transition/end.js"}],"../node_modules/d3-ease/src/linear.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -7164,26 +7256,26 @@ Object.defineProperty(exports, "easeElasticInOut", {
   }
 });
 
-var _linear = require("./linear");
+var _linear = require("./linear.js");
 
-var _quad = require("./quad");
+var _quad = require("./quad.js");
 
-var _cubic = require("./cubic");
+var _cubic = require("./cubic.js");
 
-var _poly = require("./poly");
+var _poly = require("./poly.js");
 
-var _sin = require("./sin");
+var _sin = require("./sin.js");
 
-var _exp = require("./exp");
+var _exp = require("./exp.js");
 
-var _circle = require("./circle");
+var _circle = require("./circle.js");
 
-var _bounce = require("./bounce");
+var _bounce = require("./bounce.js");
 
-var _back = require("./back");
+var _back = require("./back.js");
 
-var _elastic = require("./elastic");
-},{"./linear":"../node_modules/d3-ease/src/linear.js","./quad":"../node_modules/d3-ease/src/quad.js","./cubic":"../node_modules/d3-ease/src/cubic.js","./poly":"../node_modules/d3-ease/src/poly.js","./sin":"../node_modules/d3-ease/src/sin.js","./exp":"../node_modules/d3-ease/src/exp.js","./circle":"../node_modules/d3-ease/src/circle.js","./bounce":"../node_modules/d3-ease/src/bounce.js","./back":"../node_modules/d3-ease/src/back.js","./elastic":"../node_modules/d3-ease/src/elastic.js"}],"../node_modules/d3-transition/src/selection/transition.js":[function(require,module,exports) {
+var _elastic = require("./elastic.js");
+},{"./linear.js":"../node_modules/d3-ease/src/linear.js","./quad.js":"../node_modules/d3-ease/src/quad.js","./cubic.js":"../node_modules/d3-ease/src/cubic.js","./poly.js":"../node_modules/d3-ease/src/poly.js","./sin.js":"../node_modules/d3-ease/src/sin.js","./exp.js":"../node_modules/d3-ease/src/exp.js","./circle.js":"../node_modules/d3-ease/src/circle.js","./bounce.js":"../node_modules/d3-ease/src/bounce.js","./back.js":"../node_modules/d3-ease/src/back.js","./elastic.js":"../node_modules/d3-ease/src/elastic.js"}],"../node_modules/d3-transition/src/selection/transition.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -7191,9 +7283,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _index = require("../transition/index");
+var _index = require("../transition/index.js");
 
-var _schedule = _interopRequireDefault(require("../transition/schedule"));
+var _schedule = _interopRequireDefault(require("../transition/schedule.js"));
 
 var _d3Ease = require("d3-ease");
 
@@ -7240,20 +7332,20 @@ function _default(name) {
 
   return new _index.Transition(groups, this._parents, name, id);
 }
-},{"../transition/index":"../node_modules/d3-transition/src/transition/index.js","../transition/schedule":"../node_modules/d3-transition/src/transition/schedule.js","d3-ease":"../node_modules/d3-ease/src/index.js","d3-timer":"../node_modules/d3-timer/src/index.js"}],"../node_modules/d3-transition/src/selection/index.js":[function(require,module,exports) {
+},{"../transition/index.js":"../node_modules/d3-transition/src/transition/index.js","../transition/schedule.js":"../node_modules/d3-transition/src/transition/schedule.js","d3-ease":"../node_modules/d3-ease/src/index.js","d3-timer":"../node_modules/d3-timer/src/index.js"}],"../node_modules/d3-transition/src/selection/index.js":[function(require,module,exports) {
 "use strict";
 
 var _d3Selection = require("d3-selection");
 
-var _interrupt = _interopRequireDefault(require("./interrupt"));
+var _interrupt = _interopRequireDefault(require("./interrupt.js"));
 
-var _transition = _interopRequireDefault(require("./transition"));
+var _transition = _interopRequireDefault(require("./transition.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 _d3Selection.selection.prototype.interrupt = _interrupt.default;
 _d3Selection.selection.prototype.transition = _transition.default;
-},{"d3-selection":"../node_modules/d3-selection/src/index.js","./interrupt":"../node_modules/d3-transition/src/selection/interrupt.js","./transition":"../node_modules/d3-transition/src/selection/transition.js"}],"../node_modules/d3-transition/src/active.js":[function(require,module,exports) {
+},{"d3-selection":"../node_modules/d3-selection/src/index.js","./interrupt.js":"../node_modules/d3-transition/src/selection/interrupt.js","./transition.js":"../node_modules/d3-transition/src/selection/transition.js"}],"../node_modules/d3-transition/src/active.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -7261,9 +7353,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _index = require("./transition/index");
+var _index = require("./transition/index.js");
 
-var _schedule = require("./transition/schedule");
+var _schedule = require("./transition/schedule.js");
 
 var root = [null];
 
@@ -7284,7 +7376,7 @@ function _default(node, name) {
 
   return null;
 }
-},{"./transition/index":"../node_modules/d3-transition/src/transition/index.js","./transition/schedule":"../node_modules/d3-transition/src/transition/schedule.js"}],"../node_modules/d3-transition/src/index.js":[function(require,module,exports) {
+},{"./transition/index.js":"../node_modules/d3-transition/src/transition/index.js","./transition/schedule.js":"../node_modules/d3-transition/src/transition/schedule.js"}],"../node_modules/d3-transition/src/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -7309,16 +7401,16 @@ Object.defineProperty(exports, "interrupt", {
   }
 });
 
-require("./selection/index");
+require("./selection/index.js");
 
-var _index2 = _interopRequireDefault(require("./transition/index"));
+var _index2 = _interopRequireDefault(require("./transition/index.js"));
 
-var _active = _interopRequireDefault(require("./active"));
+var _active = _interopRequireDefault(require("./active.js"));
 
-var _interrupt = _interopRequireDefault(require("./interrupt"));
+var _interrupt = _interopRequireDefault(require("./interrupt.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./selection/index":"../node_modules/d3-transition/src/selection/index.js","./transition/index":"../node_modules/d3-transition/src/transition/index.js","./active":"../node_modules/d3-transition/src/active.js","./interrupt":"../node_modules/d3-transition/src/interrupt.js"}],"../node_modules/d3-brush/src/event.js":[function(require,module,exports) {
+},{"./selection/index.js":"../node_modules/d3-transition/src/selection/index.js","./transition/index.js":"../node_modules/d3-transition/src/transition/index.js","./active.js":"../node_modules/d3-transition/src/active.js","./interrupt.js":"../node_modules/d3-transition/src/interrupt.js"}],"../node_modules/d3-brush/src/event.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -7360,7 +7452,7 @@ var _noevent = _interopRequireWildcard(require("./noevent.js"));
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -7533,7 +7625,7 @@ function brush(dim) {
       filter = defaultFilter,
       touchable = defaultTouchable,
       keys = true,
-      listeners = (0, _d3Dispatch.dispatch)(brush, "start", "brush", "end"),
+      listeners = (0, _d3Dispatch.dispatch)("start", "brush", "end"),
       handleSize = 6,
       touchending;
 
@@ -7928,6 +8020,10 @@ function brush(dim) {
     return arguments.length ? (filter = typeof _ === "function" ? _ : (0, _constant.default)(!!_), brush) : filter;
   };
 
+  brush.touchable = function (_) {
+    return arguments.length ? (touchable = typeof _ === "function" ? _ : (0, _constant.default)(!!_), brush) : touchable;
+  };
+
   brush.handleSize = function (_) {
     return arguments.length ? (handleSize = +_, brush) : handleSize;
   };
@@ -7978,7 +8074,7 @@ var _brush = _interopRequireWildcard(require("./brush.js"));
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 },{"./brush.js":"../node_modules/d3-brush/src/brush.js"}],"../node_modules/d3-chord/src/math.js":[function(require,module,exports) {
 "use strict";
 
@@ -8274,10 +8370,10 @@ Object.defineProperty(exports, "path", {
   }
 });
 
-var _path = _interopRequireDefault(require("./path"));
+var _path = _interopRequireDefault(require("./path.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./path":"../node_modules/d3-path/src/path.js"}],"../node_modules/d3-chord/src/ribbon.js":[function(require,module,exports) {
+},{"./path.js":"../node_modules/d3-path/src/path.js"}],"../node_modules/d3-chord/src/ribbon.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -8611,7 +8707,7 @@ var _map = _interopRequireWildcard(require("./map"));
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function Set() {}
 
@@ -9371,7 +9467,7 @@ var EOL = {},
 
 function objectConverter(columns) {
   return new Function("d", "return {" + columns.map(function (name, i) {
-    return JSON.stringify(name) + ": d[" + i + "]";
+    return JSON.stringify(name) + ": d[" + i + "] || \"\"";
   }).join(",") + "}");
 }
 
@@ -9525,7 +9621,9 @@ function _default(delimiter) {
     parseRows: parseRows,
     format: format,
     formatBody: formatBody,
-    formatRows: formatRows
+    formatRows: formatRows,
+    formatRow: formatRow,
+    formatValue: formatValue
   };
 }
 },{}],"../node_modules/d3-dsv/src/csv.js":[function(require,module,exports) {
@@ -9534,9 +9632,9 @@ function _default(delimiter) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.csvFormatRows = exports.csvFormatBody = exports.csvFormat = exports.csvParseRows = exports.csvParse = void 0;
+exports.csvFormatValue = exports.csvFormatRow = exports.csvFormatRows = exports.csvFormatBody = exports.csvFormat = exports.csvParseRows = exports.csvParse = void 0;
 
-var _dsv = _interopRequireDefault(require("./dsv"));
+var _dsv = _interopRequireDefault(require("./dsv.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -9551,15 +9649,19 @@ var csvFormatBody = csv.formatBody;
 exports.csvFormatBody = csvFormatBody;
 var csvFormatRows = csv.formatRows;
 exports.csvFormatRows = csvFormatRows;
-},{"./dsv":"../node_modules/d3-dsv/src/dsv.js"}],"../node_modules/d3-dsv/src/tsv.js":[function(require,module,exports) {
+var csvFormatRow = csv.formatRow;
+exports.csvFormatRow = csvFormatRow;
+var csvFormatValue = csv.formatValue;
+exports.csvFormatValue = csvFormatValue;
+},{"./dsv.js":"../node_modules/d3-dsv/src/dsv.js"}],"../node_modules/d3-dsv/src/tsv.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.tsvFormatRows = exports.tsvFormatBody = exports.tsvFormat = exports.tsvParseRows = exports.tsvParse = void 0;
+exports.tsvFormatValue = exports.tsvFormatRow = exports.tsvFormatRows = exports.tsvFormatBody = exports.tsvFormat = exports.tsvParseRows = exports.tsvParse = void 0;
 
-var _dsv = _interopRequireDefault(require("./dsv"));
+var _dsv = _interopRequireDefault(require("./dsv.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -9574,7 +9676,11 @@ var tsvFormatBody = tsv.formatBody;
 exports.tsvFormatBody = tsvFormatBody;
 var tsvFormatRows = tsv.formatRows;
 exports.tsvFormatRows = tsvFormatRows;
-},{"./dsv":"../node_modules/d3-dsv/src/dsv.js"}],"../node_modules/d3-dsv/src/autoType.js":[function(require,module,exports) {
+var tsvFormatRow = tsv.formatRow;
+exports.tsvFormatRow = tsvFormatRow;
+var tsvFormatValue = tsv.formatValue;
+exports.tsvFormatValue = tsvFormatValue;
+},{"./dsv.js":"../node_modules/d3-dsv/src/dsv.js"}],"../node_modules/d3-dsv/src/autoType.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -9585,13 +9691,20 @@ exports.default = autoType;
 function autoType(object) {
   for (var key in object) {
     var value = object[key].trim(),
-        number;
-    if (!value) value = null;else if (value === "true") value = true;else if (value === "false") value = false;else if (value === "NaN") value = NaN;else if (!isNaN(number = +value)) value = number;else if (/^([-+]\d{2})?\d{4}(-\d{2}(-\d{2})?)?(T\d{2}:\d{2}(:\d{2}(\.\d{3})?)?(Z|[-+]\d{2}:\d{2})?)?$/.test(value)) value = new Date(value);else continue;
+        number,
+        m;
+    if (!value) value = null;else if (value === "true") value = true;else if (value === "false") value = false;else if (value === "NaN") value = NaN;else if (!isNaN(number = +value)) value = number;else if (m = value.match(/^([-+]\d{2})?\d{4}(-\d{2}(-\d{2})?)?(T\d{2}:\d{2}(:\d{2}(\.\d{3})?)?(Z|[-+]\d{2}:\d{2})?)?$/)) {
+      if (fixtz && !!m[4] && !m[7]) value = value.replace(/-/g, "/").replace(/T/, " ");
+      value = new Date(value);
+    } else continue;
     object[key] = value;
   }
 
   return object;
-}
+} // https://github.com/d3/d3-dsv/issues/45
+
+
+var fixtz = new Date("2019-01-01T00:00").getHours() || new Date("2019-07-01T00:00").getHours();
 },{}],"../node_modules/d3-dsv/src/index.js":[function(require,module,exports) {
 "use strict";
 
@@ -9634,6 +9747,18 @@ Object.defineProperty(exports, "csvFormatRows", {
     return _csv.csvFormatRows;
   }
 });
+Object.defineProperty(exports, "csvFormatRow", {
+  enumerable: true,
+  get: function () {
+    return _csv.csvFormatRow;
+  }
+});
+Object.defineProperty(exports, "csvFormatValue", {
+  enumerable: true,
+  get: function () {
+    return _csv.csvFormatValue;
+  }
+});
 Object.defineProperty(exports, "tsvParse", {
   enumerable: true,
   get: function () {
@@ -9664,6 +9789,18 @@ Object.defineProperty(exports, "tsvFormatRows", {
     return _tsv.tsvFormatRows;
   }
 });
+Object.defineProperty(exports, "tsvFormatRow", {
+  enumerable: true,
+  get: function () {
+    return _tsv.tsvFormatRow;
+  }
+});
+Object.defineProperty(exports, "tsvFormatValue", {
+  enumerable: true,
+  get: function () {
+    return _tsv.tsvFormatValue;
+  }
+});
 Object.defineProperty(exports, "autoType", {
   enumerable: true,
   get: function () {
@@ -9671,16 +9808,16 @@ Object.defineProperty(exports, "autoType", {
   }
 });
 
-var _dsv = _interopRequireDefault(require("./dsv"));
+var _dsv = _interopRequireDefault(require("./dsv.js"));
 
-var _csv = require("./csv");
+var _csv = require("./csv.js");
 
-var _tsv = require("./tsv");
+var _tsv = require("./tsv.js");
 
-var _autoType = _interopRequireDefault(require("./autoType"));
+var _autoType = _interopRequireDefault(require("./autoType.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./dsv":"../node_modules/d3-dsv/src/dsv.js","./csv":"../node_modules/d3-dsv/src/csv.js","./tsv":"../node_modules/d3-dsv/src/tsv.js","./autoType":"../node_modules/d3-dsv/src/autoType.js"}],"../node_modules/d3-fetch/src/blob.js":[function(require,module,exports) {
+},{"./dsv.js":"../node_modules/d3-dsv/src/dsv.js","./csv.js":"../node_modules/d3-dsv/src/csv.js","./tsv.js":"../node_modules/d3-dsv/src/tsv.js","./autoType.js":"../node_modules/d3-dsv/src/autoType.js"}],"../node_modules/d3-fetch/src/blob.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -9919,7 +10056,7 @@ var _xml = _interopRequireWildcard(require("./xml"));
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 },{"./blob":"../node_modules/d3-fetch/src/blob.js","./buffer":"../node_modules/d3-fetch/src/buffer.js","./dsv":"../node_modules/d3-fetch/src/dsv.js","./image":"../node_modules/d3-fetch/src/image.js","./json":"../node_modules/d3-fetch/src/json.js","./text":"../node_modules/d3-fetch/src/text.js","./xml":"../node_modules/d3-fetch/src/xml.js"}],"../node_modules/d3-force/src/center.js":[function(require,module,exports) {
@@ -10177,7 +10314,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _quad = _interopRequireDefault(require("./quad"));
+var _quad = _interopRequireDefault(require("./quad.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -10233,7 +10370,7 @@ function _default(x, y, radius) {
 
   return data;
 }
-},{"./quad":"../node_modules/d3-quadtree/src/quad.js"}],"../node_modules/d3-quadtree/src/remove.js":[function(require,module,exports) {
+},{"./quad.js":"../node_modules/d3-quadtree/src/quad.js"}],"../node_modules/d3-quadtree/src/remove.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -10330,7 +10467,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _quad = _interopRequireDefault(require("./quad"));
+var _quad = _interopRequireDefault(require("./quad.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -10358,7 +10495,7 @@ function _default(callback) {
 
   return this;
 }
-},{"./quad":"../node_modules/d3-quadtree/src/quad.js"}],"../node_modules/d3-quadtree/src/visitAfter.js":[function(require,module,exports) {
+},{"./quad.js":"../node_modules/d3-quadtree/src/quad.js"}],"../node_modules/d3-quadtree/src/visitAfter.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -10366,7 +10503,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _quad = _interopRequireDefault(require("./quad"));
+var _quad = _interopRequireDefault(require("./quad.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -10402,7 +10539,7 @@ function _default(callback) {
 
   return this;
 }
-},{"./quad":"../node_modules/d3-quadtree/src/quad.js"}],"../node_modules/d3-quadtree/src/x.js":[function(require,module,exports) {
+},{"./quad.js":"../node_modules/d3-quadtree/src/quad.js"}],"../node_modules/d3-quadtree/src/x.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -10442,35 +10579,35 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = quadtree;
 
-var _add = _interopRequireWildcard(require("./add"));
+var _add = _interopRequireWildcard(require("./add.js"));
 
-var _cover = _interopRequireDefault(require("./cover"));
+var _cover = _interopRequireDefault(require("./cover.js"));
 
-var _data = _interopRequireDefault(require("./data"));
+var _data = _interopRequireDefault(require("./data.js"));
 
-var _extent = _interopRequireDefault(require("./extent"));
+var _extent = _interopRequireDefault(require("./extent.js"));
 
-var _find = _interopRequireDefault(require("./find"));
+var _find = _interopRequireDefault(require("./find.js"));
 
-var _remove = _interopRequireWildcard(require("./remove"));
+var _remove = _interopRequireWildcard(require("./remove.js"));
 
-var _root = _interopRequireDefault(require("./root"));
+var _root = _interopRequireDefault(require("./root.js"));
 
-var _size = _interopRequireDefault(require("./size"));
+var _size = _interopRequireDefault(require("./size.js"));
 
-var _visit = _interopRequireDefault(require("./visit"));
+var _visit = _interopRequireDefault(require("./visit.js"));
 
-var _visitAfter = _interopRequireDefault(require("./visitAfter"));
+var _visitAfter = _interopRequireDefault(require("./visitAfter.js"));
 
-var _x = _interopRequireWildcard(require("./x"));
+var _x = _interopRequireWildcard(require("./x.js"));
 
-var _y = _interopRequireWildcard(require("./y"));
+var _y = _interopRequireWildcard(require("./y.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function quadtree(nodes, x, y) {
   var tree = new Quadtree(x == null ? _x.defaultX : x, y == null ? _y.defaultY : y, NaN, NaN, NaN, NaN);
@@ -10542,7 +10679,7 @@ treeProto.visit = _visit.default;
 treeProto.visitAfter = _visitAfter.default;
 treeProto.x = _x.default;
 treeProto.y = _y.default;
-},{"./add":"../node_modules/d3-quadtree/src/add.js","./cover":"../node_modules/d3-quadtree/src/cover.js","./data":"../node_modules/d3-quadtree/src/data.js","./extent":"../node_modules/d3-quadtree/src/extent.js","./find":"../node_modules/d3-quadtree/src/find.js","./remove":"../node_modules/d3-quadtree/src/remove.js","./root":"../node_modules/d3-quadtree/src/root.js","./size":"../node_modules/d3-quadtree/src/size.js","./visit":"../node_modules/d3-quadtree/src/visit.js","./visitAfter":"../node_modules/d3-quadtree/src/visitAfter.js","./x":"../node_modules/d3-quadtree/src/x.js","./y":"../node_modules/d3-quadtree/src/y.js"}],"../node_modules/d3-quadtree/src/index.js":[function(require,module,exports) {
+},{"./add.js":"../node_modules/d3-quadtree/src/add.js","./cover.js":"../node_modules/d3-quadtree/src/cover.js","./data.js":"../node_modules/d3-quadtree/src/data.js","./extent.js":"../node_modules/d3-quadtree/src/extent.js","./find.js":"../node_modules/d3-quadtree/src/find.js","./remove.js":"../node_modules/d3-quadtree/src/remove.js","./root.js":"../node_modules/d3-quadtree/src/root.js","./size.js":"../node_modules/d3-quadtree/src/size.js","./visit.js":"../node_modules/d3-quadtree/src/visit.js","./visitAfter.js":"../node_modules/d3-quadtree/src/visitAfter.js","./x.js":"../node_modules/d3-quadtree/src/x.js","./y.js":"../node_modules/d3-quadtree/src/y.js"}],"../node_modules/d3-quadtree/src/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -10555,10 +10692,10 @@ Object.defineProperty(exports, "quadtree", {
   }
 });
 
-var _quadtree = _interopRequireDefault(require("./quadtree"));
+var _quadtree = _interopRequireDefault(require("./quadtree.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./quadtree":"../node_modules/d3-quadtree/src/quadtree.js"}],"../node_modules/d3-force/src/collide.js":[function(require,module,exports) {
+},{"./quadtree.js":"../node_modules/d3-quadtree/src/quadtree.js"}],"../node_modules/d3-force/src/collide.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -11477,11 +11614,8 @@ function _default(s) {
         break;
 
       default:
-        if (i0 > 0) {
-          if (!+s[i]) break out;
-          i0 = 0;
-        }
-
+        if (!+s[i]) break out;
+        if (i0 > 0) i0 = 0;
         break;
     }
   }
@@ -11666,14 +11800,15 @@ function _default(locale) {
         valueSuffix = formatType(value) + valueSuffix;
         value = "";
       } else {
-        value = +value; // Perform the initial formatting.
+        value = +value; // Determine the sign. -0 is not less than 0, but 1 / -0 is!
 
-        var valueNegative = value < 0;
+        var valueNegative = value < 0 || 1 / value < 0; // Perform the initial formatting.
+
         value = isNaN(value) ? nan : formatType(Math.abs(value), precision); // Trim insignificant zeros.
 
-        if (trim) value = (0, _formatTrim.default)(value); // If a negative value rounds to zero during formatting, treat as positive.
+        if (trim) value = (0, _formatTrim.default)(value); // If a negative value rounds to zero after formatting, and no explicit positive sign is requested, hide the sign.
 
-        if (valueNegative && +value === 0) valueNegative = false; // Compute the prefix and suffix.
+        if (valueNegative && +value === 0 && sign !== "+") valueNegative = false; // Compute the prefix and suffix.
 
         valuePrefix = (valueNegative ? sign === "(" ? sign : minus : sign === "-" || sign === "(" ? "" : sign) + valuePrefix;
         valueSuffix = (type === "s" ? prefixes[8 + _formatPrefixAuto.prefixExponent / 3] : "") + valueSuffix + (valueNegative && sign === "(" ? ")" : ""); // Break the formatted value into the integer “value” part that can be
@@ -11898,7 +12033,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 },{"./defaultLocale.js":"../node_modules/d3-format/src/defaultLocale.js","./locale.js":"../node_modules/d3-format/src/locale.js","./formatSpecifier.js":"../node_modules/d3-format/src/formatSpecifier.js","./precisionFixed.js":"../node_modules/d3-format/src/precisionFixed.js","./precisionPrefix.js":"../node_modules/d3-format/src/precisionPrefix.js","./precisionRound.js":"../node_modules/d3-format/src/precisionRound.js"}],"../node_modules/d3-geo/src/adder.js":[function(require,module,exports) {
 "use strict";
 
@@ -12128,13 +12263,13 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = _default;
 exports.areaStream = exports.areaRingSum = void 0;
 
-var _adder = _interopRequireDefault(require("./adder"));
+var _adder = _interopRequireDefault(require("./adder.js"));
 
-var _math = require("./math");
+var _math = require("./math.js");
 
-var _noop = _interopRequireDefault(require("./noop"));
+var _noop = _interopRequireDefault(require("./noop.js"));
 
-var _stream = _interopRequireDefault(require("./stream"));
+var _stream = _interopRequireDefault(require("./stream.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -12206,7 +12341,7 @@ function _default(object) {
   (0, _stream.default)(object, areaStream);
   return areaSum * 2;
 }
-},{"./adder":"../node_modules/d3-geo/src/adder.js","./math":"../node_modules/d3-geo/src/math.js","./noop":"../node_modules/d3-geo/src/noop.js","./stream":"../node_modules/d3-geo/src/stream.js"}],"../node_modules/d3-geo/src/cartesian.js":[function(require,module,exports) {
+},{"./adder.js":"../node_modules/d3-geo/src/adder.js","./math.js":"../node_modules/d3-geo/src/math.js","./noop.js":"../node_modules/d3-geo/src/noop.js","./stream.js":"../node_modules/d3-geo/src/stream.js"}],"../node_modules/d3-geo/src/cartesian.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -12220,7 +12355,7 @@ exports.cartesianAddInPlace = cartesianAddInPlace;
 exports.cartesianScale = cartesianScale;
 exports.cartesianNormalizeInPlace = cartesianNormalizeInPlace;
 
-var _math = require("./math");
+var _math = require("./math.js");
 
 function spherical(cartesian) {
   return [(0, _math.atan2)(cartesian[1], cartesian[0]), (0, _math.asin)(cartesian[2])];
@@ -12255,7 +12390,7 @@ function cartesianNormalizeInPlace(d) {
   var l = (0, _math.sqrt)(d[0] * d[0] + d[1] * d[1] + d[2] * d[2]);
   d[0] /= l, d[1] /= l, d[2] /= l;
 }
-},{"./math":"../node_modules/d3-geo/src/math.js"}],"../node_modules/d3-geo/src/bounds.js":[function(require,module,exports) {
+},{"./math.js":"../node_modules/d3-geo/src/math.js"}],"../node_modules/d3-geo/src/bounds.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -12263,15 +12398,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _adder = _interopRequireDefault(require("./adder"));
+var _adder = _interopRequireDefault(require("./adder.js"));
 
-var _area = require("./area");
+var _area = require("./area.js");
 
-var _cartesian = require("./cartesian");
+var _cartesian = require("./cartesian.js");
 
-var _math = require("./math");
+var _math = require("./math.js");
 
-var _stream = _interopRequireDefault(require("./stream"));
+var _stream = _interopRequireDefault(require("./stream.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -12458,7 +12593,7 @@ function _default(feature) {
   ranges = range = null;
   return lambda0 === Infinity || phi0 === Infinity ? [[NaN, NaN], [NaN, NaN]] : [[lambda0, phi0], [lambda1, phi1]];
 }
-},{"./adder":"../node_modules/d3-geo/src/adder.js","./area":"../node_modules/d3-geo/src/area.js","./cartesian":"../node_modules/d3-geo/src/cartesian.js","./math":"../node_modules/d3-geo/src/math.js","./stream":"../node_modules/d3-geo/src/stream.js"}],"../node_modules/d3-geo/src/centroid.js":[function(require,module,exports) {
+},{"./adder.js":"../node_modules/d3-geo/src/adder.js","./area.js":"../node_modules/d3-geo/src/area.js","./cartesian.js":"../node_modules/d3-geo/src/cartesian.js","./math.js":"../node_modules/d3-geo/src/math.js","./stream.js":"../node_modules/d3-geo/src/stream.js"}],"../node_modules/d3-geo/src/centroid.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -12466,11 +12601,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _math = require("./math");
+var _math = require("./math.js");
 
-var _noop = _interopRequireDefault(require("./noop"));
+var _noop = _interopRequireDefault(require("./noop.js"));
 
-var _stream = _interopRequireDefault(require("./stream"));
+var _stream = _interopRequireDefault(require("./stream.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -12602,7 +12737,7 @@ function _default(object) {
 
   return [(0, _math.atan2)(y, x) * _math.degrees, (0, _math.asin)(z / (0, _math.sqrt)(m)) * _math.degrees];
 }
-},{"./math":"../node_modules/d3-geo/src/math.js","./noop":"../node_modules/d3-geo/src/noop.js","./stream":"../node_modules/d3-geo/src/stream.js"}],"../node_modules/d3-geo/src/compose.js":[function(require,module,exports) {
+},{"./math.js":"../node_modules/d3-geo/src/math.js","./noop.js":"../node_modules/d3-geo/src/noop.js","./stream.js":"../node_modules/d3-geo/src/stream.js"}],"../node_modules/d3-geo/src/compose.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -12629,9 +12764,9 @@ Object.defineProperty(exports, "__esModule", {
 exports.rotateRadians = rotateRadians;
 exports.default = _default;
 
-var _compose = _interopRequireDefault(require("./compose"));
+var _compose = _interopRequireDefault(require("./compose.js"));
 
-var _math = require("./math");
+var _math = require("./math.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -12699,7 +12834,7 @@ function _default(rotate) {
 
   return forward;
 }
-},{"./compose":"../node_modules/d3-geo/src/compose.js","./math":"../node_modules/d3-geo/src/math.js"}],"../node_modules/d3-geo/src/circle.js":[function(require,module,exports) {
+},{"./compose.js":"../node_modules/d3-geo/src/compose.js","./math.js":"../node_modules/d3-geo/src/math.js"}],"../node_modules/d3-geo/src/circle.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -12708,13 +12843,13 @@ Object.defineProperty(exports, "__esModule", {
 exports.circleStream = circleStream;
 exports.default = _default;
 
-var _cartesian = require("./cartesian");
+var _cartesian = require("./cartesian.js");
 
-var _constant = _interopRequireDefault(require("./constant"));
+var _constant = _interopRequireDefault(require("./constant.js"));
 
-var _math = require("./math");
+var _math = require("./math.js");
 
-var _rotation = require("./rotation");
+var _rotation = require("./rotation.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -12793,7 +12928,7 @@ function _default() {
 
   return circle;
 }
-},{"./cartesian":"../node_modules/d3-geo/src/cartesian.js","./constant":"../node_modules/d3-array/src/constant.js","./math":"../node_modules/d3-geo/src/math.js","./rotation":"../node_modules/d3-geo/src/rotation.js"}],"../node_modules/d3-geo/src/clip/buffer.js":[function(require,module,exports) {
+},{"./cartesian.js":"../node_modules/d3-geo/src/cartesian.js","./constant.js":"../node_modules/d3-array/src/constant.js","./math.js":"../node_modules/d3-geo/src/math.js","./rotation.js":"../node_modules/d3-geo/src/rotation.js"}],"../node_modules/d3-geo/src/clip/buffer.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -12801,7 +12936,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _noop = _interopRequireDefault(require("../noop"));
+var _noop = _interopRequireDefault(require("../noop.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -12827,7 +12962,7 @@ function _default() {
     }
   };
 }
-},{"../noop":"../node_modules/d3-geo/src/noop.js"}],"../node_modules/d3-geo/src/pointEqual.js":[function(require,module,exports) {
+},{"../noop.js":"../node_modules/d3-geo/src/noop.js"}],"../node_modules/d3-geo/src/pointEqual.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -12835,12 +12970,12 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _math = require("./math");
+var _math = require("./math.js");
 
 function _default(a, b) {
   return (0, _math.abs)(a[0] - b[0]) < _math.epsilon && (0, _math.abs)(a[1] - b[1]) < _math.epsilon;
 }
-},{"./math":"../node_modules/d3-geo/src/math.js"}],"../node_modules/d3-geo/src/clip/rejoin.js":[function(require,module,exports) {
+},{"./math.js":"../node_modules/d3-geo/src/math.js"}],"../node_modules/d3-geo/src/clip/rejoin.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -12848,7 +12983,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _pointEqual = _interopRequireDefault(require("../pointEqual"));
+var _pointEqual = _interopRequireDefault(require("../pointEqual.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -12966,7 +13101,7 @@ function link(array) {
   a.n = b = array[0];
   b.p = a;
 }
-},{"../pointEqual":"../node_modules/d3-geo/src/pointEqual.js"}],"../node_modules/d3-geo/src/polygonContains.js":[function(require,module,exports) {
+},{"../pointEqual.js":"../node_modules/d3-geo/src/pointEqual.js"}],"../node_modules/d3-geo/src/polygonContains.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -12974,11 +13109,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _adder = _interopRequireDefault(require("./adder"));
+var _adder = _interopRequireDefault(require("./adder.js"));
 
-var _cartesian = require("./cartesian");
+var _cartesian = require("./cartesian.js");
 
-var _math = require("./math");
+var _math = require("./math.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -13049,7 +13184,7 @@ function _default(polygon, point) {
 
   return (angle < -_math.epsilon || angle < _math.epsilon && sum < -_math.epsilon) ^ winding & 1;
 }
-},{"./adder":"../node_modules/d3-geo/src/adder.js","./cartesian":"../node_modules/d3-geo/src/cartesian.js","./math":"../node_modules/d3-geo/src/math.js"}],"../node_modules/d3-geo/src/clip/index.js":[function(require,module,exports) {
+},{"./adder.js":"../node_modules/d3-geo/src/adder.js","./cartesian.js":"../node_modules/d3-geo/src/cartesian.js","./math.js":"../node_modules/d3-geo/src/math.js"}],"../node_modules/d3-geo/src/clip/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -13057,13 +13192,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _buffer = _interopRequireDefault(require("./buffer"));
+var _buffer = _interopRequireDefault(require("./buffer.js"));
 
-var _rejoin = _interopRequireDefault(require("./rejoin"));
+var _rejoin = _interopRequireDefault(require("./rejoin.js"));
 
-var _math = require("../math");
+var _math = require("../math.js");
 
-var _polygonContains = _interopRequireDefault(require("../polygonContains"));
+var _polygonContains = _interopRequireDefault(require("../polygonContains.js"));
 
 var _d3Array = require("d3-array");
 
@@ -13195,7 +13330,7 @@ function validSegment(segment) {
 function compareIntersection(a, b) {
   return ((a = a.x)[0] < 0 ? a[1] - _math.halfPi - _math.epsilon : _math.halfPi - a[1]) - ((b = b.x)[0] < 0 ? b[1] - _math.halfPi - _math.epsilon : _math.halfPi - b[1]);
 }
-},{"./buffer":"../node_modules/d3-geo/src/clip/buffer.js","./rejoin":"../node_modules/d3-geo/src/clip/rejoin.js","../math":"../node_modules/d3-geo/src/math.js","../polygonContains":"../node_modules/d3-geo/src/polygonContains.js","d3-array":"../node_modules/d3-array/src/index.js"}],"../node_modules/d3-geo/src/clip/antimeridian.js":[function(require,module,exports) {
+},{"./buffer.js":"../node_modules/d3-geo/src/clip/buffer.js","./rejoin.js":"../node_modules/d3-geo/src/clip/rejoin.js","../math.js":"../node_modules/d3-geo/src/math.js","../polygonContains.js":"../node_modules/d3-geo/src/polygonContains.js","d3-array":"../node_modules/d3-array/src/index.js"}],"../node_modules/d3-geo/src/clip/antimeridian.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -13203,9 +13338,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _index = _interopRequireDefault(require("./index"));
+var _index = _interopRequireDefault(require("./index.js"));
 
-var _math = require("../math");
+var _math = require("../math.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -13299,7 +13434,7 @@ function clipAntimeridianInterpolate(from, to, direction, stream) {
     stream.point(to[0], to[1]);
   }
 }
-},{"./index":"../node_modules/d3-geo/src/clip/index.js","../math":"../node_modules/d3-geo/src/math.js"}],"../node_modules/d3-geo/src/clip/circle.js":[function(require,module,exports) {
+},{"./index.js":"../node_modules/d3-geo/src/clip/index.js","../math.js":"../node_modules/d3-geo/src/math.js"}],"../node_modules/d3-geo/src/clip/circle.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -13307,15 +13442,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _cartesian = require("../cartesian");
+var _cartesian = require("../cartesian.js");
 
-var _circle = require("../circle");
+var _circle = require("../circle.js");
 
-var _math = require("../math");
+var _math = require("../math.js");
 
-var _pointEqual = _interopRequireDefault(require("../pointEqual"));
+var _pointEqual = _interopRequireDefault(require("../pointEqual.js"));
 
-var _index = _interopRequireDefault(require("./index"));
+var _index = _interopRequireDefault(require("./index.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -13492,7 +13627,7 @@ function _default(radius) {
 
   return (0, _index.default)(visible, clipLine, interpolate, smallRadius ? [0, -radius] : [-_math.pi, radius - _math.pi]);
 }
-},{"../cartesian":"../node_modules/d3-geo/src/cartesian.js","../circle":"../node_modules/d3-geo/src/circle.js","../math":"../node_modules/d3-geo/src/math.js","../pointEqual":"../node_modules/d3-geo/src/pointEqual.js","./index":"../node_modules/d3-geo/src/clip/index.js"}],"../node_modules/d3-geo/src/clip/line.js":[function(require,module,exports) {
+},{"../cartesian.js":"../node_modules/d3-geo/src/cartesian.js","../circle.js":"../node_modules/d3-geo/src/circle.js","../math.js":"../node_modules/d3-geo/src/math.js","../pointEqual.js":"../node_modules/d3-geo/src/pointEqual.js","./index.js":"../node_modules/d3-geo/src/clip/index.js"}],"../node_modules/d3-geo/src/clip/line.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -13570,13 +13705,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = clipRectangle;
 
-var _math = require("../math");
+var _math = require("../math.js");
 
-var _buffer = _interopRequireDefault(require("./buffer"));
+var _buffer = _interopRequireDefault(require("./buffer.js"));
 
-var _line = _interopRequireDefault(require("./line"));
+var _line = _interopRequireDefault(require("./line.js"));
 
-var _rejoin = _interopRequireDefault(require("./rejoin"));
+var _rejoin = _interopRequireDefault(require("./rejoin.js"));
 
 var _d3Array = require("d3-array");
 
@@ -13753,7 +13888,7 @@ function clipRectangle(x0, y0, x1, y1) {
     return clipStream;
   };
 }
-},{"../math":"../node_modules/d3-geo/src/math.js","./buffer":"../node_modules/d3-geo/src/clip/buffer.js","./line":"../node_modules/d3-geo/src/clip/line.js","./rejoin":"../node_modules/d3-geo/src/clip/rejoin.js","d3-array":"../node_modules/d3-array/src/index.js"}],"../node_modules/d3-geo/src/clip/extent.js":[function(require,module,exports) {
+},{"../math.js":"../node_modules/d3-geo/src/math.js","./buffer.js":"../node_modules/d3-geo/src/clip/buffer.js","./line.js":"../node_modules/d3-geo/src/clip/line.js","./rejoin.js":"../node_modules/d3-geo/src/clip/rejoin.js","d3-array":"../node_modules/d3-array/src/index.js"}],"../node_modules/d3-geo/src/clip/extent.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -13761,7 +13896,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _rectangle = _interopRequireDefault(require("./rectangle"));
+var _rectangle = _interopRequireDefault(require("./rectangle.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -13782,7 +13917,7 @@ function _default() {
     }
   };
 }
-},{"./rectangle":"../node_modules/d3-geo/src/clip/rectangle.js"}],"../node_modules/d3-geo/src/length.js":[function(require,module,exports) {
+},{"./rectangle.js":"../node_modules/d3-geo/src/clip/rectangle.js"}],"../node_modules/d3-geo/src/length.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -13790,13 +13925,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _adder = _interopRequireDefault(require("./adder"));
+var _adder = _interopRequireDefault(require("./adder.js"));
 
-var _math = require("./math");
+var _math = require("./math.js");
 
-var _noop = _interopRequireDefault(require("./noop"));
+var _noop = _interopRequireDefault(require("./noop.js"));
 
-var _stream = _interopRequireDefault(require("./stream"));
+var _stream = _interopRequireDefault(require("./stream.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -13847,7 +13982,7 @@ function _default(object) {
   (0, _stream.default)(object, lengthStream);
   return +lengthSum;
 }
-},{"./adder":"../node_modules/d3-geo/src/adder.js","./math":"../node_modules/d3-geo/src/math.js","./noop":"../node_modules/d3-geo/src/noop.js","./stream":"../node_modules/d3-geo/src/stream.js"}],"../node_modules/d3-geo/src/distance.js":[function(require,module,exports) {
+},{"./adder.js":"../node_modules/d3-geo/src/adder.js","./math.js":"../node_modules/d3-geo/src/math.js","./noop.js":"../node_modules/d3-geo/src/noop.js","./stream.js":"../node_modules/d3-geo/src/stream.js"}],"../node_modules/d3-geo/src/distance.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -13855,7 +13990,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _length = _interopRequireDefault(require("./length"));
+var _length = _interopRequireDefault(require("./length.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -13870,7 +14005,7 @@ function _default(a, b) {
   coordinates[1] = b;
   return (0, _length.default)(object);
 }
-},{"./length":"../node_modules/d3-geo/src/length.js"}],"../node_modules/d3-geo/src/contains.js":[function(require,module,exports) {
+},{"./length.js":"../node_modules/d3-geo/src/length.js"}],"../node_modules/d3-geo/src/contains.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -13878,11 +14013,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _polygonContains = _interopRequireDefault(require("./polygonContains"));
+var _polygonContains = _interopRequireDefault(require("./polygonContains.js"));
 
-var _distance = _interopRequireDefault(require("./distance"));
+var _distance = _interopRequireDefault(require("./distance.js"));
 
-var _math = require("./math");
+var _math = require("./math.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -13992,7 +14127,7 @@ function pointRadians(point) {
 function _default(object, point) {
   return (object && containsObjectType.hasOwnProperty(object.type) ? containsObjectType[object.type] : containsGeometry)(object, point);
 }
-},{"./polygonContains":"../node_modules/d3-geo/src/polygonContains.js","./distance":"../node_modules/d3-geo/src/distance.js","./math":"../node_modules/d3-geo/src/math.js"}],"../node_modules/d3-geo/src/graticule.js":[function(require,module,exports) {
+},{"./polygonContains.js":"../node_modules/d3-geo/src/polygonContains.js","./distance.js":"../node_modules/d3-geo/src/distance.js","./math.js":"../node_modules/d3-geo/src/math.js"}],"../node_modules/d3-geo/src/graticule.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -14003,7 +14138,7 @@ exports.graticule10 = graticule10;
 
 var _d3Array = require("d3-array");
 
-var _math = require("./math");
+var _math = require("./math.js");
 
 function graticuleX(y0, y1, dy) {
   var y = (0, _d3Array.range)(y0, y1 - _math.epsilon, dy).concat(y1);
@@ -14129,7 +14264,7 @@ function graticule() {
 function graticule10() {
   return graticule()();
 }
-},{"d3-array":"../node_modules/d3-array/src/index.js","./math":"../node_modules/d3-geo/src/math.js"}],"../node_modules/d3-geo/src/interpolate.js":[function(require,module,exports) {
+},{"d3-array":"../node_modules/d3-array/src/index.js","./math.js":"../node_modules/d3-geo/src/math.js"}],"../node_modules/d3-geo/src/interpolate.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -14137,7 +14272,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _math = require("./math");
+var _math = require("./math.js");
 
 function _default(a, b) {
   var x0 = a[0] * _math.radians,
@@ -14167,7 +14302,7 @@ function _default(a, b) {
   interpolate.distance = d;
   return interpolate;
 }
-},{"./math":"../node_modules/d3-geo/src/math.js"}],"../node_modules/d3-geo/src/path/area.js":[function(require,module,exports) {
+},{"./math.js":"../node_modules/d3-geo/src/math.js"}],"../node_modules/d3-geo/src/path/area.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -14175,11 +14310,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _adder = _interopRequireDefault(require("../adder"));
+var _adder = _interopRequireDefault(require("../adder.js"));
 
-var _math = require("../math");
+var _math = require("../math.js");
 
-var _noop = _interopRequireDefault(require("../noop"));
+var _noop = _interopRequireDefault(require("../noop.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -14229,7 +14364,7 @@ function areaRingEnd() {
 
 var _default = areaStream;
 exports.default = _default;
-},{"../adder":"../node_modules/d3-geo/src/adder.js","../math":"../node_modules/d3-geo/src/math.js","../noop":"../node_modules/d3-geo/src/noop.js"}],"../node_modules/d3-geo/src/path/bounds.js":[function(require,module,exports) {
+},{"../adder.js":"../node_modules/d3-geo/src/adder.js","../math.js":"../node_modules/d3-geo/src/math.js","../noop.js":"../node_modules/d3-geo/src/noop.js"}],"../node_modules/d3-geo/src/path/bounds.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -14237,7 +14372,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _noop = _interopRequireDefault(require("../noop"));
+var _noop = _interopRequireDefault(require("../noop.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -14267,7 +14402,7 @@ function boundsPoint(x, y) {
 
 var _default = boundsStream;
 exports.default = _default;
-},{"../noop":"../node_modules/d3-geo/src/noop.js"}],"../node_modules/d3-geo/src/path/centroid.js":[function(require,module,exports) {
+},{"../noop.js":"../node_modules/d3-geo/src/noop.js"}],"../node_modules/d3-geo/src/path/centroid.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -14275,7 +14410,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _math = require("../math");
+var _math = require("../math.js");
 
 // TODO Enforce positive area for exterior, negative area for interior?
 var X0 = 0,
@@ -14369,7 +14504,7 @@ function centroidPointRing(x, y) {
 
 var _default = centroidStream;
 exports.default = _default;
-},{"../math":"../node_modules/d3-geo/src/math.js"}],"../node_modules/d3-geo/src/path/context.js":[function(require,module,exports) {
+},{"../math.js":"../node_modules/d3-geo/src/math.js"}],"../node_modules/d3-geo/src/path/context.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -14377,9 +14512,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = PathContext;
 
-var _math = require("../math");
+var _math = require("../math.js");
 
-var _noop = _interopRequireDefault(require("../noop"));
+var _noop = _interopRequireDefault(require("../noop.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -14434,7 +14569,7 @@ PathContext.prototype = {
   },
   result: _noop.default
 };
-},{"../math":"../node_modules/d3-geo/src/math.js","../noop":"../node_modules/d3-geo/src/noop.js"}],"../node_modules/d3-geo/src/path/measure.js":[function(require,module,exports) {
+},{"../math.js":"../node_modules/d3-geo/src/math.js","../noop.js":"../node_modules/d3-geo/src/noop.js"}],"../node_modules/d3-geo/src/path/measure.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -14442,11 +14577,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _adder = _interopRequireDefault(require("../adder"));
+var _adder = _interopRequireDefault(require("../adder.js"));
 
-var _math = require("../math");
+var _math = require("../math.js");
 
-var _noop = _interopRequireDefault(require("../noop"));
+var _noop = _interopRequireDefault(require("../noop.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -14491,7 +14626,7 @@ function lengthPoint(x, y) {
 
 var _default = lengthStream;
 exports.default = _default;
-},{"../adder":"../node_modules/d3-geo/src/adder.js","../math":"../node_modules/d3-geo/src/math.js","../noop":"../node_modules/d3-geo/src/noop.js"}],"../node_modules/d3-geo/src/path/string.js":[function(require,module,exports) {
+},{"../adder.js":"../node_modules/d3-geo/src/adder.js","../math.js":"../node_modules/d3-geo/src/math.js","../noop.js":"../node_modules/d3-geo/src/noop.js"}],"../node_modules/d3-geo/src/path/string.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -14573,21 +14708,21 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _identity = _interopRequireDefault(require("../identity"));
+var _identity = _interopRequireDefault(require("../identity.js"));
 
-var _stream = _interopRequireDefault(require("../stream"));
+var _stream = _interopRequireDefault(require("../stream.js"));
 
-var _area = _interopRequireDefault(require("./area"));
+var _area = _interopRequireDefault(require("./area.js"));
 
-var _bounds = _interopRequireDefault(require("./bounds"));
+var _bounds = _interopRequireDefault(require("./bounds.js"));
 
-var _centroid = _interopRequireDefault(require("./centroid"));
+var _centroid = _interopRequireDefault(require("./centroid.js"));
 
-var _context = _interopRequireDefault(require("./context"));
+var _context = _interopRequireDefault(require("./context.js"));
 
-var _measure = _interopRequireDefault(require("./measure"));
+var _measure = _interopRequireDefault(require("./measure.js"));
 
-var _string = _interopRequireDefault(require("./string"));
+var _string = _interopRequireDefault(require("./string.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -14644,7 +14779,7 @@ function _default(projection, context) {
 
   return path.projection(projection).context(context);
 }
-},{"../identity":"../node_modules/d3-array/src/identity.js","../stream":"../node_modules/d3-geo/src/stream.js","./area":"../node_modules/d3-geo/src/path/area.js","./bounds":"../node_modules/d3-geo/src/path/bounds.js","./centroid":"../node_modules/d3-geo/src/path/centroid.js","./context":"../node_modules/d3-geo/src/path/context.js","./measure":"../node_modules/d3-geo/src/path/measure.js","./string":"../node_modules/d3-geo/src/path/string.js"}],"../node_modules/d3-geo/src/transform.js":[function(require,module,exports) {
+},{"../identity.js":"../node_modules/d3-array/src/identity.js","../stream.js":"../node_modules/d3-geo/src/stream.js","./area.js":"../node_modules/d3-geo/src/path/area.js","./bounds.js":"../node_modules/d3-geo/src/path/bounds.js","./centroid.js":"../node_modules/d3-geo/src/path/centroid.js","./context.js":"../node_modules/d3-geo/src/path/context.js","./measure.js":"../node_modules/d3-geo/src/path/measure.js","./string.js":"../node_modules/d3-geo/src/path/string.js"}],"../node_modules/d3-geo/src/transform.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -14704,9 +14839,9 @@ exports.fitSize = fitSize;
 exports.fitWidth = fitWidth;
 exports.fitHeight = fitHeight;
 
-var _stream = _interopRequireDefault(require("../stream"));
+var _stream = _interopRequireDefault(require("../stream.js"));
 
-var _bounds = _interopRequireDefault(require("../path/bounds"));
+var _bounds = _interopRequireDefault(require("../path/bounds.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -14754,7 +14889,7 @@ function fitHeight(projection, height, object) {
     projection.scale(150 * k).translate([x, y]);
   }, object);
 }
-},{"../stream":"../node_modules/d3-geo/src/stream.js","../path/bounds":"../node_modules/d3-geo/src/path/bounds.js"}],"../node_modules/d3-geo/src/projection/resample.js":[function(require,module,exports) {
+},{"../stream.js":"../node_modules/d3-geo/src/stream.js","../path/bounds.js":"../node_modules/d3-geo/src/path/bounds.js"}],"../node_modules/d3-geo/src/projection/resample.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -14762,11 +14897,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _cartesian = require("../cartesian");
+var _cartesian = require("../cartesian.js");
 
-var _math = require("../math");
+var _math = require("../math.js");
 
-var _transform = require("../transform");
+var _transform = require("../transform.js");
 
 var maxDepth = 16,
     // maximum depth of subdivision
@@ -14877,7 +15012,7 @@ function resample(project, delta2) {
     return resampleStream;
   };
 }
-},{"../cartesian":"../node_modules/d3-geo/src/cartesian.js","../math":"../node_modules/d3-geo/src/math.js","../transform":"../node_modules/d3-geo/src/transform.js"}],"../node_modules/d3-geo/src/projection/index.js":[function(require,module,exports) {
+},{"../cartesian.js":"../node_modules/d3-geo/src/cartesian.js","../math.js":"../node_modules/d3-geo/src/math.js","../transform.js":"../node_modules/d3-geo/src/transform.js"}],"../node_modules/d3-geo/src/projection/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -14886,25 +15021,25 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = projection;
 exports.projectionMutator = projectionMutator;
 
-var _antimeridian = _interopRequireDefault(require("../clip/antimeridian"));
+var _antimeridian = _interopRequireDefault(require("../clip/antimeridian.js"));
 
-var _circle = _interopRequireDefault(require("../clip/circle"));
+var _circle = _interopRequireDefault(require("../clip/circle.js"));
 
-var _rectangle = _interopRequireDefault(require("../clip/rectangle"));
+var _rectangle = _interopRequireDefault(require("../clip/rectangle.js"));
 
-var _compose = _interopRequireDefault(require("../compose"));
+var _compose = _interopRequireDefault(require("../compose.js"));
 
-var _identity = _interopRequireDefault(require("../identity"));
+var _identity = _interopRequireDefault(require("../identity.js"));
 
-var _math = require("../math");
+var _math = require("../math.js");
 
-var _rotation = require("../rotation");
+var _rotation = require("../rotation.js");
 
-var _transform = require("../transform");
+var _transform = require("../transform.js");
 
-var _fit = require("./fit");
+var _fit = require("./fit.js");
 
-var _resample = _interopRequireDefault(require("./resample"));
+var _resample = _interopRequireDefault(require("./resample.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -15086,7 +15221,7 @@ function projectionMutator(projectAt) {
     return recenter();
   };
 }
-},{"../clip/antimeridian":"../node_modules/d3-geo/src/clip/antimeridian.js","../clip/circle":"../node_modules/d3-geo/src/clip/circle.js","../clip/rectangle":"../node_modules/d3-geo/src/clip/rectangle.js","../compose":"../node_modules/d3-geo/src/compose.js","../identity":"../node_modules/d3-array/src/identity.js","../math":"../node_modules/d3-geo/src/math.js","../rotation":"../node_modules/d3-geo/src/rotation.js","../transform":"../node_modules/d3-geo/src/transform.js","./fit":"../node_modules/d3-geo/src/projection/fit.js","./resample":"../node_modules/d3-geo/src/projection/resample.js"}],"../node_modules/d3-geo/src/projection/conic.js":[function(require,module,exports) {
+},{"../clip/antimeridian.js":"../node_modules/d3-geo/src/clip/antimeridian.js","../clip/circle.js":"../node_modules/d3-geo/src/clip/circle.js","../clip/rectangle.js":"../node_modules/d3-geo/src/clip/rectangle.js","../compose.js":"../node_modules/d3-geo/src/compose.js","../identity.js":"../node_modules/d3-array/src/identity.js","../math.js":"../node_modules/d3-geo/src/math.js","../rotation.js":"../node_modules/d3-geo/src/rotation.js","../transform.js":"../node_modules/d3-geo/src/transform.js","./fit.js":"../node_modules/d3-geo/src/projection/fit.js","./resample.js":"../node_modules/d3-geo/src/projection/resample.js"}],"../node_modules/d3-geo/src/projection/conic.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -15094,9 +15229,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.conicProjection = conicProjection;
 
-var _math = require("../math");
+var _math = require("../math.js");
 
-var _index = require("./index");
+var _index = require("./index.js");
 
 function conicProjection(projectAt) {
   var phi0 = 0,
@@ -15110,7 +15245,7 @@ function conicProjection(projectAt) {
 
   return p;
 }
-},{"../math":"../node_modules/d3-geo/src/math.js","./index":"../node_modules/d3-geo/src/projection/index.js"}],"../node_modules/d3-geo/src/projection/cylindricalEqualArea.js":[function(require,module,exports) {
+},{"../math.js":"../node_modules/d3-geo/src/math.js","./index.js":"../node_modules/d3-geo/src/projection/index.js"}],"../node_modules/d3-geo/src/projection/cylindricalEqualArea.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -15118,7 +15253,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.cylindricalEqualAreaRaw = cylindricalEqualAreaRaw;
 
-var _math = require("../math");
+var _math = require("../math.js");
 
 function cylindricalEqualAreaRaw(phi0) {
   var cosPhi0 = (0, _math.cos)(phi0);
@@ -15133,7 +15268,7 @@ function cylindricalEqualAreaRaw(phi0) {
 
   return forward;
 }
-},{"../math":"../node_modules/d3-geo/src/math.js"}],"../node_modules/d3-geo/src/projection/conicEqualArea.js":[function(require,module,exports) {
+},{"../math.js":"../node_modules/d3-geo/src/math.js"}],"../node_modules/d3-geo/src/projection/conicEqualArea.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -15142,11 +15277,11 @@ Object.defineProperty(exports, "__esModule", {
 exports.conicEqualAreaRaw = conicEqualAreaRaw;
 exports.default = _default;
 
-var _math = require("../math");
+var _math = require("../math.js");
 
-var _conic = require("./conic");
+var _conic = require("./conic.js");
 
-var _cylindricalEqualArea = require("./cylindricalEqualArea");
+var _cylindricalEqualArea = require("./cylindricalEqualArea.js");
 
 function conicEqualAreaRaw(y0, y1) {
   var sy0 = (0, _math.sin)(y0),
@@ -15172,7 +15307,7 @@ function conicEqualAreaRaw(y0, y1) {
 function _default() {
   return (0, _conic.conicProjection)(conicEqualAreaRaw).scale(155.424).center([0, 33.6442]);
 }
-},{"../math":"../node_modules/d3-geo/src/math.js","./conic":"../node_modules/d3-geo/src/projection/conic.js","./cylindricalEqualArea":"../node_modules/d3-geo/src/projection/cylindricalEqualArea.js"}],"../node_modules/d3-geo/src/projection/albers.js":[function(require,module,exports) {
+},{"../math.js":"../node_modules/d3-geo/src/math.js","./conic.js":"../node_modules/d3-geo/src/projection/conic.js","./cylindricalEqualArea.js":"../node_modules/d3-geo/src/projection/cylindricalEqualArea.js"}],"../node_modules/d3-geo/src/projection/albers.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -15180,14 +15315,14 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _conicEqualArea = _interopRequireDefault(require("./conicEqualArea"));
+var _conicEqualArea = _interopRequireDefault(require("./conicEqualArea.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _default() {
   return (0, _conicEqualArea.default)().parallels([29.5, 45.5]).scale(1070).translate([480, 250]).rotate([96, 0]).center([-0.6, 38.7]);
 }
-},{"./conicEqualArea":"../node_modules/d3-geo/src/projection/conicEqualArea.js"}],"../node_modules/d3-geo/src/projection/albersUsa.js":[function(require,module,exports) {
+},{"./conicEqualArea.js":"../node_modules/d3-geo/src/projection/conicEqualArea.js"}],"../node_modules/d3-geo/src/projection/albersUsa.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -15195,13 +15330,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _math = require("../math");
+var _math = require("../math.js");
 
-var _albers = _interopRequireDefault(require("./albers"));
+var _albers = _interopRequireDefault(require("./albers.js"));
 
-var _conicEqualArea = _interopRequireDefault(require("./conicEqualArea"));
+var _conicEqualArea = _interopRequireDefault(require("./conicEqualArea.js"));
 
-var _fit = require("./fit");
+var _fit = require("./fit.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -15330,7 +15465,7 @@ function _default() {
 
   return albersUsa.scale(1070);
 }
-},{"../math":"../node_modules/d3-geo/src/math.js","./albers":"../node_modules/d3-geo/src/projection/albers.js","./conicEqualArea":"../node_modules/d3-geo/src/projection/conicEqualArea.js","./fit":"../node_modules/d3-geo/src/projection/fit.js"}],"../node_modules/d3-geo/src/projection/azimuthal.js":[function(require,module,exports) {
+},{"../math.js":"../node_modules/d3-geo/src/math.js","./albers.js":"../node_modules/d3-geo/src/projection/albers.js","./conicEqualArea.js":"../node_modules/d3-geo/src/projection/conicEqualArea.js","./fit.js":"../node_modules/d3-geo/src/projection/fit.js"}],"../node_modules/d3-geo/src/projection/azimuthal.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -15339,7 +15474,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.azimuthalRaw = azimuthalRaw;
 exports.azimuthalInvert = azimuthalInvert;
 
-var _math = require("../math");
+var _math = require("../math.js");
 
 function azimuthalRaw(scale) {
   return function (x, y) {
@@ -15359,7 +15494,7 @@ function azimuthalInvert(angle) {
     return [(0, _math.atan2)(x * sc, z * cc), (0, _math.asin)(z && y * sc / z)];
   };
 }
-},{"../math":"../node_modules/d3-geo/src/math.js"}],"../node_modules/d3-geo/src/projection/azimuthalEqualArea.js":[function(require,module,exports) {
+},{"../math.js":"../node_modules/d3-geo/src/math.js"}],"../node_modules/d3-geo/src/projection/azimuthalEqualArea.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -15368,11 +15503,11 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = _default;
 exports.azimuthalEqualAreaRaw = void 0;
 
-var _math = require("../math");
+var _math = require("../math.js");
 
-var _azimuthal = require("./azimuthal");
+var _azimuthal = require("./azimuthal.js");
 
-var _index = _interopRequireDefault(require("./index"));
+var _index = _interopRequireDefault(require("./index.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -15387,7 +15522,7 @@ azimuthalEqualAreaRaw.invert = (0, _azimuthal.azimuthalInvert)(function (z) {
 function _default() {
   return (0, _index.default)(azimuthalEqualAreaRaw).scale(124.75).clipAngle(180 - 1e-3);
 }
-},{"../math":"../node_modules/d3-geo/src/math.js","./azimuthal":"../node_modules/d3-geo/src/projection/azimuthal.js","./index":"../node_modules/d3-geo/src/projection/index.js"}],"../node_modules/d3-geo/src/projection/azimuthalEquidistant.js":[function(require,module,exports) {
+},{"../math.js":"../node_modules/d3-geo/src/math.js","./azimuthal.js":"../node_modules/d3-geo/src/projection/azimuthal.js","./index.js":"../node_modules/d3-geo/src/projection/index.js"}],"../node_modules/d3-geo/src/projection/azimuthalEquidistant.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -15396,11 +15531,11 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = _default;
 exports.azimuthalEquidistantRaw = void 0;
 
-var _math = require("../math");
+var _math = require("../math.js");
 
-var _azimuthal = require("./azimuthal");
+var _azimuthal = require("./azimuthal.js");
 
-var _index = _interopRequireDefault(require("./index"));
+var _index = _interopRequireDefault(require("./index.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -15415,7 +15550,7 @@ azimuthalEquidistantRaw.invert = (0, _azimuthal.azimuthalInvert)(function (z) {
 function _default() {
   return (0, _index.default)(azimuthalEquidistantRaw).scale(79.4188).clipAngle(180 - 1e-3);
 }
-},{"../math":"../node_modules/d3-geo/src/math.js","./azimuthal":"../node_modules/d3-geo/src/projection/azimuthal.js","./index":"../node_modules/d3-geo/src/projection/index.js"}],"../node_modules/d3-geo/src/projection/mercator.js":[function(require,module,exports) {
+},{"../math.js":"../node_modules/d3-geo/src/math.js","./azimuthal.js":"../node_modules/d3-geo/src/projection/azimuthal.js","./index.js":"../node_modules/d3-geo/src/projection/index.js"}],"../node_modules/d3-geo/src/projection/mercator.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -15425,11 +15560,11 @@ exports.mercatorRaw = mercatorRaw;
 exports.default = _default;
 exports.mercatorProjection = mercatorProjection;
 
-var _math = require("../math");
+var _math = require("../math.js");
 
-var _rotation = _interopRequireDefault(require("../rotation"));
+var _rotation = _interopRequireDefault(require("../rotation.js"));
 
-var _index = _interopRequireDefault(require("./index"));
+var _index = _interopRequireDefault(require("./index.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -15480,7 +15615,7 @@ function mercatorProjection(project) {
 
   return reclip();
 }
-},{"../math":"../node_modules/d3-geo/src/math.js","../rotation":"../node_modules/d3-geo/src/rotation.js","./index":"../node_modules/d3-geo/src/projection/index.js"}],"../node_modules/d3-geo/src/projection/conicConformal.js":[function(require,module,exports) {
+},{"../math.js":"../node_modules/d3-geo/src/math.js","../rotation.js":"../node_modules/d3-geo/src/rotation.js","./index.js":"../node_modules/d3-geo/src/projection/index.js"}],"../node_modules/d3-geo/src/projection/conicConformal.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -15489,11 +15624,11 @@ Object.defineProperty(exports, "__esModule", {
 exports.conicConformalRaw = conicConformalRaw;
 exports.default = _default;
 
-var _math = require("../math");
+var _math = require("../math.js");
 
-var _conic = require("./conic");
+var _conic = require("./conic.js");
 
-var _mercator = require("./mercator");
+var _mercator = require("./mercator.js");
 
 function tany(y) {
   return (0, _math.tan)((_math.halfPi + y) / 2);
@@ -15528,7 +15663,7 @@ function conicConformalRaw(y0, y1) {
 function _default() {
   return (0, _conic.conicProjection)(conicConformalRaw).scale(109.5).parallels([30, 30]);
 }
-},{"../math":"../node_modules/d3-geo/src/math.js","./conic":"../node_modules/d3-geo/src/projection/conic.js","./mercator":"../node_modules/d3-geo/src/projection/mercator.js"}],"../node_modules/d3-geo/src/projection/equirectangular.js":[function(require,module,exports) {
+},{"../math.js":"../node_modules/d3-geo/src/math.js","./conic.js":"../node_modules/d3-geo/src/projection/conic.js","./mercator.js":"../node_modules/d3-geo/src/projection/mercator.js"}],"../node_modules/d3-geo/src/projection/equirectangular.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -15537,7 +15672,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.equirectangularRaw = equirectangularRaw;
 exports.default = _default;
 
-var _index = _interopRequireDefault(require("./index"));
+var _index = _interopRequireDefault(require("./index.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -15550,7 +15685,7 @@ equirectangularRaw.invert = equirectangularRaw;
 function _default() {
   return (0, _index.default)(equirectangularRaw).scale(152.63);
 }
-},{"./index":"../node_modules/d3-geo/src/projection/index.js"}],"../node_modules/d3-geo/src/projection/conicEquidistant.js":[function(require,module,exports) {
+},{"./index.js":"../node_modules/d3-geo/src/projection/index.js"}],"../node_modules/d3-geo/src/projection/conicEquidistant.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -15559,11 +15694,11 @@ Object.defineProperty(exports, "__esModule", {
 exports.conicEquidistantRaw = conicEquidistantRaw;
 exports.default = _default;
 
-var _math = require("../math");
+var _math = require("../math.js");
 
-var _conic = require("./conic");
+var _conic = require("./conic.js");
 
-var _equirectangular = require("./equirectangular");
+var _equirectangular = require("./equirectangular.js");
 
 function conicEquidistantRaw(y0, y1) {
   var cy0 = (0, _math.cos)(y0),
@@ -15588,7 +15723,7 @@ function conicEquidistantRaw(y0, y1) {
 function _default() {
   return (0, _conic.conicProjection)(conicEquidistantRaw).scale(131.154).center([0, 13.9389]);
 }
-},{"../math":"../node_modules/d3-geo/src/math.js","./conic":"../node_modules/d3-geo/src/projection/conic.js","./equirectangular":"../node_modules/d3-geo/src/projection/equirectangular.js"}],"../node_modules/d3-geo/src/projection/equalEarth.js":[function(require,module,exports) {
+},{"../math.js":"../node_modules/d3-geo/src/math.js","./conic.js":"../node_modules/d3-geo/src/projection/conic.js","./equirectangular.js":"../node_modules/d3-geo/src/projection/equirectangular.js"}],"../node_modules/d3-geo/src/projection/equalEarth.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -15644,11 +15779,11 @@ Object.defineProperty(exports, "__esModule", {
 exports.gnomonicRaw = gnomonicRaw;
 exports.default = _default;
 
-var _math = require("../math");
+var _math = require("../math.js");
 
-var _azimuthal = require("./azimuthal");
+var _azimuthal = require("./azimuthal.js");
 
-var _index = _interopRequireDefault(require("./index"));
+var _index = _interopRequireDefault(require("./index.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -15663,7 +15798,7 @@ gnomonicRaw.invert = (0, _azimuthal.azimuthalInvert)(_math.atan);
 function _default() {
   return (0, _index.default)(gnomonicRaw).scale(144.049).clipAngle(60);
 }
-},{"../math":"../node_modules/d3-geo/src/math.js","./azimuthal":"../node_modules/d3-geo/src/projection/azimuthal.js","./index":"../node_modules/d3-geo/src/projection/index.js"}],"../node_modules/d3-geo/src/projection/identity.js":[function(require,module,exports) {
+},{"../math.js":"../node_modules/d3-geo/src/math.js","./azimuthal.js":"../node_modules/d3-geo/src/projection/azimuthal.js","./index.js":"../node_modules/d3-geo/src/projection/index.js"}],"../node_modules/d3-geo/src/projection/identity.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -15671,13 +15806,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _rectangle = _interopRequireDefault(require("../clip/rectangle"));
+var _rectangle = _interopRequireDefault(require("../clip/rectangle.js"));
 
-var _identity = _interopRequireDefault(require("../identity"));
+var _identity = _interopRequireDefault(require("../identity.js"));
 
-var _transform = require("../transform");
+var _transform = require("../transform.js");
 
-var _fit = require("./fit");
+var _fit = require("./fit.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -15748,7 +15883,7 @@ function _default() {
     }
   };
 }
-},{"../clip/rectangle":"../node_modules/d3-geo/src/clip/rectangle.js","../identity":"../node_modules/d3-array/src/identity.js","../transform":"../node_modules/d3-geo/src/transform.js","./fit":"../node_modules/d3-geo/src/projection/fit.js"}],"../node_modules/d3-geo/src/projection/naturalEarth1.js":[function(require,module,exports) {
+},{"../clip/rectangle.js":"../node_modules/d3-geo/src/clip/rectangle.js","../identity.js":"../node_modules/d3-array/src/identity.js","../transform.js":"../node_modules/d3-geo/src/transform.js","./fit.js":"../node_modules/d3-geo/src/projection/fit.js"}],"../node_modules/d3-geo/src/projection/naturalEarth1.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -15757,9 +15892,9 @@ Object.defineProperty(exports, "__esModule", {
 exports.naturalEarth1Raw = naturalEarth1Raw;
 exports.default = _default;
 
-var _index = _interopRequireDefault(require("./index"));
+var _index = _interopRequireDefault(require("./index.js"));
 
-var _math = require("../math");
+var _math = require("../math.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -15786,7 +15921,7 @@ naturalEarth1Raw.invert = function (x, y) {
 function _default() {
   return (0, _index.default)(naturalEarth1Raw).scale(175.295);
 }
-},{"./index":"../node_modules/d3-geo/src/projection/index.js","../math":"../node_modules/d3-geo/src/math.js"}],"../node_modules/d3-geo/src/projection/orthographic.js":[function(require,module,exports) {
+},{"./index.js":"../node_modules/d3-geo/src/projection/index.js","../math.js":"../node_modules/d3-geo/src/math.js"}],"../node_modules/d3-geo/src/projection/orthographic.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -15795,11 +15930,11 @@ Object.defineProperty(exports, "__esModule", {
 exports.orthographicRaw = orthographicRaw;
 exports.default = _default;
 
-var _math = require("../math");
+var _math = require("../math.js");
 
-var _azimuthal = require("./azimuthal");
+var _azimuthal = require("./azimuthal.js");
 
-var _index = _interopRequireDefault(require("./index"));
+var _index = _interopRequireDefault(require("./index.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -15812,7 +15947,7 @@ orthographicRaw.invert = (0, _azimuthal.azimuthalInvert)(_math.asin);
 function _default() {
   return (0, _index.default)(orthographicRaw).scale(249.5).clipAngle(90 + _math.epsilon);
 }
-},{"../math":"../node_modules/d3-geo/src/math.js","./azimuthal":"../node_modules/d3-geo/src/projection/azimuthal.js","./index":"../node_modules/d3-geo/src/projection/index.js"}],"../node_modules/d3-geo/src/projection/stereographic.js":[function(require,module,exports) {
+},{"../math.js":"../node_modules/d3-geo/src/math.js","./azimuthal.js":"../node_modules/d3-geo/src/projection/azimuthal.js","./index.js":"../node_modules/d3-geo/src/projection/index.js"}],"../node_modules/d3-geo/src/projection/stereographic.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -15821,11 +15956,11 @@ Object.defineProperty(exports, "__esModule", {
 exports.stereographicRaw = stereographicRaw;
 exports.default = _default;
 
-var _math = require("../math");
+var _math = require("../math.js");
 
-var _azimuthal = require("./azimuthal");
+var _azimuthal = require("./azimuthal.js");
 
-var _index = _interopRequireDefault(require("./index"));
+var _index = _interopRequireDefault(require("./index.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -15842,7 +15977,7 @@ stereographicRaw.invert = (0, _azimuthal.azimuthalInvert)(function (z) {
 function _default() {
   return (0, _index.default)(stereographicRaw).scale(250).clipAngle(142);
 }
-},{"../math":"../node_modules/d3-geo/src/math.js","./azimuthal":"../node_modules/d3-geo/src/projection/azimuthal.js","./index":"../node_modules/d3-geo/src/projection/index.js"}],"../node_modules/d3-geo/src/projection/transverseMercator.js":[function(require,module,exports) {
+},{"../math.js":"../node_modules/d3-geo/src/math.js","./azimuthal.js":"../node_modules/d3-geo/src/projection/azimuthal.js","./index.js":"../node_modules/d3-geo/src/projection/index.js"}],"../node_modules/d3-geo/src/projection/transverseMercator.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -15851,9 +15986,9 @@ Object.defineProperty(exports, "__esModule", {
 exports.transverseMercatorRaw = transverseMercatorRaw;
 exports.default = _default;
 
-var _math = require("../math");
+var _math = require("../math.js");
 
-var _mercator = require("./mercator");
+var _mercator = require("./mercator.js");
 
 function transverseMercatorRaw(lambda, phi) {
   return [(0, _math.log)((0, _math.tan)((_math.halfPi + phi) / 2)), -lambda];
@@ -15878,7 +16013,7 @@ function _default() {
 
   return rotate([0, 0, 90]).scale(159.155);
 }
-},{"../math":"../node_modules/d3-geo/src/math.js","./mercator":"../node_modules/d3-geo/src/projection/mercator.js"}],"../node_modules/d3-geo/src/index.js":[function(require,module,exports) {
+},{"../math.js":"../node_modules/d3-geo/src/math.js","./mercator.js":"../node_modules/d3-geo/src/projection/mercator.js"}],"../node_modules/d3-geo/src/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -16179,80 +16314,80 @@ Object.defineProperty(exports, "geoTransform", {
   }
 });
 
-var _area = _interopRequireDefault(require("./area"));
+var _area = _interopRequireDefault(require("./area.js"));
 
-var _bounds = _interopRequireDefault(require("./bounds"));
+var _bounds = _interopRequireDefault(require("./bounds.js"));
 
-var _centroid = _interopRequireDefault(require("./centroid"));
+var _centroid = _interopRequireDefault(require("./centroid.js"));
 
-var _circle = _interopRequireDefault(require("./circle"));
+var _circle = _interopRequireDefault(require("./circle.js"));
 
-var _antimeridian = _interopRequireDefault(require("./clip/antimeridian"));
+var _antimeridian = _interopRequireDefault(require("./clip/antimeridian.js"));
 
-var _circle2 = _interopRequireDefault(require("./clip/circle"));
+var _circle2 = _interopRequireDefault(require("./clip/circle.js"));
 
-var _extent = _interopRequireDefault(require("./clip/extent"));
+var _extent = _interopRequireDefault(require("./clip/extent.js"));
 
-var _rectangle = _interopRequireDefault(require("./clip/rectangle"));
+var _rectangle = _interopRequireDefault(require("./clip/rectangle.js"));
 
-var _contains = _interopRequireDefault(require("./contains"));
+var _contains = _interopRequireDefault(require("./contains.js"));
 
-var _distance = _interopRequireDefault(require("./distance"));
+var _distance = _interopRequireDefault(require("./distance.js"));
 
-var _graticule = _interopRequireWildcard(require("./graticule"));
+var _graticule = _interopRequireWildcard(require("./graticule.js"));
 
-var _interpolate = _interopRequireDefault(require("./interpolate"));
+var _interpolate = _interopRequireDefault(require("./interpolate.js"));
 
-var _length = _interopRequireDefault(require("./length"));
+var _length = _interopRequireDefault(require("./length.js"));
 
-var _index = _interopRequireDefault(require("./path/index"));
+var _index = _interopRequireDefault(require("./path/index.js"));
 
-var _albers = _interopRequireDefault(require("./projection/albers"));
+var _albers = _interopRequireDefault(require("./projection/albers.js"));
 
-var _albersUsa = _interopRequireDefault(require("./projection/albersUsa"));
+var _albersUsa = _interopRequireDefault(require("./projection/albersUsa.js"));
 
-var _azimuthalEqualArea = _interopRequireWildcard(require("./projection/azimuthalEqualArea"));
+var _azimuthalEqualArea = _interopRequireWildcard(require("./projection/azimuthalEqualArea.js"));
 
-var _azimuthalEquidistant = _interopRequireWildcard(require("./projection/azimuthalEquidistant"));
+var _azimuthalEquidistant = _interopRequireWildcard(require("./projection/azimuthalEquidistant.js"));
 
-var _conicConformal = _interopRequireWildcard(require("./projection/conicConformal"));
+var _conicConformal = _interopRequireWildcard(require("./projection/conicConformal.js"));
 
-var _conicEqualArea = _interopRequireWildcard(require("./projection/conicEqualArea"));
+var _conicEqualArea = _interopRequireWildcard(require("./projection/conicEqualArea.js"));
 
-var _conicEquidistant = _interopRequireWildcard(require("./projection/conicEquidistant"));
+var _conicEquidistant = _interopRequireWildcard(require("./projection/conicEquidistant.js"));
 
-var _equalEarth = _interopRequireWildcard(require("./projection/equalEarth"));
+var _equalEarth = _interopRequireWildcard(require("./projection/equalEarth.js"));
 
-var _equirectangular = _interopRequireWildcard(require("./projection/equirectangular"));
+var _equirectangular = _interopRequireWildcard(require("./projection/equirectangular.js"));
 
-var _gnomonic = _interopRequireWildcard(require("./projection/gnomonic"));
+var _gnomonic = _interopRequireWildcard(require("./projection/gnomonic.js"));
 
-var _identity = _interopRequireDefault(require("./projection/identity"));
+var _identity = _interopRequireDefault(require("./projection/identity.js"));
 
-var _index2 = _interopRequireWildcard(require("./projection/index"));
+var _index2 = _interopRequireWildcard(require("./projection/index.js"));
 
-var _mercator = _interopRequireWildcard(require("./projection/mercator"));
+var _mercator = _interopRequireWildcard(require("./projection/mercator.js"));
 
-var _naturalEarth = _interopRequireWildcard(require("./projection/naturalEarth1"));
+var _naturalEarth = _interopRequireWildcard(require("./projection/naturalEarth1.js"));
 
-var _orthographic = _interopRequireWildcard(require("./projection/orthographic"));
+var _orthographic = _interopRequireWildcard(require("./projection/orthographic.js"));
 
-var _stereographic = _interopRequireWildcard(require("./projection/stereographic"));
+var _stereographic = _interopRequireWildcard(require("./projection/stereographic.js"));
 
-var _transverseMercator = _interopRequireWildcard(require("./projection/transverseMercator"));
+var _transverseMercator = _interopRequireWildcard(require("./projection/transverseMercator.js"));
 
-var _rotation = _interopRequireDefault(require("./rotation"));
+var _rotation = _interopRequireDefault(require("./rotation.js"));
 
-var _stream = _interopRequireDefault(require("./stream"));
+var _stream = _interopRequireDefault(require("./stream.js"));
 
-var _transform = _interopRequireDefault(require("./transform"));
+var _transform = _interopRequireDefault(require("./transform.js"));
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./area":"../node_modules/d3-geo/src/area.js","./bounds":"../node_modules/d3-geo/src/bounds.js","./centroid":"../node_modules/d3-geo/src/centroid.js","./circle":"../node_modules/d3-geo/src/circle.js","./clip/antimeridian":"../node_modules/d3-geo/src/clip/antimeridian.js","./clip/circle":"../node_modules/d3-geo/src/clip/circle.js","./clip/extent":"../node_modules/d3-geo/src/clip/extent.js","./clip/rectangle":"../node_modules/d3-geo/src/clip/rectangle.js","./contains":"../node_modules/d3-geo/src/contains.js","./distance":"../node_modules/d3-geo/src/distance.js","./graticule":"../node_modules/d3-geo/src/graticule.js","./interpolate":"../node_modules/d3-geo/src/interpolate.js","./length":"../node_modules/d3-geo/src/length.js","./path/index":"../node_modules/d3-geo/src/path/index.js","./projection/albers":"../node_modules/d3-geo/src/projection/albers.js","./projection/albersUsa":"../node_modules/d3-geo/src/projection/albersUsa.js","./projection/azimuthalEqualArea":"../node_modules/d3-geo/src/projection/azimuthalEqualArea.js","./projection/azimuthalEquidistant":"../node_modules/d3-geo/src/projection/azimuthalEquidistant.js","./projection/conicConformal":"../node_modules/d3-geo/src/projection/conicConformal.js","./projection/conicEqualArea":"../node_modules/d3-geo/src/projection/conicEqualArea.js","./projection/conicEquidistant":"../node_modules/d3-geo/src/projection/conicEquidistant.js","./projection/equalEarth":"../node_modules/d3-geo/src/projection/equalEarth.js","./projection/equirectangular":"../node_modules/d3-geo/src/projection/equirectangular.js","./projection/gnomonic":"../node_modules/d3-geo/src/projection/gnomonic.js","./projection/identity":"../node_modules/d3-geo/src/projection/identity.js","./projection/index":"../node_modules/d3-geo/src/projection/index.js","./projection/mercator":"../node_modules/d3-geo/src/projection/mercator.js","./projection/naturalEarth1":"../node_modules/d3-geo/src/projection/naturalEarth1.js","./projection/orthographic":"../node_modules/d3-geo/src/projection/orthographic.js","./projection/stereographic":"../node_modules/d3-geo/src/projection/stereographic.js","./projection/transverseMercator":"../node_modules/d3-geo/src/projection/transverseMercator.js","./rotation":"../node_modules/d3-geo/src/rotation.js","./stream":"../node_modules/d3-geo/src/stream.js","./transform":"../node_modules/d3-geo/src/transform.js"}],"../node_modules/d3-hierarchy/src/cluster.js":[function(require,module,exports) {
+},{"./area.js":"../node_modules/d3-geo/src/area.js","./bounds.js":"../node_modules/d3-geo/src/bounds.js","./centroid.js":"../node_modules/d3-geo/src/centroid.js","./circle.js":"../node_modules/d3-geo/src/circle.js","./clip/antimeridian.js":"../node_modules/d3-geo/src/clip/antimeridian.js","./clip/circle.js":"../node_modules/d3-geo/src/clip/circle.js","./clip/extent.js":"../node_modules/d3-geo/src/clip/extent.js","./clip/rectangle.js":"../node_modules/d3-geo/src/clip/rectangle.js","./contains.js":"../node_modules/d3-geo/src/contains.js","./distance.js":"../node_modules/d3-geo/src/distance.js","./graticule.js":"../node_modules/d3-geo/src/graticule.js","./interpolate.js":"../node_modules/d3-geo/src/interpolate.js","./length.js":"../node_modules/d3-geo/src/length.js","./path/index.js":"../node_modules/d3-geo/src/path/index.js","./projection/albers.js":"../node_modules/d3-geo/src/projection/albers.js","./projection/albersUsa.js":"../node_modules/d3-geo/src/projection/albersUsa.js","./projection/azimuthalEqualArea.js":"../node_modules/d3-geo/src/projection/azimuthalEqualArea.js","./projection/azimuthalEquidistant.js":"../node_modules/d3-geo/src/projection/azimuthalEquidistant.js","./projection/conicConformal.js":"../node_modules/d3-geo/src/projection/conicConformal.js","./projection/conicEqualArea.js":"../node_modules/d3-geo/src/projection/conicEqualArea.js","./projection/conicEquidistant.js":"../node_modules/d3-geo/src/projection/conicEquidistant.js","./projection/equalEarth.js":"../node_modules/d3-geo/src/projection/equalEarth.js","./projection/equirectangular.js":"../node_modules/d3-geo/src/projection/equirectangular.js","./projection/gnomonic.js":"../node_modules/d3-geo/src/projection/gnomonic.js","./projection/identity.js":"../node_modules/d3-geo/src/projection/identity.js","./projection/index.js":"../node_modules/d3-geo/src/projection/index.js","./projection/mercator.js":"../node_modules/d3-geo/src/projection/mercator.js","./projection/naturalEarth1.js":"../node_modules/d3-geo/src/projection/naturalEarth1.js","./projection/orthographic.js":"../node_modules/d3-geo/src/projection/orthographic.js","./projection/stereographic.js":"../node_modules/d3-geo/src/projection/stereographic.js","./projection/transverseMercator.js":"../node_modules/d3-geo/src/projection/transverseMercator.js","./rotation.js":"../node_modules/d3-geo/src/rotation.js","./stream.js":"../node_modules/d3-geo/src/stream.js","./transform.js":"../node_modules/d3-geo/src/transform.js"}],"../node_modules/d3-hierarchy/src/cluster.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -16606,27 +16741,27 @@ exports.default = hierarchy;
 exports.computeHeight = computeHeight;
 exports.Node = Node;
 
-var _count = _interopRequireDefault(require("./count"));
+var _count = _interopRequireDefault(require("./count.js"));
 
-var _each = _interopRequireDefault(require("./each"));
+var _each = _interopRequireDefault(require("./each.js"));
 
-var _eachBefore = _interopRequireDefault(require("./eachBefore"));
+var _eachBefore = _interopRequireDefault(require("./eachBefore.js"));
 
-var _eachAfter = _interopRequireDefault(require("./eachAfter"));
+var _eachAfter = _interopRequireDefault(require("./eachAfter.js"));
 
-var _sum = _interopRequireDefault(require("./sum"));
+var _sum = _interopRequireDefault(require("./sum.js"));
 
-var _sort = _interopRequireDefault(require("./sort"));
+var _sort = _interopRequireDefault(require("./sort.js"));
 
-var _path = _interopRequireDefault(require("./path"));
+var _path = _interopRequireDefault(require("./path.js"));
 
-var _ancestors = _interopRequireDefault(require("./ancestors"));
+var _ancestors = _interopRequireDefault(require("./ancestors.js"));
 
-var _descendants = _interopRequireDefault(require("./descendants"));
+var _descendants = _interopRequireDefault(require("./descendants.js"));
 
-var _leaves = _interopRequireDefault(require("./leaves"));
+var _leaves = _interopRequireDefault(require("./leaves.js"));
 
-var _links = _interopRequireDefault(require("./links"));
+var _links = _interopRequireDefault(require("./links.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -16697,7 +16832,7 @@ Node.prototype = hierarchy.prototype = {
   links: _links.default,
   copy: node_copy
 };
-},{"./count":"../node_modules/d3-hierarchy/src/hierarchy/count.js","./each":"../node_modules/d3-hierarchy/src/hierarchy/each.js","./eachBefore":"../node_modules/d3-hierarchy/src/hierarchy/eachBefore.js","./eachAfter":"../node_modules/d3-hierarchy/src/hierarchy/eachAfter.js","./sum":"../node_modules/d3-hierarchy/src/hierarchy/sum.js","./sort":"../node_modules/d3-hierarchy/src/hierarchy/sort.js","./path":"../node_modules/d3-hierarchy/src/hierarchy/path.js","./ancestors":"../node_modules/d3-hierarchy/src/hierarchy/ancestors.js","./descendants":"../node_modules/d3-hierarchy/src/hierarchy/descendants.js","./leaves":"../node_modules/d3-hierarchy/src/hierarchy/leaves.js","./links":"../node_modules/d3-hierarchy/src/hierarchy/links.js"}],"../node_modules/d3-hierarchy/src/array.js":[function(require,module,exports) {
+},{"./count.js":"../node_modules/d3-hierarchy/src/hierarchy/count.js","./each.js":"../node_modules/d3-hierarchy/src/hierarchy/each.js","./eachBefore.js":"../node_modules/d3-hierarchy/src/hierarchy/eachBefore.js","./eachAfter.js":"../node_modules/d3-hierarchy/src/hierarchy/eachAfter.js","./sum.js":"../node_modules/d3-hierarchy/src/hierarchy/sum.js","./sort.js":"../node_modules/d3-hierarchy/src/hierarchy/sort.js","./path.js":"../node_modules/d3-hierarchy/src/hierarchy/path.js","./ancestors.js":"../node_modules/d3-hierarchy/src/hierarchy/ancestors.js","./descendants.js":"../node_modules/d3-hierarchy/src/hierarchy/descendants.js","./leaves.js":"../node_modules/d3-hierarchy/src/hierarchy/leaves.js","./links.js":"../node_modules/d3-hierarchy/src/hierarchy/links.js"}],"../node_modules/d3-hierarchy/src/array.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -16730,7 +16865,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _array = require("../array");
+var _array = require("../array.js");
 
 function _default(circles) {
   var i = 0,
@@ -16867,7 +17002,7 @@ function encloseBasis3(a, b, c) {
     r: r
   };
 }
-},{"../array":"../node_modules/d3-hierarchy/src/array.js"}],"../node_modules/d3-hierarchy/src/pack/siblings.js":[function(require,module,exports) {
+},{"../array.js":"../node_modules/d3-hierarchy/src/array.js"}],"../node_modules/d3-hierarchy/src/pack/siblings.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -16876,7 +17011,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.packEnclose = packEnclose;
 exports.default = _default;
 
-var _enclose = _interopRequireDefault(require("./enclose"));
+var _enclose = _interopRequireDefault(require("./enclose.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -17004,7 +17139,7 @@ function _default(circles) {
   packEnclose(circles);
   return circles;
 }
-},{"./enclose":"../node_modules/d3-hierarchy/src/pack/enclose.js"}],"../node_modules/d3-hierarchy/src/accessors.js":[function(require,module,exports) {
+},{"./enclose.js":"../node_modules/d3-hierarchy/src/pack/enclose.js"}],"../node_modules/d3-hierarchy/src/accessors.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -17047,15 +17182,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _siblings = require("./siblings");
+var _siblings = require("./siblings.js");
 
-var _accessors = require("../accessors");
+var _accessors = require("../accessors.js");
 
-var _constant = _interopRequireWildcard(require("../constant"));
+var _constant = _interopRequireWildcard(require("../constant.js"));
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function defaultRadius(d) {
   return Math.sqrt(d.value);
@@ -17129,7 +17264,7 @@ function translateChild(k) {
     }
   };
 }
-},{"./siblings":"../node_modules/d3-hierarchy/src/pack/siblings.js","../accessors":"../node_modules/d3-hierarchy/src/accessors.js","../constant":"../node_modules/d3-hierarchy/src/constant.js"}],"../node_modules/d3-hierarchy/src/treemap/round.js":[function(require,module,exports) {
+},{"./siblings.js":"../node_modules/d3-hierarchy/src/pack/siblings.js","../accessors.js":"../node_modules/d3-hierarchy/src/accessors.js","../constant.js":"../node_modules/d3-hierarchy/src/constant.js"}],"../node_modules/d3-hierarchy/src/treemap/round.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -17171,9 +17306,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _round = _interopRequireDefault(require("./treemap/round"));
+var _round = _interopRequireDefault(require("./treemap/round.js"));
 
-var _dice = _interopRequireDefault(require("./treemap/dice"));
+var _dice = _interopRequireDefault(require("./treemap/dice.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -17226,7 +17361,7 @@ function _default() {
 
   return partition;
 }
-},{"./treemap/round":"../node_modules/d3-hierarchy/src/treemap/round.js","./treemap/dice":"../node_modules/d3-hierarchy/src/treemap/dice.js"}],"../node_modules/d3-hierarchy/src/stratify.js":[function(require,module,exports) {
+},{"./treemap/round.js":"../node_modules/d3-hierarchy/src/treemap/round.js","./treemap/dice.js":"../node_modules/d3-hierarchy/src/treemap/dice.js"}],"../node_modules/d3-hierarchy/src/stratify.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -17234,9 +17369,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _accessors = require("./accessors");
+var _accessors = require("./accessors.js");
 
-var _index = require("./hierarchy/index");
+var _index = require("./hierarchy/index.js");
 
 var keyPrefix = "$",
     // Protect against keys like “__proto__”.
@@ -17314,7 +17449,7 @@ function _default() {
 
   return stratify;
 }
-},{"./accessors":"../node_modules/d3-hierarchy/src/accessors.js","./hierarchy/index":"../node_modules/d3-hierarchy/src/hierarchy/index.js"}],"../node_modules/d3-hierarchy/src/tree.js":[function(require,module,exports) {
+},{"./accessors.js":"../node_modules/d3-hierarchy/src/accessors.js","./hierarchy/index.js":"../node_modules/d3-hierarchy/src/hierarchy/index.js"}],"../node_modules/d3-hierarchy/src/tree.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -17322,7 +17457,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _index = require("./hierarchy/index");
+var _index = require("./hierarchy/index.js");
 
 function defaultSeparation(a, b) {
   return a.parent === b.parent ? 1 : 2;
@@ -17571,7 +17706,7 @@ function _default() {
 
   return tree;
 }
-},{"./hierarchy/index":"../node_modules/d3-hierarchy/src/hierarchy/index.js"}],"../node_modules/d3-hierarchy/src/treemap/slice.js":[function(require,module,exports) {
+},{"./hierarchy/index.js":"../node_modules/d3-hierarchy/src/hierarchy/index.js"}],"../node_modules/d3-hierarchy/src/treemap/slice.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -17600,9 +17735,9 @@ Object.defineProperty(exports, "__esModule", {
 exports.squarifyRatio = squarifyRatio;
 exports.default = exports.phi = void 0;
 
-var _dice = _interopRequireDefault(require("./dice"));
+var _dice = _interopRequireDefault(require("./dice.js"));
 
-var _slice = _interopRequireDefault(require("./slice"));
+var _slice = _interopRequireDefault(require("./slice.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -17679,7 +17814,7 @@ var _default = function custom(ratio) {
 }(phi);
 
 exports.default = _default;
-},{"./dice":"../node_modules/d3-hierarchy/src/treemap/dice.js","./slice":"../node_modules/d3-hierarchy/src/treemap/slice.js"}],"../node_modules/d3-hierarchy/src/treemap/index.js":[function(require,module,exports) {
+},{"./dice.js":"../node_modules/d3-hierarchy/src/treemap/dice.js","./slice.js":"../node_modules/d3-hierarchy/src/treemap/slice.js"}],"../node_modules/d3-hierarchy/src/treemap/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -17687,17 +17822,17 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _round = _interopRequireDefault(require("./round"));
+var _round = _interopRequireDefault(require("./round.js"));
 
-var _squarify = _interopRequireDefault(require("./squarify"));
+var _squarify = _interopRequireDefault(require("./squarify.js"));
 
-var _accessors = require("../accessors");
+var _accessors = require("../accessors.js");
 
-var _constant = _interopRequireWildcard(require("../constant"));
+var _constant = _interopRequireWildcard(require("../constant.js"));
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -17790,7 +17925,7 @@ function _default() {
 
   return treemap;
 }
-},{"./round":"../node_modules/d3-hierarchy/src/treemap/round.js","./squarify":"../node_modules/d3-hierarchy/src/treemap/squarify.js","../accessors":"../node_modules/d3-hierarchy/src/accessors.js","../constant":"../node_modules/d3-hierarchy/src/constant.js"}],"../node_modules/d3-hierarchy/src/treemap/binary.js":[function(require,module,exports) {
+},{"./round.js":"../node_modules/d3-hierarchy/src/treemap/round.js","./squarify.js":"../node_modules/d3-hierarchy/src/treemap/squarify.js","../accessors.js":"../node_modules/d3-hierarchy/src/accessors.js","../constant.js":"../node_modules/d3-hierarchy/src/constant.js"}],"../node_modules/d3-hierarchy/src/treemap/binary.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -17852,16 +17987,16 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _dice = _interopRequireDefault(require("./dice"));
+var _dice = _interopRequireDefault(require("./dice.js"));
 
-var _slice = _interopRequireDefault(require("./slice"));
+var _slice = _interopRequireDefault(require("./slice.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _default(parent, x0, y0, x1, y1) {
   (parent.depth & 1 ? _slice.default : _dice.default)(parent, x0, y0, x1, y1);
 }
-},{"./dice":"../node_modules/d3-hierarchy/src/treemap/dice.js","./slice":"../node_modules/d3-hierarchy/src/treemap/slice.js"}],"../node_modules/d3-hierarchy/src/treemap/resquarify.js":[function(require,module,exports) {
+},{"./dice.js":"../node_modules/d3-hierarchy/src/treemap/dice.js","./slice.js":"../node_modules/d3-hierarchy/src/treemap/slice.js"}],"../node_modules/d3-hierarchy/src/treemap/resquarify.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -17869,11 +18004,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _dice = _interopRequireDefault(require("./dice"));
+var _dice = _interopRequireDefault(require("./dice.js"));
 
-var _slice = _interopRequireDefault(require("./slice"));
+var _slice = _interopRequireDefault(require("./slice.js"));
 
-var _squarify = require("./squarify");
+var _squarify = require("./squarify.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -17911,7 +18046,7 @@ var _default = function custom(ratio) {
 }(_squarify.phi);
 
 exports.default = _default;
-},{"./dice":"../node_modules/d3-hierarchy/src/treemap/dice.js","./slice":"../node_modules/d3-hierarchy/src/treemap/slice.js","./squarify":"../node_modules/d3-hierarchy/src/treemap/squarify.js"}],"../node_modules/d3-hierarchy/src/index.js":[function(require,module,exports) {
+},{"./dice.js":"../node_modules/d3-hierarchy/src/treemap/dice.js","./slice.js":"../node_modules/d3-hierarchy/src/treemap/slice.js","./squarify.js":"../node_modules/d3-hierarchy/src/treemap/squarify.js"}],"../node_modules/d3-hierarchy/src/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -18008,38 +18143,38 @@ Object.defineProperty(exports, "treemapResquarify", {
   }
 });
 
-var _cluster = _interopRequireDefault(require("./cluster"));
+var _cluster = _interopRequireDefault(require("./cluster.js"));
 
-var _index = _interopRequireDefault(require("./hierarchy/index"));
+var _index = _interopRequireDefault(require("./hierarchy/index.js"));
 
-var _index2 = _interopRequireDefault(require("./pack/index"));
+var _index2 = _interopRequireDefault(require("./pack/index.js"));
 
-var _siblings = _interopRequireDefault(require("./pack/siblings"));
+var _siblings = _interopRequireDefault(require("./pack/siblings.js"));
 
-var _enclose = _interopRequireDefault(require("./pack/enclose"));
+var _enclose = _interopRequireDefault(require("./pack/enclose.js"));
 
-var _partition = _interopRequireDefault(require("./partition"));
+var _partition = _interopRequireDefault(require("./partition.js"));
 
-var _stratify = _interopRequireDefault(require("./stratify"));
+var _stratify = _interopRequireDefault(require("./stratify.js"));
 
-var _tree = _interopRequireDefault(require("./tree"));
+var _tree = _interopRequireDefault(require("./tree.js"));
 
-var _index3 = _interopRequireDefault(require("./treemap/index"));
+var _index3 = _interopRequireDefault(require("./treemap/index.js"));
 
-var _binary = _interopRequireDefault(require("./treemap/binary"));
+var _binary = _interopRequireDefault(require("./treemap/binary.js"));
 
-var _dice = _interopRequireDefault(require("./treemap/dice"));
+var _dice = _interopRequireDefault(require("./treemap/dice.js"));
 
-var _slice = _interopRequireDefault(require("./treemap/slice"));
+var _slice = _interopRequireDefault(require("./treemap/slice.js"));
 
-var _sliceDice = _interopRequireDefault(require("./treemap/sliceDice"));
+var _sliceDice = _interopRequireDefault(require("./treemap/sliceDice.js"));
 
-var _squarify = _interopRequireDefault(require("./treemap/squarify"));
+var _squarify = _interopRequireDefault(require("./treemap/squarify.js"));
 
-var _resquarify = _interopRequireDefault(require("./treemap/resquarify"));
+var _resquarify = _interopRequireDefault(require("./treemap/resquarify.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./cluster":"../node_modules/d3-hierarchy/src/cluster.js","./hierarchy/index":"../node_modules/d3-hierarchy/src/hierarchy/index.js","./pack/index":"../node_modules/d3-hierarchy/src/pack/index.js","./pack/siblings":"../node_modules/d3-hierarchy/src/pack/siblings.js","./pack/enclose":"../node_modules/d3-hierarchy/src/pack/enclose.js","./partition":"../node_modules/d3-hierarchy/src/partition.js","./stratify":"../node_modules/d3-hierarchy/src/stratify.js","./tree":"../node_modules/d3-hierarchy/src/tree.js","./treemap/index":"../node_modules/d3-hierarchy/src/treemap/index.js","./treemap/binary":"../node_modules/d3-hierarchy/src/treemap/binary.js","./treemap/dice":"../node_modules/d3-hierarchy/src/treemap/dice.js","./treemap/slice":"../node_modules/d3-hierarchy/src/treemap/slice.js","./treemap/sliceDice":"../node_modules/d3-hierarchy/src/treemap/sliceDice.js","./treemap/squarify":"../node_modules/d3-hierarchy/src/treemap/squarify.js","./treemap/resquarify":"../node_modules/d3-hierarchy/src/treemap/resquarify.js"}],"../node_modules/d3-polygon/src/area.js":[function(require,module,exports) {
+},{"./cluster.js":"../node_modules/d3-hierarchy/src/cluster.js","./hierarchy/index.js":"../node_modules/d3-hierarchy/src/hierarchy/index.js","./pack/index.js":"../node_modules/d3-hierarchy/src/pack/index.js","./pack/siblings.js":"../node_modules/d3-hierarchy/src/pack/siblings.js","./pack/enclose.js":"../node_modules/d3-hierarchy/src/pack/enclose.js","./partition.js":"../node_modules/d3-hierarchy/src/partition.js","./stratify.js":"../node_modules/d3-hierarchy/src/stratify.js","./tree.js":"../node_modules/d3-hierarchy/src/tree.js","./treemap/index.js":"../node_modules/d3-hierarchy/src/treemap/index.js","./treemap/binary.js":"../node_modules/d3-hierarchy/src/treemap/binary.js","./treemap/dice.js":"../node_modules/d3-hierarchy/src/treemap/dice.js","./treemap/slice.js":"../node_modules/d3-hierarchy/src/treemap/slice.js","./treemap/sliceDice.js":"../node_modules/d3-hierarchy/src/treemap/sliceDice.js","./treemap/squarify.js":"../node_modules/d3-hierarchy/src/treemap/squarify.js","./treemap/resquarify.js":"../node_modules/d3-hierarchy/src/treemap/resquarify.js"}],"../node_modules/d3-polygon/src/area.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -18113,7 +18248,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _cross = _interopRequireDefault(require("./cross"));
+var _cross = _interopRequireDefault(require("./cross.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -18165,7 +18300,7 @@ function _default(points) {
 
   return hull;
 }
-},{"./cross":"../node_modules/d3-polygon/src/cross.js"}],"../node_modules/d3-polygon/src/contains.js":[function(require,module,exports) {
+},{"./cross.js":"../node_modules/d3-polygon/src/cross.js"}],"../node_modules/d3-polygon/src/contains.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -18260,18 +18395,18 @@ Object.defineProperty(exports, "polygonLength", {
   }
 });
 
-var _area = _interopRequireDefault(require("./area"));
+var _area = _interopRequireDefault(require("./area.js"));
 
-var _centroid = _interopRequireDefault(require("./centroid"));
+var _centroid = _interopRequireDefault(require("./centroid.js"));
 
-var _hull = _interopRequireDefault(require("./hull"));
+var _hull = _interopRequireDefault(require("./hull.js"));
 
-var _contains = _interopRequireDefault(require("./contains"));
+var _contains = _interopRequireDefault(require("./contains.js"));
 
-var _length = _interopRequireDefault(require("./length"));
+var _length = _interopRequireDefault(require("./length.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./area":"../node_modules/d3-polygon/src/area.js","./centroid":"../node_modules/d3-polygon/src/centroid.js","./hull":"../node_modules/d3-polygon/src/hull.js","./contains":"../node_modules/d3-polygon/src/contains.js","./length":"../node_modules/d3-polygon/src/length.js"}],"../node_modules/d3-random/src/defaultSource.js":[function(require,module,exports) {
+},{"./area.js":"../node_modules/d3-polygon/src/area.js","./centroid.js":"../node_modules/d3-polygon/src/centroid.js","./hull.js":"../node_modules/d3-polygon/src/hull.js","./contains.js":"../node_modules/d3-polygon/src/contains.js","./length.js":"../node_modules/d3-polygon/src/length.js"}],"../node_modules/d3-random/src/defaultSource.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -18956,7 +19091,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function linearish(scale) {
   var domain = scale.domain;
@@ -19550,10 +19685,12 @@ var t0 = new Date(),
 
 function newInterval(floori, offseti, count, field) {
   function interval(date) {
-    return floori(date = new Date(+date)), date;
+    return floori(date = arguments.length === 0 ? new Date() : new Date(+date)), date;
   }
 
-  interval.floor = interval;
+  interval.floor = function (date) {
+    return floori(date = new Date(+date)), date;
+  };
 
   interval.ceil = function (date) {
     return floori(date = new Date(date - 1)), offseti(date, 1), floori(date), date;
@@ -19624,7 +19761,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.milliseconds = exports.default = void 0;
 
-var _interval = _interopRequireDefault(require("./interval"));
+var _interval = _interopRequireDefault(require("./interval.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19652,7 +19789,7 @@ var _default = millisecond;
 exports.default = _default;
 var milliseconds = millisecond.range;
 exports.milliseconds = milliseconds;
-},{"./interval":"../node_modules/d3-time/src/interval.js"}],"../node_modules/d3-time/src/duration.js":[function(require,module,exports) {
+},{"./interval.js":"../node_modules/d3-time/src/interval.js"}],"../node_modules/d3-time/src/duration.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -19677,9 +19814,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.seconds = exports.default = void 0;
 
-var _interval = _interopRequireDefault(require("./interval"));
+var _interval = _interopRequireDefault(require("./interval.js"));
 
-var _duration = require("./duration");
+var _duration = require("./duration.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19696,7 +19833,7 @@ var _default = second;
 exports.default = _default;
 var seconds = second.range;
 exports.seconds = seconds;
-},{"./interval":"../node_modules/d3-time/src/interval.js","./duration":"../node_modules/d3-time/src/duration.js"}],"../node_modules/d3-time/src/minute.js":[function(require,module,exports) {
+},{"./interval.js":"../node_modules/d3-time/src/interval.js","./duration.js":"../node_modules/d3-time/src/duration.js"}],"../node_modules/d3-time/src/minute.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -19704,9 +19841,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.minutes = exports.default = void 0;
 
-var _interval = _interopRequireDefault(require("./interval"));
+var _interval = _interopRequireDefault(require("./interval.js"));
 
-var _duration = require("./duration");
+var _duration = require("./duration.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19723,7 +19860,7 @@ var _default = minute;
 exports.default = _default;
 var minutes = minute.range;
 exports.minutes = minutes;
-},{"./interval":"../node_modules/d3-time/src/interval.js","./duration":"../node_modules/d3-time/src/duration.js"}],"../node_modules/d3-time/src/hour.js":[function(require,module,exports) {
+},{"./interval.js":"../node_modules/d3-time/src/interval.js","./duration.js":"../node_modules/d3-time/src/duration.js"}],"../node_modules/d3-time/src/hour.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -19731,9 +19868,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.hours = exports.default = void 0;
 
-var _interval = _interopRequireDefault(require("./interval"));
+var _interval = _interopRequireDefault(require("./interval.js"));
 
-var _duration = require("./duration");
+var _duration = require("./duration.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19750,7 +19887,7 @@ var _default = hour;
 exports.default = _default;
 var hours = hour.range;
 exports.hours = hours;
-},{"./interval":"../node_modules/d3-time/src/interval.js","./duration":"../node_modules/d3-time/src/duration.js"}],"../node_modules/d3-time/src/day.js":[function(require,module,exports) {
+},{"./interval.js":"../node_modules/d3-time/src/interval.js","./duration.js":"../node_modules/d3-time/src/duration.js"}],"../node_modules/d3-time/src/day.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -19758,9 +19895,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.days = exports.default = void 0;
 
-var _interval = _interopRequireDefault(require("./interval"));
+var _interval = _interopRequireDefault(require("./interval.js"));
 
-var _duration = require("./duration");
+var _duration = require("./duration.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19777,7 +19914,7 @@ var _default = day;
 exports.default = _default;
 var days = day.range;
 exports.days = days;
-},{"./interval":"../node_modules/d3-time/src/interval.js","./duration":"../node_modules/d3-time/src/duration.js"}],"../node_modules/d3-time/src/week.js":[function(require,module,exports) {
+},{"./interval.js":"../node_modules/d3-time/src/interval.js","./duration.js":"../node_modules/d3-time/src/duration.js"}],"../node_modules/d3-time/src/week.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -19785,9 +19922,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.saturdays = exports.fridays = exports.thursdays = exports.wednesdays = exports.tuesdays = exports.mondays = exports.sundays = exports.saturday = exports.friday = exports.thursday = exports.wednesday = exports.tuesday = exports.monday = exports.sunday = void 0;
 
-var _interval = _interopRequireDefault(require("./interval"));
+var _interval = _interopRequireDefault(require("./interval.js"));
 
-var _duration = require("./duration");
+var _duration = require("./duration.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19830,7 +19967,7 @@ var fridays = friday.range;
 exports.fridays = fridays;
 var saturdays = saturday.range;
 exports.saturdays = saturdays;
-},{"./interval":"../node_modules/d3-time/src/interval.js","./duration":"../node_modules/d3-time/src/duration.js"}],"../node_modules/d3-time/src/month.js":[function(require,module,exports) {
+},{"./interval.js":"../node_modules/d3-time/src/interval.js","./duration.js":"../node_modules/d3-time/src/duration.js"}],"../node_modules/d3-time/src/month.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -19838,7 +19975,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.months = exports.default = void 0;
 
-var _interval = _interopRequireDefault(require("./interval"));
+var _interval = _interopRequireDefault(require("./interval.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19856,7 +19993,7 @@ var _default = month;
 exports.default = _default;
 var months = month.range;
 exports.months = months;
-},{"./interval":"../node_modules/d3-time/src/interval.js"}],"../node_modules/d3-time/src/year.js":[function(require,module,exports) {
+},{"./interval.js":"../node_modules/d3-time/src/interval.js"}],"../node_modules/d3-time/src/year.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -19864,7 +20001,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.years = exports.default = void 0;
 
-var _interval = _interopRequireDefault(require("./interval"));
+var _interval = _interopRequireDefault(require("./interval.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19893,7 +20030,7 @@ var _default = year;
 exports.default = _default;
 var years = year.range;
 exports.years = years;
-},{"./interval":"../node_modules/d3-time/src/interval.js"}],"../node_modules/d3-time/src/utcMinute.js":[function(require,module,exports) {
+},{"./interval.js":"../node_modules/d3-time/src/interval.js"}],"../node_modules/d3-time/src/utcMinute.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -19901,9 +20038,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.utcMinutes = exports.default = void 0;
 
-var _interval = _interopRequireDefault(require("./interval"));
+var _interval = _interopRequireDefault(require("./interval.js"));
 
-var _duration = require("./duration");
+var _duration = require("./duration.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19920,7 +20057,7 @@ var _default = utcMinute;
 exports.default = _default;
 var utcMinutes = utcMinute.range;
 exports.utcMinutes = utcMinutes;
-},{"./interval":"../node_modules/d3-time/src/interval.js","./duration":"../node_modules/d3-time/src/duration.js"}],"../node_modules/d3-time/src/utcHour.js":[function(require,module,exports) {
+},{"./interval.js":"../node_modules/d3-time/src/interval.js","./duration.js":"../node_modules/d3-time/src/duration.js"}],"../node_modules/d3-time/src/utcHour.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -19928,9 +20065,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.utcHours = exports.default = void 0;
 
-var _interval = _interopRequireDefault(require("./interval"));
+var _interval = _interopRequireDefault(require("./interval.js"));
 
-var _duration = require("./duration");
+var _duration = require("./duration.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19947,7 +20084,7 @@ var _default = utcHour;
 exports.default = _default;
 var utcHours = utcHour.range;
 exports.utcHours = utcHours;
-},{"./interval":"../node_modules/d3-time/src/interval.js","./duration":"../node_modules/d3-time/src/duration.js"}],"../node_modules/d3-time/src/utcDay.js":[function(require,module,exports) {
+},{"./interval.js":"../node_modules/d3-time/src/interval.js","./duration.js":"../node_modules/d3-time/src/duration.js"}],"../node_modules/d3-time/src/utcDay.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -19955,9 +20092,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.utcDays = exports.default = void 0;
 
-var _interval = _interopRequireDefault(require("./interval"));
+var _interval = _interopRequireDefault(require("./interval.js"));
 
-var _duration = require("./duration");
+var _duration = require("./duration.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19974,7 +20111,7 @@ var _default = utcDay;
 exports.default = _default;
 var utcDays = utcDay.range;
 exports.utcDays = utcDays;
-},{"./interval":"../node_modules/d3-time/src/interval.js","./duration":"../node_modules/d3-time/src/duration.js"}],"../node_modules/d3-time/src/utcWeek.js":[function(require,module,exports) {
+},{"./interval.js":"../node_modules/d3-time/src/interval.js","./duration.js":"../node_modules/d3-time/src/duration.js"}],"../node_modules/d3-time/src/utcWeek.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -19982,9 +20119,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.utcSaturdays = exports.utcFridays = exports.utcThursdays = exports.utcWednesdays = exports.utcTuesdays = exports.utcMondays = exports.utcSundays = exports.utcSaturday = exports.utcFriday = exports.utcThursday = exports.utcWednesday = exports.utcTuesday = exports.utcMonday = exports.utcSunday = void 0;
 
-var _interval = _interopRequireDefault(require("./interval"));
+var _interval = _interopRequireDefault(require("./interval.js"));
 
-var _duration = require("./duration");
+var _duration = require("./duration.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -20027,7 +20164,7 @@ var utcFridays = utcFriday.range;
 exports.utcFridays = utcFridays;
 var utcSaturdays = utcSaturday.range;
 exports.utcSaturdays = utcSaturdays;
-},{"./interval":"../node_modules/d3-time/src/interval.js","./duration":"../node_modules/d3-time/src/duration.js"}],"../node_modules/d3-time/src/utcMonth.js":[function(require,module,exports) {
+},{"./interval.js":"../node_modules/d3-time/src/interval.js","./duration.js":"../node_modules/d3-time/src/duration.js"}],"../node_modules/d3-time/src/utcMonth.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -20035,7 +20172,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.utcMonths = exports.default = void 0;
 
-var _interval = _interopRequireDefault(require("./interval"));
+var _interval = _interopRequireDefault(require("./interval.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -20053,7 +20190,7 @@ var _default = utcMonth;
 exports.default = _default;
 var utcMonths = utcMonth.range;
 exports.utcMonths = utcMonths;
-},{"./interval":"../node_modules/d3-time/src/interval.js"}],"../node_modules/d3-time/src/utcYear.js":[function(require,module,exports) {
+},{"./interval.js":"../node_modules/d3-time/src/interval.js"}],"../node_modules/d3-time/src/utcYear.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -20061,7 +20198,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.utcYears = exports.default = void 0;
 
-var _interval = _interopRequireDefault(require("./interval"));
+var _interval = _interopRequireDefault(require("./interval.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -20090,7 +20227,7 @@ var _default = utcYear;
 exports.default = _default;
 var utcYears = utcYear.range;
 exports.utcYears = utcYears;
-},{"./interval":"../node_modules/d3-time/src/interval.js"}],"../node_modules/d3-time/src/index.js":[function(require,module,exports) {
+},{"./interval.js":"../node_modules/d3-time/src/interval.js"}],"../node_modules/d3-time/src/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -20463,42 +20600,42 @@ Object.defineProperty(exports, "utcYears", {
   }
 });
 
-var _interval = _interopRequireDefault(require("./interval"));
+var _interval = _interopRequireDefault(require("./interval.js"));
 
-var _millisecond = _interopRequireWildcard(require("./millisecond"));
+var _millisecond = _interopRequireWildcard(require("./millisecond.js"));
 
-var _second = _interopRequireWildcard(require("./second"));
+var _second = _interopRequireWildcard(require("./second.js"));
 
-var _minute = _interopRequireWildcard(require("./minute"));
+var _minute = _interopRequireWildcard(require("./minute.js"));
 
-var _hour = _interopRequireWildcard(require("./hour"));
+var _hour = _interopRequireWildcard(require("./hour.js"));
 
-var _day = _interopRequireWildcard(require("./day"));
+var _day = _interopRequireWildcard(require("./day.js"));
 
-var _week = require("./week");
+var _week = require("./week.js");
 
-var _month = _interopRequireWildcard(require("./month"));
+var _month = _interopRequireWildcard(require("./month.js"));
 
-var _year = _interopRequireWildcard(require("./year"));
+var _year = _interopRequireWildcard(require("./year.js"));
 
-var _utcMinute = _interopRequireWildcard(require("./utcMinute"));
+var _utcMinute = _interopRequireWildcard(require("./utcMinute.js"));
 
-var _utcHour = _interopRequireWildcard(require("./utcHour"));
+var _utcHour = _interopRequireWildcard(require("./utcHour.js"));
 
-var _utcDay = _interopRequireWildcard(require("./utcDay"));
+var _utcDay = _interopRequireWildcard(require("./utcDay.js"));
 
-var _utcWeek = require("./utcWeek");
+var _utcWeek = require("./utcWeek.js");
 
-var _utcMonth = _interopRequireWildcard(require("./utcMonth"));
+var _utcMonth = _interopRequireWildcard(require("./utcMonth.js"));
 
-var _utcYear = _interopRequireWildcard(require("./utcYear"));
+var _utcYear = _interopRequireWildcard(require("./utcYear.js"));
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./interval":"../node_modules/d3-time/src/interval.js","./millisecond":"../node_modules/d3-time/src/millisecond.js","./second":"../node_modules/d3-time/src/second.js","./minute":"../node_modules/d3-time/src/minute.js","./hour":"../node_modules/d3-time/src/hour.js","./day":"../node_modules/d3-time/src/day.js","./week":"../node_modules/d3-time/src/week.js","./month":"../node_modules/d3-time/src/month.js","./year":"../node_modules/d3-time/src/year.js","./utcMinute":"../node_modules/d3-time/src/utcMinute.js","./utcHour":"../node_modules/d3-time/src/utcHour.js","./utcDay":"../node_modules/d3-time/src/utcDay.js","./utcWeek":"../node_modules/d3-time/src/utcWeek.js","./utcMonth":"../node_modules/d3-time/src/utcMonth.js","./utcYear":"../node_modules/d3-time/src/utcYear.js"}],"../node_modules/d3-time-format/src/locale.js":[function(require,module,exports) {
+},{"./interval.js":"../node_modules/d3-time/src/interval.js","./millisecond.js":"../node_modules/d3-time/src/millisecond.js","./second.js":"../node_modules/d3-time/src/second.js","./minute.js":"../node_modules/d3-time/src/minute.js","./hour.js":"../node_modules/d3-time/src/hour.js","./day.js":"../node_modules/d3-time/src/day.js","./week.js":"../node_modules/d3-time/src/week.js","./month.js":"../node_modules/d3-time/src/month.js","./year.js":"../node_modules/d3-time/src/year.js","./utcMinute.js":"../node_modules/d3-time/src/utcMinute.js","./utcHour.js":"../node_modules/d3-time/src/utcHour.js","./utcDay.js":"../node_modules/d3-time/src/utcDay.js","./utcWeek.js":"../node_modules/d3-time/src/utcWeek.js","./utcMonth.js":"../node_modules/d3-time/src/utcMonth.js","./utcYear.js":"../node_modules/d3-time/src/utcYear.js"}],"../node_modules/d3-time-format/src/locale.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -20528,11 +20665,11 @@ function utcDate(d) {
   return new Date(Date.UTC(d.y, d.m, d.d, d.H, d.M, d.S, d.L));
 }
 
-function newYear(y) {
+function newDate(y, m, d) {
   return {
     y: y,
-    m: 0,
-    d: 1,
+    m: m,
+    d: d,
     H: 0,
     M: 0,
     S: 0,
@@ -20575,6 +20712,7 @@ function formatLocale(locale) {
     "m": formatMonthNumber,
     "M": formatMinutes,
     "p": formatPeriod,
+    "q": formatQuarter,
     "Q": formatUnixTimestamp,
     "s": formatUnixTimestampSeconds,
     "S": formatSeconds,
@@ -20606,6 +20744,7 @@ function formatLocale(locale) {
     "m": formatUTCMonthNumber,
     "M": formatUTCMinutes,
     "p": formatUTCPeriod,
+    "q": formatUTCQuarter,
     "Q": formatUnixTimestamp,
     "s": formatUnixTimestampSeconds,
     "S": formatUTCSeconds,
@@ -20637,6 +20776,7 @@ function formatLocale(locale) {
     "m": parseMonthNumber,
     "M": parseMinutes,
     "p": parsePeriod,
+    "q": parseQuarter,
     "Q": parseUnixTimestamp,
     "s": parseUnixTimestampSeconds,
     "S": parseSeconds,
@@ -20686,31 +20826,36 @@ function formatLocale(locale) {
     };
   }
 
-  function newParse(specifier, newDate) {
+  function newParse(specifier, Z) {
     return function (string) {
-      var d = newYear(1900),
+      var d = newDate(1900, undefined, 1),
           i = parseSpecifier(d, specifier, string += "", 0),
           week,
           day;
       if (i != string.length) return null; // If a UNIX timestamp is specified, return it.
 
-      if ("Q" in d) return new Date(d.Q); // The am-pm flag is 0 for AM, and 1 for PM.
+      if ("Q" in d) return new Date(d.Q);
+      if ("s" in d) return new Date(d.s * 1000 + ("L" in d ? d.L : 0)); // If this is utcParse, never use the local timezone.
 
-      if ("p" in d) d.H = d.H % 12 + d.p * 12; // Convert day-of-week and week-of-year to day-of-year.
+      if (Z && !("Z" in d)) d.Z = 0; // The am-pm flag is 0 for AM, and 1 for PM.
+
+      if ("p" in d) d.H = d.H % 12 + d.p * 12; // If the month was not specified, inherit from the quarter.
+
+      if (d.m === undefined) d.m = "q" in d ? d.q : 0; // Convert day-of-week and week-of-year to day-of-year.
 
       if ("V" in d) {
         if (d.V < 1 || d.V > 53) return null;
         if (!("w" in d)) d.w = 1;
 
         if ("Z" in d) {
-          week = utcDate(newYear(d.y)), day = week.getUTCDay();
+          week = utcDate(newDate(d.y, 0, 1)), day = week.getUTCDay();
           week = day > 4 || day === 0 ? _d3Time.utcMonday.ceil(week) : (0, _d3Time.utcMonday)(week);
           week = _d3Time.utcDay.offset(week, (d.V - 1) * 7);
           d.y = week.getUTCFullYear();
           d.m = week.getUTCMonth();
           d.d = week.getUTCDate() + (d.w + 6) % 7;
         } else {
-          week = newDate(newYear(d.y)), day = week.getDay();
+          week = localDate(newDate(d.y, 0, 1)), day = week.getDay();
           week = day > 4 || day === 0 ? _d3Time.timeMonday.ceil(week) : (0, _d3Time.timeMonday)(week);
           week = _d3Time.timeDay.offset(week, (d.V - 1) * 7);
           d.y = week.getFullYear();
@@ -20719,7 +20864,7 @@ function formatLocale(locale) {
         }
       } else if ("W" in d || "U" in d) {
         if (!("w" in d)) d.w = "u" in d ? d.u % 7 : "W" in d ? 1 : 0;
-        day = "Z" in d ? utcDate(newYear(d.y)).getUTCDay() : newDate(newYear(d.y)).getDay();
+        day = "Z" in d ? utcDate(newDate(d.y, 0, 1)).getUTCDay() : localDate(newDate(d.y, 0, 1)).getDay();
         d.m = 0;
         d.d = "W" in d ? (d.w + 6) % 7 + d.W * 7 - (day + 5) % 7 : d.w + d.U * 7 - (day + 6) % 7;
       } // If a time zone is specified, all fields are interpreted as UTC and then
@@ -20733,7 +20878,7 @@ function formatLocale(locale) {
       } // Otherwise, all fields are in local time.
 
 
-      return newDate(d);
+      return localDate(d);
     };
   }
 
@@ -20817,6 +20962,10 @@ function formatLocale(locale) {
     return locale_periods[+(d.getHours() >= 12)];
   }
 
+  function formatQuarter(d) {
+    return 1 + ~~(d.getMonth() / 3);
+  }
+
   function formatUTCShortWeekday(d) {
     return locale_shortWeekdays[d.getUTCDay()];
   }
@@ -20837,6 +20986,10 @@ function formatLocale(locale) {
     return locale_periods[+(d.getUTCHours() >= 12)];
   }
 
+  function formatUTCQuarter(d) {
+    return 1 + ~~(d.getUTCMonth() / 3);
+  }
+
   return {
     format: function (specifier) {
       var f = newFormat(specifier += "", formats);
@@ -20848,7 +21001,7 @@ function formatLocale(locale) {
       return f;
     },
     parse: function (specifier) {
-      var p = newParse(specifier += "", localDate);
+      var p = newParse(specifier += "", false);
 
       p.toString = function () {
         return specifier;
@@ -20866,7 +21019,7 @@ function formatLocale(locale) {
       return f;
     },
     utcParse: function (specifier) {
-      var p = newParse(specifier, utcDate);
+      var p = newParse(specifier += "", true);
 
       p.toString = function () {
         return specifier;
@@ -20952,6 +21105,11 @@ function parseZone(d, string, i) {
   return n ? (d.Z = n[1] ? 0 : -(n[2] + (n[3] || "00")), i + n[0].length) : -1;
 }
 
+function parseQuarter(d, string, i) {
+  var n = numberRe.exec(string.slice(i, i + 1));
+  return n ? (d.q = n[0] * 3 - 3, i + n[0].length) : -1;
+}
+
 function parseMonthNumber(d, string, i) {
   var n = numberRe.exec(string.slice(i, i + 2));
   return n ? (d.m = n[0] - 1, i + n[0].length) : -1;
@@ -21004,7 +21162,7 @@ function parseUnixTimestamp(d, string, i) {
 
 function parseUnixTimestampSeconds(d, string, i) {
   var n = numberRe.exec(string.slice(i));
-  return n ? (d.Q = +n[0] * 1000, i + n[0].length) : -1;
+  return n ? (d.s = +n[0], i + n[0].length) : -1;
 }
 
 function formatDayOfMonth(d, p) {
@@ -21049,7 +21207,7 @@ function formatWeekdayNumberMonday(d) {
 }
 
 function formatWeekNumberSunday(d, p) {
-  return pad(_d3Time.timeSunday.count((0, _d3Time.timeYear)(d), d), p, 2);
+  return pad(_d3Time.timeSunday.count((0, _d3Time.timeYear)(d) - 1, d), p, 2);
 }
 
 function formatWeekNumberISO(d, p) {
@@ -21063,7 +21221,7 @@ function formatWeekdayNumberSunday(d) {
 }
 
 function formatWeekNumberMonday(d, p) {
-  return pad(_d3Time.timeMonday.count((0, _d3Time.timeYear)(d), d), p, 2);
+  return pad(_d3Time.timeMonday.count((0, _d3Time.timeYear)(d) - 1, d), p, 2);
 }
 
 function formatYear(d, p) {
@@ -21121,7 +21279,7 @@ function formatUTCWeekdayNumberMonday(d) {
 }
 
 function formatUTCWeekNumberSunday(d, p) {
-  return pad(_d3Time.utcSunday.count((0, _d3Time.utcYear)(d), d), p, 2);
+  return pad(_d3Time.utcSunday.count((0, _d3Time.utcYear)(d) - 1, d), p, 2);
 }
 
 function formatUTCWeekNumberISO(d, p) {
@@ -21135,7 +21293,7 @@ function formatUTCWeekdayNumberSunday(d) {
 }
 
 function formatUTCWeekNumberMonday(d, p) {
-  return pad(_d3Time.utcMonday.count((0, _d3Time.utcYear)(d), d), p, 2);
+  return pad(_d3Time.utcMonday.count((0, _d3Time.utcYear)(d) - 1, d), p, 2);
 }
 
 function formatUTCYear(d, p) {
@@ -21170,7 +21328,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = defaultLocale;
 exports.utcParse = exports.utcFormat = exports.timeParse = exports.timeFormat = void 0;
 
-var _locale = _interopRequireDefault(require("./locale"));
+var _locale = _interopRequireDefault(require("./locale.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21202,7 +21360,7 @@ function defaultLocale(definition) {
   exports.utcParse = utcParse = locale.utcParse;
   return locale;
 }
-},{"./locale":"../node_modules/d3-time-format/src/locale.js"}],"../node_modules/d3-time-format/src/isoFormat.js":[function(require,module,exports) {
+},{"./locale.js":"../node_modules/d3-time-format/src/locale.js"}],"../node_modules/d3-time-format/src/isoFormat.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -21210,7 +21368,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = exports.isoSpecifier = void 0;
 
-var _defaultLocale = require("./defaultLocale");
+var _defaultLocale = require("./defaultLocale.js");
 
 var isoSpecifier = "%Y-%m-%dT%H:%M:%S.%LZ";
 exports.isoSpecifier = isoSpecifier;
@@ -21222,7 +21380,7 @@ function formatIsoNative(date) {
 var formatIso = Date.prototype.toISOString ? formatIsoNative : (0, _defaultLocale.utcFormat)(isoSpecifier);
 var _default = formatIso;
 exports.default = _default;
-},{"./defaultLocale":"../node_modules/d3-time-format/src/defaultLocale.js"}],"../node_modules/d3-time-format/src/isoParse.js":[function(require,module,exports) {
+},{"./defaultLocale.js":"../node_modules/d3-time-format/src/defaultLocale.js"}],"../node_modules/d3-time-format/src/isoParse.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -21230,9 +21388,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _isoFormat = require("./isoFormat");
+var _isoFormat = require("./isoFormat.js");
 
-var _defaultLocale = require("./defaultLocale");
+var _defaultLocale = require("./defaultLocale.js");
 
 function parseIsoNative(string) {
   var date = new Date(string);
@@ -21242,7 +21400,7 @@ function parseIsoNative(string) {
 var parseIso = +new Date("2000-01-01T00:00:00.000Z") ? parseIsoNative : (0, _defaultLocale.utcParse)(_isoFormat.isoSpecifier);
 var _default = parseIso;
 exports.default = _default;
-},{"./isoFormat":"../node_modules/d3-time-format/src/isoFormat.js","./defaultLocale":"../node_modules/d3-time-format/src/defaultLocale.js"}],"../node_modules/d3-time-format/src/index.js":[function(require,module,exports) {
+},{"./isoFormat.js":"../node_modules/d3-time-format/src/isoFormat.js","./defaultLocale.js":"../node_modules/d3-time-format/src/defaultLocale.js"}],"../node_modules/d3-time-format/src/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -21297,20 +21455,20 @@ Object.defineProperty(exports, "isoParse", {
   }
 });
 
-var _defaultLocale = _interopRequireWildcard(require("./defaultLocale"));
+var _defaultLocale = _interopRequireWildcard(require("./defaultLocale.js"));
 
-var _locale = _interopRequireDefault(require("./locale"));
+var _locale = _interopRequireDefault(require("./locale.js"));
 
-var _isoFormat = _interopRequireDefault(require("./isoFormat"));
+var _isoFormat = _interopRequireDefault(require("./isoFormat.js"));
 
-var _isoParse = _interopRequireDefault(require("./isoParse"));
+var _isoParse = _interopRequireDefault(require("./isoParse.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-},{"./defaultLocale":"../node_modules/d3-time-format/src/defaultLocale.js","./locale":"../node_modules/d3-time-format/src/locale.js","./isoFormat":"../node_modules/d3-time-format/src/isoFormat.js","./isoParse":"../node_modules/d3-time-format/src/isoParse.js"}],"../node_modules/d3-scale/src/time.js":[function(require,module,exports) {
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+},{"./defaultLocale.js":"../node_modules/d3-time-format/src/defaultLocale.js","./locale.js":"../node_modules/d3-time-format/src/locale.js","./isoFormat.js":"../node_modules/d3-time-format/src/isoFormat.js","./isoParse.js":"../node_modules/d3-time-format/src/isoParse.js"}],"../node_modules/d3-scale/src/time.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -21337,7 +21495,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 var durationSecond = 1000,
     durationMinute = durationSecond * 60,
@@ -21924,7 +22082,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 },{"./band":"../node_modules/d3-scale/src/band.js","./identity":"../node_modules/d3-scale/src/identity.js","./linear":"../node_modules/d3-scale/src/linear.js","./log":"../node_modules/d3-scale/src/log.js","./symlog":"../node_modules/d3-scale/src/symlog.js","./ordinal":"../node_modules/d3-scale/src/ordinal.js","./pow":"../node_modules/d3-scale/src/pow.js","./quantile":"../node_modules/d3-scale/src/quantile.js","./quantize":"../node_modules/d3-scale/src/quantize.js","./threshold":"../node_modules/d3-scale/src/threshold.js","./time":"../node_modules/d3-scale/src/time.js","./utcTime":"../node_modules/d3-scale/src/utcTime.js","./sequential":"../node_modules/d3-scale/src/sequential.js","./sequentialQuantile":"../node_modules/d3-scale/src/sequentialQuantile.js","./diverging":"../node_modules/d3-scale/src/diverging.js","./tickFormat":"../node_modules/d3-scale/src/tickFormat.js"}],"../node_modules/d3-scale-chromatic/src/colors.js":[function(require,module,exports) {
 "use strict";
 
@@ -23306,7 +23464,7 @@ var _viridis = _interopRequireWildcard(require("./sequential-multi/viridis.js"))
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 },{"./categorical/category10.js":"../node_modules/d3-scale-chromatic/src/categorical/category10.js","./categorical/Accent.js":"../node_modules/d3-scale-chromatic/src/categorical/Accent.js","./categorical/Dark2.js":"../node_modules/d3-scale-chromatic/src/categorical/Dark2.js","./categorical/Paired.js":"../node_modules/d3-scale-chromatic/src/categorical/Paired.js","./categorical/Pastel1.js":"../node_modules/d3-scale-chromatic/src/categorical/Pastel1.js","./categorical/Pastel2.js":"../node_modules/d3-scale-chromatic/src/categorical/Pastel2.js","./categorical/Set1.js":"../node_modules/d3-scale-chromatic/src/categorical/Set1.js","./categorical/Set2.js":"../node_modules/d3-scale-chromatic/src/categorical/Set2.js","./categorical/Set3.js":"../node_modules/d3-scale-chromatic/src/categorical/Set3.js","./categorical/Tableau10.js":"../node_modules/d3-scale-chromatic/src/categorical/Tableau10.js","./diverging/BrBG.js":"../node_modules/d3-scale-chromatic/src/diverging/BrBG.js","./diverging/PRGn.js":"../node_modules/d3-scale-chromatic/src/diverging/PRGn.js","./diverging/PiYG.js":"../node_modules/d3-scale-chromatic/src/diverging/PiYG.js","./diverging/PuOr.js":"../node_modules/d3-scale-chromatic/src/diverging/PuOr.js","./diverging/RdBu.js":"../node_modules/d3-scale-chromatic/src/diverging/RdBu.js","./diverging/RdGy.js":"../node_modules/d3-scale-chromatic/src/diverging/RdGy.js","./diverging/RdYlBu.js":"../node_modules/d3-scale-chromatic/src/diverging/RdYlBu.js","./diverging/RdYlGn.js":"../node_modules/d3-scale-chromatic/src/diverging/RdYlGn.js","./diverging/Spectral.js":"../node_modules/d3-scale-chromatic/src/diverging/Spectral.js","./sequential-multi/BuGn.js":"../node_modules/d3-scale-chromatic/src/sequential-multi/BuGn.js","./sequential-multi/BuPu.js":"../node_modules/d3-scale-chromatic/src/sequential-multi/BuPu.js","./sequential-multi/GnBu.js":"../node_modules/d3-scale-chromatic/src/sequential-multi/GnBu.js","./sequential-multi/OrRd.js":"../node_modules/d3-scale-chromatic/src/sequential-multi/OrRd.js","./sequential-multi/PuBuGn.js":"../node_modules/d3-scale-chromatic/src/sequential-multi/PuBuGn.js","./sequential-multi/PuBu.js":"../node_modules/d3-scale-chromatic/src/sequential-multi/PuBu.js","./sequential-multi/PuRd.js":"../node_modules/d3-scale-chromatic/src/sequential-multi/PuRd.js","./sequential-multi/RdPu.js":"../node_modules/d3-scale-chromatic/src/sequential-multi/RdPu.js","./sequential-multi/YlGnBu.js":"../node_modules/d3-scale-chromatic/src/sequential-multi/YlGnBu.js","./sequential-multi/YlGn.js":"../node_modules/d3-scale-chromatic/src/sequential-multi/YlGn.js","./sequential-multi/YlOrBr.js":"../node_modules/d3-scale-chromatic/src/sequential-multi/YlOrBr.js","./sequential-multi/YlOrRd.js":"../node_modules/d3-scale-chromatic/src/sequential-multi/YlOrRd.js","./sequential-single/Blues.js":"../node_modules/d3-scale-chromatic/src/sequential-single/Blues.js","./sequential-single/Greens.js":"../node_modules/d3-scale-chromatic/src/sequential-single/Greens.js","./sequential-single/Greys.js":"../node_modules/d3-scale-chromatic/src/sequential-single/Greys.js","./sequential-single/Purples.js":"../node_modules/d3-scale-chromatic/src/sequential-single/Purples.js","./sequential-single/Reds.js":"../node_modules/d3-scale-chromatic/src/sequential-single/Reds.js","./sequential-single/Oranges.js":"../node_modules/d3-scale-chromatic/src/sequential-single/Oranges.js","./sequential-multi/cividis.js":"../node_modules/d3-scale-chromatic/src/sequential-multi/cividis.js","./sequential-multi/cubehelix.js":"../node_modules/d3-scale-chromatic/src/sequential-multi/cubehelix.js","./sequential-multi/rainbow.js":"../node_modules/d3-scale-chromatic/src/sequential-multi/rainbow.js","./sequential-multi/sinebow.js":"../node_modules/d3-scale-chromatic/src/sequential-multi/sinebow.js","./sequential-multi/turbo.js":"../node_modules/d3-scale-chromatic/src/sequential-multi/turbo.js","./sequential-multi/viridis.js":"../node_modules/d3-scale-chromatic/src/sequential-multi/viridis.js"}],"../node_modules/d3-shape/src/constant.js":[function(require,module,exports) {
@@ -23371,9 +23529,9 @@ exports.default = _default;
 
 var _d3Path = require("d3-path");
 
-var _constant = _interopRequireDefault(require("./constant"));
+var _constant = _interopRequireDefault(require("./constant.js"));
 
-var _math = require("./math");
+var _math = require("./math.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -23605,7 +23763,7 @@ function _default() {
 
   return arc;
 }
-},{"d3-path":"../node_modules/d3-path/src/index.js","./constant":"../node_modules/d3-shape/src/constant.js","./math":"../node_modules/d3-shape/src/math.js"}],"../node_modules/d3-shape/src/curve/linear.js":[function(require,module,exports) {
+},{"d3-path":"../node_modules/d3-path/src/index.js","./constant.js":"../node_modules/d3-shape/src/constant.js","./math.js":"../node_modules/d3-shape/src/math.js"}],"../node_modules/d3-shape/src/curve/linear.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -23681,11 +23839,11 @@ exports.default = _default;
 
 var _d3Path = require("d3-path");
 
-var _constant = _interopRequireDefault(require("./constant"));
+var _constant = _interopRequireDefault(require("./constant.js"));
 
-var _linear = _interopRequireDefault(require("./curve/linear"));
+var _linear = _interopRequireDefault(require("./curve/linear.js"));
 
-var _point = require("./point");
+var _point = require("./point.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -23738,7 +23896,7 @@ function _default() {
 
   return line;
 }
-},{"d3-path":"../node_modules/d3-path/src/index.js","./constant":"../node_modules/d3-shape/src/constant.js","./curve/linear":"../node_modules/d3-shape/src/curve/linear.js","./point":"../node_modules/d3-shape/src/point.js"}],"../node_modules/d3-shape/src/area.js":[function(require,module,exports) {
+},{"d3-path":"../node_modules/d3-path/src/index.js","./constant.js":"../node_modules/d3-shape/src/constant.js","./curve/linear.js":"../node_modules/d3-shape/src/curve/linear.js","./point.js":"../node_modules/d3-shape/src/point.js"}],"../node_modules/d3-shape/src/area.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -23748,13 +23906,13 @@ exports.default = _default;
 
 var _d3Path = require("d3-path");
 
-var _constant = _interopRequireDefault(require("./constant"));
+var _constant = _interopRequireDefault(require("./constant.js"));
 
-var _linear = _interopRequireDefault(require("./curve/linear"));
+var _linear = _interopRequireDefault(require("./curve/linear.js"));
 
-var _line = _interopRequireDefault(require("./line"));
+var _line = _interopRequireDefault(require("./line.js"));
 
-var _point = require("./point");
+var _point = require("./point.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -23862,7 +24020,7 @@ function _default() {
 
   return area;
 }
-},{"d3-path":"../node_modules/d3-path/src/index.js","./constant":"../node_modules/d3-shape/src/constant.js","./curve/linear":"../node_modules/d3-shape/src/curve/linear.js","./line":"../node_modules/d3-shape/src/line.js","./point":"../node_modules/d3-shape/src/point.js"}],"../node_modules/d3-shape/src/identity.js":[function(require,module,exports) {
+},{"d3-path":"../node_modules/d3-path/src/index.js","./constant.js":"../node_modules/d3-shape/src/constant.js","./curve/linear.js":"../node_modules/d3-shape/src/curve/linear.js","./line.js":"../node_modules/d3-shape/src/line.js","./point.js":"../node_modules/d3-shape/src/point.js"}],"../node_modules/d3-shape/src/identity.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -23881,13 +24039,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _constant = _interopRequireDefault(require("./constant"));
+var _constant = _interopRequireDefault(require("./constant.js"));
 
-var _descending = _interopRequireDefault(require("./descending"));
+var _descending = _interopRequireDefault(require("./descending.js"));
 
-var _identity = _interopRequireDefault(require("./identity"));
+var _identity = _interopRequireDefault(require("./identity.js"));
 
-var _math = require("./math");
+var _math = require("./math.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -23967,7 +24125,7 @@ function _default() {
 
   return pie;
 }
-},{"./constant":"../node_modules/d3-shape/src/constant.js","./descending":"../node_modules/d3-array/src/descending.js","./identity":"../node_modules/d3-shape/src/identity.js","./math":"../node_modules/d3-shape/src/math.js"}],"../node_modules/d3-shape/src/curve/radial.js":[function(require,module,exports) {
+},{"./constant.js":"../node_modules/d3-shape/src/constant.js","./descending.js":"../node_modules/d3-array/src/descending.js","./identity.js":"../node_modules/d3-shape/src/identity.js","./math.js":"../node_modules/d3-shape/src/math.js"}],"../node_modules/d3-shape/src/curve/radial.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -23976,7 +24134,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = curveRadial;
 exports.curveRadialLinear = void 0;
 
-var _linear = _interopRequireDefault(require("./linear"));
+var _linear = _interopRequireDefault(require("./linear.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -24013,7 +24171,7 @@ function curveRadial(curve) {
   radial._curve = curve;
   return radial;
 }
-},{"./linear":"../node_modules/d3-shape/src/curve/linear.js"}],"../node_modules/d3-shape/src/lineRadial.js":[function(require,module,exports) {
+},{"./linear.js":"../node_modules/d3-shape/src/curve/linear.js"}],"../node_modules/d3-shape/src/lineRadial.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -24022,15 +24180,15 @@ Object.defineProperty(exports, "__esModule", {
 exports.lineRadial = lineRadial;
 exports.default = _default;
 
-var _radial = _interopRequireWildcard(require("./curve/radial"));
+var _radial = _interopRequireWildcard(require("./curve/radial.js"));
 
-var _line = _interopRequireDefault(require("./line"));
+var _line = _interopRequireDefault(require("./line.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function lineRadial(l) {
   var c = l.curve;
@@ -24047,7 +24205,7 @@ function lineRadial(l) {
 function _default() {
   return lineRadial((0, _line.default)().curve(_radial.curveRadialLinear));
 }
-},{"./curve/radial":"../node_modules/d3-shape/src/curve/radial.js","./line":"../node_modules/d3-shape/src/line.js"}],"../node_modules/d3-shape/src/areaRadial.js":[function(require,module,exports) {
+},{"./curve/radial.js":"../node_modules/d3-shape/src/curve/radial.js","./line.js":"../node_modules/d3-shape/src/line.js"}],"../node_modules/d3-shape/src/areaRadial.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -24055,17 +24213,17 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _radial = _interopRequireWildcard(require("./curve/radial"));
+var _radial = _interopRequireWildcard(require("./curve/radial.js"));
 
-var _area = _interopRequireDefault(require("./area"));
+var _area = _interopRequireDefault(require("./area.js"));
 
-var _lineRadial = require("./lineRadial");
+var _lineRadial = require("./lineRadial.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _default() {
   var a = (0, _area.default)().curve(_radial.curveRadialLinear),
@@ -24099,7 +24257,7 @@ function _default() {
 
   return a;
 }
-},{"./curve/radial":"../node_modules/d3-shape/src/curve/radial.js","./area":"../node_modules/d3-shape/src/area.js","./lineRadial":"../node_modules/d3-shape/src/lineRadial.js"}],"../node_modules/d3-shape/src/pointRadial.js":[function(require,module,exports) {
+},{"./curve/radial.js":"../node_modules/d3-shape/src/curve/radial.js","./area.js":"../node_modules/d3-shape/src/area.js","./lineRadial.js":"../node_modules/d3-shape/src/lineRadial.js"}],"../node_modules/d3-shape/src/pointRadial.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -24122,13 +24280,13 @@ exports.linkRadial = linkRadial;
 
 var _d3Path = require("d3-path");
 
-var _array = require("../array");
+var _array = require("../array.js");
 
-var _constant = _interopRequireDefault(require("../constant"));
+var _constant = _interopRequireDefault(require("../constant.js"));
 
-var _point = require("../point");
+var _point = require("../point.js");
 
-var _pointRadial = _interopRequireDefault(require("../pointRadial"));
+var _pointRadial = _interopRequireDefault(require("../pointRadial.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -24214,7 +24372,7 @@ function linkRadial() {
   l.radius = l.y, delete l.y;
   return l;
 }
-},{"d3-path":"../node_modules/d3-path/src/index.js","../array":"../node_modules/d3-axis/src/array.js","../constant":"../node_modules/d3-shape/src/constant.js","../point":"../node_modules/d3-shape/src/point.js","../pointRadial":"../node_modules/d3-shape/src/pointRadial.js"}],"../node_modules/d3-shape/src/symbol/circle.js":[function(require,module,exports) {
+},{"d3-path":"../node_modules/d3-path/src/index.js","../array.js":"../node_modules/d3-axis/src/array.js","../constant.js":"../node_modules/d3-shape/src/constant.js","../point.js":"../node_modules/d3-shape/src/point.js","../pointRadial.js":"../node_modules/d3-shape/src/pointRadial.js"}],"../node_modules/d3-shape/src/symbol/circle.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -24222,7 +24380,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _math = require("../math");
+var _math = require("../math.js");
 
 var _default = {
   draw: function (context, size) {
@@ -24232,7 +24390,7 @@ var _default = {
   }
 };
 exports.default = _default;
-},{"../math":"../node_modules/d3-shape/src/math.js"}],"../node_modules/d3-shape/src/symbol/cross.js":[function(require,module,exports) {
+},{"../math.js":"../node_modules/d3-shape/src/math.js"}],"../node_modules/d3-shape/src/symbol/cross.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -24287,7 +24445,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _math = require("../math");
+var _math = require("../math.js");
 
 var ka = 0.89081309152928522810,
     kr = Math.sin(_math.pi / 10) / Math.sin(7 * _math.pi / 10),
@@ -24313,7 +24471,7 @@ var _default = {
   }
 };
 exports.default = _default;
-},{"../math":"../node_modules/d3-shape/src/math.js"}],"../node_modules/d3-shape/src/symbol/square.js":[function(require,module,exports) {
+},{"../math.js":"../node_modules/d3-shape/src/math.js"}],"../node_modules/d3-shape/src/symbol/square.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -24390,21 +24548,21 @@ exports.symbols = void 0;
 
 var _d3Path = require("d3-path");
 
-var _circle = _interopRequireDefault(require("./symbol/circle"));
+var _circle = _interopRequireDefault(require("./symbol/circle.js"));
 
-var _cross = _interopRequireDefault(require("./symbol/cross"));
+var _cross = _interopRequireDefault(require("./symbol/cross.js"));
 
-var _diamond = _interopRequireDefault(require("./symbol/diamond"));
+var _diamond = _interopRequireDefault(require("./symbol/diamond.js"));
 
-var _star = _interopRequireDefault(require("./symbol/star"));
+var _star = _interopRequireDefault(require("./symbol/star.js"));
 
-var _square = _interopRequireDefault(require("./symbol/square"));
+var _square = _interopRequireDefault(require("./symbol/square.js"));
 
-var _triangle = _interopRequireDefault(require("./symbol/triangle"));
+var _triangle = _interopRequireDefault(require("./symbol/triangle.js"));
 
-var _wye = _interopRequireDefault(require("./symbol/wye"));
+var _wye = _interopRequireDefault(require("./symbol/wye.js"));
 
-var _constant = _interopRequireDefault(require("./constant"));
+var _constant = _interopRequireDefault(require("./constant.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -24437,7 +24595,7 @@ function _default() {
 
   return symbol;
 }
-},{"d3-path":"../node_modules/d3-path/src/index.js","./symbol/circle":"../node_modules/d3-shape/src/symbol/circle.js","./symbol/cross":"../node_modules/d3-shape/src/symbol/cross.js","./symbol/diamond":"../node_modules/d3-shape/src/symbol/diamond.js","./symbol/star":"../node_modules/d3-shape/src/symbol/star.js","./symbol/square":"../node_modules/d3-shape/src/symbol/square.js","./symbol/triangle":"../node_modules/d3-shape/src/symbol/triangle.js","./symbol/wye":"../node_modules/d3-shape/src/symbol/wye.js","./constant":"../node_modules/d3-shape/src/constant.js"}],"../node_modules/d3-shape/src/curve/basis.js":[function(require,module,exports) {
+},{"d3-path":"../node_modules/d3-path/src/index.js","./symbol/circle.js":"../node_modules/d3-shape/src/symbol/circle.js","./symbol/cross.js":"../node_modules/d3-shape/src/symbol/cross.js","./symbol/diamond.js":"../node_modules/d3-shape/src/symbol/diamond.js","./symbol/star.js":"../node_modules/d3-shape/src/symbol/star.js","./symbol/square.js":"../node_modules/d3-shape/src/symbol/square.js","./symbol/triangle.js":"../node_modules/d3-shape/src/symbol/triangle.js","./symbol/wye.js":"../node_modules/d3-shape/src/symbol/wye.js","./constant.js":"../node_modules/d3-shape/src/constant.js"}],"../node_modules/d3-shape/src/curve/basis.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -24522,9 +24680,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _noop = _interopRequireDefault(require("../noop"));
+var _noop = _interopRequireDefault(require("../noop.js"));
 
-var _basis = require("./basis");
+var _basis = require("./basis.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -24605,7 +24763,7 @@ BasisClosed.prototype = {
 function _default(context) {
   return new BasisClosed(context);
 }
-},{"../noop":"../node_modules/d3-contour/src/noop.js","./basis":"../node_modules/d3-shape/src/curve/basis.js"}],"../node_modules/d3-shape/src/curve/basisOpen.js":[function(require,module,exports) {
+},{"../noop.js":"../node_modules/d3-contour/src/noop.js","./basis.js":"../node_modules/d3-shape/src/curve/basis.js"}],"../node_modules/d3-shape/src/curve/basisOpen.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -24613,7 +24771,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _basis = require("./basis");
+var _basis = require("./basis.js");
 
 function BasisOpen(context) {
   this._context = context;
@@ -24670,7 +24828,7 @@ BasisOpen.prototype = {
 function _default(context) {
   return new BasisOpen(context);
 }
-},{"./basis":"../node_modules/d3-shape/src/curve/basis.js"}],"../node_modules/d3-shape/src/curve/bundle.js":[function(require,module,exports) {
+},{"./basis.js":"../node_modules/d3-shape/src/curve/basis.js"}],"../node_modules/d3-shape/src/curve/bundle.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -24678,7 +24836,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _basis = require("./basis");
+var _basis = require("./basis.js");
 
 function Bundle(context, beta) {
   this._basis = new _basis.Basis(context);
@@ -24736,7 +24894,7 @@ var _default = function custom(beta) {
 }(0.85);
 
 exports.default = _default;
-},{"./basis":"../node_modules/d3-shape/src/curve/basis.js"}],"../node_modules/d3-shape/src/curve/cardinal.js":[function(require,module,exports) {
+},{"./basis.js":"../node_modules/d3-shape/src/curve/basis.js"}],"../node_modules/d3-shape/src/curve/cardinal.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -24831,9 +24989,9 @@ Object.defineProperty(exports, "__esModule", {
 exports.CardinalClosed = CardinalClosed;
 exports.default = void 0;
 
-var _noop = _interopRequireDefault(require("../noop"));
+var _noop = _interopRequireDefault(require("../noop.js"));
 
-var _cardinal = require("./cardinal");
+var _cardinal = require("./cardinal.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -24922,7 +25080,7 @@ var _default = function custom(tension) {
 }(0);
 
 exports.default = _default;
-},{"../noop":"../node_modules/d3-contour/src/noop.js","./cardinal":"../node_modules/d3-shape/src/curve/cardinal.js"}],"../node_modules/d3-shape/src/curve/cardinalOpen.js":[function(require,module,exports) {
+},{"../noop.js":"../node_modules/d3-contour/src/noop.js","./cardinal.js":"../node_modules/d3-shape/src/curve/cardinal.js"}],"../node_modules/d3-shape/src/curve/cardinalOpen.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -24931,7 +25089,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.CardinalOpen = CardinalOpen;
 exports.default = void 0;
 
-var _cardinal = require("./cardinal");
+var _cardinal = require("./cardinal.js");
 
 function CardinalOpen(context, tension) {
   this._context = context;
@@ -24997,7 +25155,7 @@ var _default = function custom(tension) {
 }(0);
 
 exports.default = _default;
-},{"./cardinal":"../node_modules/d3-shape/src/curve/cardinal.js"}],"../node_modules/d3-shape/src/curve/catmullRom.js":[function(require,module,exports) {
+},{"./cardinal.js":"../node_modules/d3-shape/src/curve/cardinal.js"}],"../node_modules/d3-shape/src/curve/catmullRom.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -25006,9 +25164,9 @@ Object.defineProperty(exports, "__esModule", {
 exports.point = point;
 exports.default = void 0;
 
-var _math = require("../math");
+var _math = require("../math.js");
 
-var _cardinal = require("./cardinal");
+var _cardinal = require("./cardinal.js");
 
 function point(that, x, y) {
   var x1 = that._x1,
@@ -25112,7 +25270,7 @@ var _default = function custom(alpha) {
 }(0.5);
 
 exports.default = _default;
-},{"../math":"../node_modules/d3-shape/src/math.js","./cardinal":"../node_modules/d3-shape/src/curve/cardinal.js"}],"../node_modules/d3-shape/src/curve/catmullRomClosed.js":[function(require,module,exports) {
+},{"../math.js":"../node_modules/d3-shape/src/math.js","./cardinal.js":"../node_modules/d3-shape/src/curve/cardinal.js"}],"../node_modules/d3-shape/src/curve/catmullRomClosed.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -25120,11 +25278,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _cardinalClosed = require("./cardinalClosed");
+var _cardinalClosed = require("./cardinalClosed.js");
 
-var _noop = _interopRequireDefault(require("../noop"));
+var _noop = _interopRequireDefault(require("../noop.js"));
 
-var _catmullRom = require("./catmullRom");
+var _catmullRom = require("./catmullRom.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -25221,7 +25379,7 @@ var _default = function custom(alpha) {
 }(0.5);
 
 exports.default = _default;
-},{"./cardinalClosed":"../node_modules/d3-shape/src/curve/cardinalClosed.js","../noop":"../node_modules/d3-contour/src/noop.js","./catmullRom":"../node_modules/d3-shape/src/curve/catmullRom.js"}],"../node_modules/d3-shape/src/curve/catmullRomOpen.js":[function(require,module,exports) {
+},{"./cardinalClosed.js":"../node_modules/d3-shape/src/curve/cardinalClosed.js","../noop.js":"../node_modules/d3-contour/src/noop.js","./catmullRom.js":"../node_modules/d3-shape/src/curve/catmullRom.js"}],"../node_modules/d3-shape/src/curve/catmullRomOpen.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -25229,9 +25387,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _cardinalOpen = require("./cardinalOpen");
+var _cardinalOpen = require("./cardinalOpen.js");
 
-var _catmullRom = require("./catmullRom");
+var _catmullRom = require("./catmullRom.js");
 
 function CatmullRomOpen(context, alpha) {
   this._context = context;
@@ -25305,7 +25463,7 @@ var _default = function custom(alpha) {
 }(0.5);
 
 exports.default = _default;
-},{"./cardinalOpen":"../node_modules/d3-shape/src/curve/cardinalOpen.js","./catmullRom":"../node_modules/d3-shape/src/curve/catmullRom.js"}],"../node_modules/d3-shape/src/curve/linearClosed.js":[function(require,module,exports) {
+},{"./cardinalOpen.js":"../node_modules/d3-shape/src/curve/cardinalOpen.js","./catmullRom.js":"../node_modules/d3-shape/src/curve/catmullRom.js"}],"../node_modules/d3-shape/src/curve/linearClosed.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -25313,7 +25471,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _noop = _interopRequireDefault(require("../noop"));
+var _noop = _interopRequireDefault(require("../noop.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -25339,7 +25497,7 @@ LinearClosed.prototype = {
 function _default(context) {
   return new LinearClosed(context);
 }
-},{"../noop":"../node_modules/d3-contour/src/noop.js"}],"../node_modules/d3-shape/src/curve/monotone.js":[function(require,module,exports) {
+},{"../noop.js":"../node_modules/d3-contour/src/noop.js"}],"../node_modules/d3-shape/src/curve/monotone.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -25682,13 +25840,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _array = require("./array");
+var _array = require("./array.js");
 
-var _constant = _interopRequireDefault(require("./constant"));
+var _constant = _interopRequireDefault(require("./constant.js"));
 
-var _none = _interopRequireDefault(require("./offset/none"));
+var _none = _interopRequireDefault(require("./offset/none.js"));
 
-var _none2 = _interopRequireDefault(require("./order/none"));
+var _none2 = _interopRequireDefault(require("./order/none.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -25745,7 +25903,7 @@ function _default() {
 
   return stack;
 }
-},{"./array":"../node_modules/d3-axis/src/array.js","./constant":"../node_modules/d3-shape/src/constant.js","./offset/none":"../node_modules/d3-shape/src/offset/none.js","./order/none":"../node_modules/d3-shape/src/order/none.js"}],"../node_modules/d3-shape/src/offset/expand.js":[function(require,module,exports) {
+},{"./array.js":"../node_modules/d3-axis/src/array.js","./constant.js":"../node_modules/d3-shape/src/constant.js","./offset/none.js":"../node_modules/d3-shape/src/offset/none.js","./order/none.js":"../node_modules/d3-shape/src/order/none.js"}],"../node_modules/d3-shape/src/offset/expand.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -25753,7 +25911,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _none = _interopRequireDefault(require("./none"));
+var _none = _interopRequireDefault(require("./none.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -25768,7 +25926,7 @@ function _default(series, order) {
 
   (0, _none.default)(series, order);
 }
-},{"./none":"../node_modules/d3-shape/src/offset/none.js"}],"../node_modules/d3-shape/src/offset/diverging.js":[function(require,module,exports) {
+},{"./none.js":"../node_modules/d3-shape/src/offset/none.js"}],"../node_modules/d3-shape/src/offset/diverging.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -25781,12 +25939,12 @@ function _default(series, order) {
 
   for (var i, j = 0, d, dy, yp, yn, n, m = series[order[0]].length; j < m; ++j) {
     for (yp = yn = 0, i = 0; i < n; ++i) {
-      if ((dy = (d = series[order[i]][j])[1] - d[0]) >= 0) {
+      if ((dy = (d = series[order[i]][j])[1] - d[0]) > 0) {
         d[0] = yp, d[1] = yp += dy;
       } else if (dy < 0) {
         d[1] = yn, d[0] = yn += dy;
       } else {
-        d[0] = yp;
+        d[0] = 0, d[1] = dy;
       }
     }
   }
@@ -25799,7 +25957,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _none = _interopRequireDefault(require("./none"));
+var _none = _interopRequireDefault(require("./none.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -25814,7 +25972,7 @@ function _default(series, order) {
 
   (0, _none.default)(series, order);
 }
-},{"./none":"../node_modules/d3-shape/src/offset/none.js"}],"../node_modules/d3-shape/src/offset/wiggle.js":[function(require,module,exports) {
+},{"./none.js":"../node_modules/d3-shape/src/offset/none.js"}],"../node_modules/d3-shape/src/offset/wiggle.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -25822,7 +25980,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _none = _interopRequireDefault(require("./none"));
+var _none = _interopRequireDefault(require("./none.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -25853,7 +26011,7 @@ function _default(series, order) {
   s0[j - 1][1] += s0[j - 1][0] = y;
   (0, _none.default)(series, order);
 }
-},{"./none":"../node_modules/d3-shape/src/offset/none.js"}],"../node_modules/d3-shape/src/order/appearance.js":[function(require,module,exports) {
+},{"./none.js":"../node_modules/d3-shape/src/offset/none.js"}],"../node_modules/d3-shape/src/order/appearance.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -25861,7 +26019,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _none = _interopRequireDefault(require("./none"));
+var _none = _interopRequireDefault(require("./none.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -25883,7 +26041,7 @@ function peak(series) {
 
   return j;
 }
-},{"./none":"../node_modules/d3-shape/src/order/none.js"}],"../node_modules/d3-shape/src/order/ascending.js":[function(require,module,exports) {
+},{"./none.js":"../node_modules/d3-shape/src/order/none.js"}],"../node_modules/d3-shape/src/order/ascending.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -25892,7 +26050,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = _default;
 exports.sum = sum;
 
-var _none = _interopRequireDefault(require("./none"));
+var _none = _interopRequireDefault(require("./none.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -25913,7 +26071,7 @@ function sum(series) {
 
   return s;
 }
-},{"./none":"../node_modules/d3-shape/src/order/none.js"}],"../node_modules/d3-shape/src/order/descending.js":[function(require,module,exports) {
+},{"./none.js":"../node_modules/d3-shape/src/order/none.js"}],"../node_modules/d3-shape/src/order/descending.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -25921,14 +26079,14 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _ascending = _interopRequireDefault(require("./ascending"));
+var _ascending = _interopRequireDefault(require("./ascending.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _default(series) {
   return (0, _ascending.default)(series).reverse();
 }
-},{"./ascending":"../node_modules/d3-shape/src/order/ascending.js"}],"../node_modules/d3-shape/src/order/insideOut.js":[function(require,module,exports) {
+},{"./ascending.js":"../node_modules/d3-shape/src/order/ascending.js"}],"../node_modules/d3-shape/src/order/insideOut.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -25936,9 +26094,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _appearance = _interopRequireDefault(require("./appearance"));
+var _appearance = _interopRequireDefault(require("./appearance.js"));
 
-var _ascending = require("./ascending");
+var _ascending = require("./ascending.js");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -25967,7 +26125,7 @@ function _default(series) {
 
   return bottoms.reverse().concat(tops);
 }
-},{"./appearance":"../node_modules/d3-shape/src/order/appearance.js","./ascending":"../node_modules/d3-shape/src/order/ascending.js"}],"../node_modules/d3-shape/src/order/reverse.js":[function(require,module,exports) {
+},{"./appearance.js":"../node_modules/d3-shape/src/order/appearance.js","./ascending.js":"../node_modules/d3-shape/src/order/ascending.js"}],"../node_modules/d3-shape/src/order/reverse.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -25975,14 +26133,14 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = _default;
 
-var _none = _interopRequireDefault(require("./none"));
+var _none = _interopRequireDefault(require("./none.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _default(series) {
   return (0, _none.default)(series).reverse();
 }
-},{"./none":"../node_modules/d3-shape/src/order/none.js"}],"../node_modules/d3-shape/src/index.js":[function(require,module,exports) {
+},{"./none.js":"../node_modules/d3-shape/src/order/none.js"}],"../node_modules/d3-shape/src/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -26295,98 +26453,98 @@ Object.defineProperty(exports, "stackOrderReverse", {
   }
 });
 
-var _arc = _interopRequireDefault(require("./arc"));
+var _arc = _interopRequireDefault(require("./arc.js"));
 
-var _area = _interopRequireDefault(require("./area"));
+var _area = _interopRequireDefault(require("./area.js"));
 
-var _line = _interopRequireDefault(require("./line"));
+var _line = _interopRequireDefault(require("./line.js"));
 
-var _pie = _interopRequireDefault(require("./pie"));
+var _pie = _interopRequireDefault(require("./pie.js"));
 
-var _areaRadial = _interopRequireDefault(require("./areaRadial"));
+var _areaRadial = _interopRequireDefault(require("./areaRadial.js"));
 
-var _lineRadial = _interopRequireDefault(require("./lineRadial"));
+var _lineRadial = _interopRequireDefault(require("./lineRadial.js"));
 
-var _pointRadial = _interopRequireDefault(require("./pointRadial"));
+var _pointRadial = _interopRequireDefault(require("./pointRadial.js"));
 
-var _index = require("./link/index");
+var _index = require("./link/index.js");
 
-var _symbol = _interopRequireWildcard(require("./symbol"));
+var _symbol = _interopRequireWildcard(require("./symbol.js"));
 
-var _circle = _interopRequireDefault(require("./symbol/circle"));
+var _circle = _interopRequireDefault(require("./symbol/circle.js"));
 
-var _cross = _interopRequireDefault(require("./symbol/cross"));
+var _cross = _interopRequireDefault(require("./symbol/cross.js"));
 
-var _diamond = _interopRequireDefault(require("./symbol/diamond"));
+var _diamond = _interopRequireDefault(require("./symbol/diamond.js"));
 
-var _square = _interopRequireDefault(require("./symbol/square"));
+var _square = _interopRequireDefault(require("./symbol/square.js"));
 
-var _star = _interopRequireDefault(require("./symbol/star"));
+var _star = _interopRequireDefault(require("./symbol/star.js"));
 
-var _triangle = _interopRequireDefault(require("./symbol/triangle"));
+var _triangle = _interopRequireDefault(require("./symbol/triangle.js"));
 
-var _wye = _interopRequireDefault(require("./symbol/wye"));
+var _wye = _interopRequireDefault(require("./symbol/wye.js"));
 
-var _basisClosed = _interopRequireDefault(require("./curve/basisClosed"));
+var _basisClosed = _interopRequireDefault(require("./curve/basisClosed.js"));
 
-var _basisOpen = _interopRequireDefault(require("./curve/basisOpen"));
+var _basisOpen = _interopRequireDefault(require("./curve/basisOpen.js"));
 
-var _basis = _interopRequireDefault(require("./curve/basis"));
+var _basis = _interopRequireDefault(require("./curve/basis.js"));
 
-var _bundle = _interopRequireDefault(require("./curve/bundle"));
+var _bundle = _interopRequireDefault(require("./curve/bundle.js"));
 
-var _cardinalClosed = _interopRequireDefault(require("./curve/cardinalClosed"));
+var _cardinalClosed = _interopRequireDefault(require("./curve/cardinalClosed.js"));
 
-var _cardinalOpen = _interopRequireDefault(require("./curve/cardinalOpen"));
+var _cardinalOpen = _interopRequireDefault(require("./curve/cardinalOpen.js"));
 
-var _cardinal = _interopRequireDefault(require("./curve/cardinal"));
+var _cardinal = _interopRequireDefault(require("./curve/cardinal.js"));
 
-var _catmullRomClosed = _interopRequireDefault(require("./curve/catmullRomClosed"));
+var _catmullRomClosed = _interopRequireDefault(require("./curve/catmullRomClosed.js"));
 
-var _catmullRomOpen = _interopRequireDefault(require("./curve/catmullRomOpen"));
+var _catmullRomOpen = _interopRequireDefault(require("./curve/catmullRomOpen.js"));
 
-var _catmullRom = _interopRequireDefault(require("./curve/catmullRom"));
+var _catmullRom = _interopRequireDefault(require("./curve/catmullRom.js"));
 
-var _linearClosed = _interopRequireDefault(require("./curve/linearClosed"));
+var _linearClosed = _interopRequireDefault(require("./curve/linearClosed.js"));
 
-var _linear = _interopRequireDefault(require("./curve/linear"));
+var _linear = _interopRequireDefault(require("./curve/linear.js"));
 
-var _monotone = require("./curve/monotone");
+var _monotone = require("./curve/monotone.js");
 
-var _natural = _interopRequireDefault(require("./curve/natural"));
+var _natural = _interopRequireDefault(require("./curve/natural.js"));
 
-var _step = _interopRequireWildcard(require("./curve/step"));
+var _step = _interopRequireWildcard(require("./curve/step.js"));
 
-var _stack = _interopRequireDefault(require("./stack"));
+var _stack = _interopRequireDefault(require("./stack.js"));
 
-var _expand = _interopRequireDefault(require("./offset/expand"));
+var _expand = _interopRequireDefault(require("./offset/expand.js"));
 
-var _diverging = _interopRequireDefault(require("./offset/diverging"));
+var _diverging = _interopRequireDefault(require("./offset/diverging.js"));
 
-var _none = _interopRequireDefault(require("./offset/none"));
+var _none = _interopRequireDefault(require("./offset/none.js"));
 
-var _silhouette = _interopRequireDefault(require("./offset/silhouette"));
+var _silhouette = _interopRequireDefault(require("./offset/silhouette.js"));
 
-var _wiggle = _interopRequireDefault(require("./offset/wiggle"));
+var _wiggle = _interopRequireDefault(require("./offset/wiggle.js"));
 
-var _appearance = _interopRequireDefault(require("./order/appearance"));
+var _appearance = _interopRequireDefault(require("./order/appearance.js"));
 
-var _ascending = _interopRequireDefault(require("./order/ascending"));
+var _ascending = _interopRequireDefault(require("./order/ascending.js"));
 
-var _descending = _interopRequireDefault(require("./order/descending"));
+var _descending = _interopRequireDefault(require("./order/descending.js"));
 
-var _insideOut = _interopRequireDefault(require("./order/insideOut"));
+var _insideOut = _interopRequireDefault(require("./order/insideOut.js"));
 
-var _none2 = _interopRequireDefault(require("./order/none"));
+var _none2 = _interopRequireDefault(require("./order/none.js"));
 
-var _reverse = _interopRequireDefault(require("./order/reverse"));
+var _reverse = _interopRequireDefault(require("./order/reverse.js"));
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-},{"./arc":"../node_modules/d3-shape/src/arc.js","./area":"../node_modules/d3-shape/src/area.js","./line":"../node_modules/d3-shape/src/line.js","./pie":"../node_modules/d3-shape/src/pie.js","./areaRadial":"../node_modules/d3-shape/src/areaRadial.js","./lineRadial":"../node_modules/d3-shape/src/lineRadial.js","./pointRadial":"../node_modules/d3-shape/src/pointRadial.js","./link/index":"../node_modules/d3-shape/src/link/index.js","./symbol":"../node_modules/d3-shape/src/symbol.js","./symbol/circle":"../node_modules/d3-shape/src/symbol/circle.js","./symbol/cross":"../node_modules/d3-shape/src/symbol/cross.js","./symbol/diamond":"../node_modules/d3-shape/src/symbol/diamond.js","./symbol/square":"../node_modules/d3-shape/src/symbol/square.js","./symbol/star":"../node_modules/d3-shape/src/symbol/star.js","./symbol/triangle":"../node_modules/d3-shape/src/symbol/triangle.js","./symbol/wye":"../node_modules/d3-shape/src/symbol/wye.js","./curve/basisClosed":"../node_modules/d3-shape/src/curve/basisClosed.js","./curve/basisOpen":"../node_modules/d3-shape/src/curve/basisOpen.js","./curve/basis":"../node_modules/d3-shape/src/curve/basis.js","./curve/bundle":"../node_modules/d3-shape/src/curve/bundle.js","./curve/cardinalClosed":"../node_modules/d3-shape/src/curve/cardinalClosed.js","./curve/cardinalOpen":"../node_modules/d3-shape/src/curve/cardinalOpen.js","./curve/cardinal":"../node_modules/d3-shape/src/curve/cardinal.js","./curve/catmullRomClosed":"../node_modules/d3-shape/src/curve/catmullRomClosed.js","./curve/catmullRomOpen":"../node_modules/d3-shape/src/curve/catmullRomOpen.js","./curve/catmullRom":"../node_modules/d3-shape/src/curve/catmullRom.js","./curve/linearClosed":"../node_modules/d3-shape/src/curve/linearClosed.js","./curve/linear":"../node_modules/d3-shape/src/curve/linear.js","./curve/monotone":"../node_modules/d3-shape/src/curve/monotone.js","./curve/natural":"../node_modules/d3-shape/src/curve/natural.js","./curve/step":"../node_modules/d3-shape/src/curve/step.js","./stack":"../node_modules/d3-shape/src/stack.js","./offset/expand":"../node_modules/d3-shape/src/offset/expand.js","./offset/diverging":"../node_modules/d3-shape/src/offset/diverging.js","./offset/none":"../node_modules/d3-shape/src/offset/none.js","./offset/silhouette":"../node_modules/d3-shape/src/offset/silhouette.js","./offset/wiggle":"../node_modules/d3-shape/src/offset/wiggle.js","./order/appearance":"../node_modules/d3-shape/src/order/appearance.js","./order/ascending":"../node_modules/d3-shape/src/order/ascending.js","./order/descending":"../node_modules/d3-shape/src/order/descending.js","./order/insideOut":"../node_modules/d3-shape/src/order/insideOut.js","./order/none":"../node_modules/d3-shape/src/order/none.js","./order/reverse":"../node_modules/d3-shape/src/order/reverse.js"}],"../node_modules/d3-voronoi/src/point.js":[function(require,module,exports) {
+},{"./arc.js":"../node_modules/d3-shape/src/arc.js","./area.js":"../node_modules/d3-shape/src/area.js","./line.js":"../node_modules/d3-shape/src/line.js","./pie.js":"../node_modules/d3-shape/src/pie.js","./areaRadial.js":"../node_modules/d3-shape/src/areaRadial.js","./lineRadial.js":"../node_modules/d3-shape/src/lineRadial.js","./pointRadial.js":"../node_modules/d3-shape/src/pointRadial.js","./link/index.js":"../node_modules/d3-shape/src/link/index.js","./symbol.js":"../node_modules/d3-shape/src/symbol.js","./symbol/circle.js":"../node_modules/d3-shape/src/symbol/circle.js","./symbol/cross.js":"../node_modules/d3-shape/src/symbol/cross.js","./symbol/diamond.js":"../node_modules/d3-shape/src/symbol/diamond.js","./symbol/square.js":"../node_modules/d3-shape/src/symbol/square.js","./symbol/star.js":"../node_modules/d3-shape/src/symbol/star.js","./symbol/triangle.js":"../node_modules/d3-shape/src/symbol/triangle.js","./symbol/wye.js":"../node_modules/d3-shape/src/symbol/wye.js","./curve/basisClosed.js":"../node_modules/d3-shape/src/curve/basisClosed.js","./curve/basisOpen.js":"../node_modules/d3-shape/src/curve/basisOpen.js","./curve/basis.js":"../node_modules/d3-shape/src/curve/basis.js","./curve/bundle.js":"../node_modules/d3-shape/src/curve/bundle.js","./curve/cardinalClosed.js":"../node_modules/d3-shape/src/curve/cardinalClosed.js","./curve/cardinalOpen.js":"../node_modules/d3-shape/src/curve/cardinalOpen.js","./curve/cardinal.js":"../node_modules/d3-shape/src/curve/cardinal.js","./curve/catmullRomClosed.js":"../node_modules/d3-shape/src/curve/catmullRomClosed.js","./curve/catmullRomOpen.js":"../node_modules/d3-shape/src/curve/catmullRomOpen.js","./curve/catmullRom.js":"../node_modules/d3-shape/src/curve/catmullRom.js","./curve/linearClosed.js":"../node_modules/d3-shape/src/curve/linearClosed.js","./curve/linear.js":"../node_modules/d3-shape/src/curve/linear.js","./curve/monotone.js":"../node_modules/d3-shape/src/curve/monotone.js","./curve/natural.js":"../node_modules/d3-shape/src/curve/natural.js","./curve/step.js":"../node_modules/d3-shape/src/curve/step.js","./stack.js":"../node_modules/d3-shape/src/stack.js","./offset/expand.js":"../node_modules/d3-shape/src/offset/expand.js","./offset/diverging.js":"../node_modules/d3-shape/src/offset/diverging.js","./offset/none.js":"../node_modules/d3-shape/src/offset/none.js","./offset/silhouette.js":"../node_modules/d3-shape/src/offset/silhouette.js","./offset/wiggle.js":"../node_modules/d3-shape/src/offset/wiggle.js","./order/appearance.js":"../node_modules/d3-shape/src/order/appearance.js","./order/ascending.js":"../node_modules/d3-shape/src/order/ascending.js","./order/descending.js":"../node_modules/d3-shape/src/order/descending.js","./order/insideOut.js":"../node_modules/d3-shape/src/order/insideOut.js","./order/none.js":"../node_modules/d3-shape/src/order/none.js","./order/reverse.js":"../node_modules/d3-shape/src/order/reverse.js"}],"../node_modules/d3-voronoi/src/point.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -27443,7 +27601,7 @@ var _Diagram = _interopRequireWildcard(require("./Diagram"));
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -27609,7 +27767,7 @@ var _noevent = _interopRequireWildcard(require("./noevent.js"));
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -28053,7 +28211,7 @@ var _transform = _interopRequireWildcard(require("./transform.js"));
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 },{"./zoom.js":"../node_modules/d3-zoom/src/zoom.js","./transform.js":"../node_modules/d3-zoom/src/transform.js"}],"../node_modules/d3/index.js":[function(require,module,exports) {
@@ -28485,7 +28643,7 @@ var d3 = _interopRequireWildcard(require("d3"));
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
