@@ -49,100 +49,137 @@
 
   <main id="content">
 
-   <style>ul {
-     list-style-type: none;
-     margin: 0;
+   <style>body {
+     font-family: 'Roboto', sans-serif;
      padding: 0;
-     overflow: hidden;
-   text-align:center; 
-     background-color: #f3f3f3;
+     margin: 0;
    }
    
-   li {
-     float: left;
+   small {
+     font-size: 12px;
+     color: rgba(0, 0, 0, 0.4);
    }
    
-   li a, .dropbtn {
-     display: inline-block;
-     color: #a6a6a6;
+   h1 {
      text-align: center;
-     padding: 14px 16px;
-     text-decoration: none;
+     padding: 50px 0;
+     font-weight: 800;
+     margin: 0;
+     letter-spacing: -1px;
+     color: inherit;
+     font-size: 40px;
    }
    
-   li a:hover, .dropdown:hover .dropbtn {
-     background-color: red;
+   /* By Dominik Biedebach @domobch */
+   
+   h2 {
+     text-align: center;
+     font-size: 30px;
+     margin: 0;
+     font-weight: 300;
+     color: inherit;
+     padding: 50px;
    }
    
-   li.dropdown {
+   .center {
+     text-align: center;
+   }
+   
+   /* By Dominik Biedebach @domobch */
+   
+   section {
+     height: 100vh;
+   }
+   
+   /* NAVIGATION */
+   nav {
+     width: 80%;
+     margin: 0 auto;
+     background: #fff;
+     padding: 50px 0;
+     box-shadow: 0px 5px 0px #dedede;
+   }
+   
+   /* By Dominik Biedebach @domobch */
+   nav ul {
+     list-style: none;
+     text-align: center;
+   }
+   nav ul li {
      display: inline-block;
    }
+   nav ul li a {
+     display: block;
+     padding: 15px;
+     text-decoration: none;
+     color: #aaa;
+     font-weight: 800;
+     text-transform: uppercase;
+     margin: 0 10px;
+   }
+   nav ul li a,
+   nav ul li a:after,
+   nav ul li a:before {
+     transition: all .5s;
+   }
+   nav ul li a:hover {
+     color: #555;
+   }
    
-   .dropdown-content {
-     display: none;
+   /* stroke */
+   nav.stroke ul li a,
+   nav.fill ul li a {
+     position: relative;
+   }
+   nav.stroke ul li a:after,
+   nav.fill ul li a:after {
      position: absolute;
-     background-color: #f9f9f9;
-     min-width: 160px;
-     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+     bottom: 0;
+     left: 0;
+     right: 0;
+     margin: auto;
+     width: 0%;
+     content: '.';
+     color: transparent;
+     background: #333;
+     height: 1px;
+   }
+   nav.stroke ul li a:hover:after {
+     width: 100%;
+   }
+   
+   nav.fill ul li a {
+     transition: all 2s;
+   }
+   /* By Dominik Biedebach @domobch */
+   
+   nav.fill ul li a:after {
+     text-align: left;
+     content: '.';
+     margin: 0;
+     opacity: 0;
+   }
+   nav.fill ul li a:hover {
+     color: #023f1c;
      z-index: 1;
    }
-   
-   .dropdown-content a {
-     color: black;
-     padding: 12px 16px;
-     text-decoration: none;
-     display: block;
-     text-align: left;
-   }
-   
-   .dropdown-content a:hover {background-color: #f1f1f1;}
-   
-   .dropdown:hover .dropdown-content {
-     display: block;
+   nav.fill ul li a:hover:after {
+     z-index: -10;
+     animation: fill 1s forwards;
+     -webkit-animation: fill 1s forwards;
+     -moz-animation: fill 1s forwards;
+     opacity: 1;
    }</style>
    
-   <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
-    
-     
-    <div class="collapse navbar-collapse">
-       <ul class="navbar-nav mr-auto">
-         <li class="nav-item active">
-           <a class="nav-link" href="/index.html">Home</a>
-             </li>
-   
-   <li class="dropdown">
-       <a href="javascript:void(0)" class="dropbtn">News</a>
-       <div class="dropdown-content">
-         <a href="/mekong.html">Death of the Mekong River</a>
-         <a href="/firearms.html">Guns in America</a>
-         <a href="/bloomberg.html">Champion of Culture</a>
-       </div>
-     </li>
-   
-     <li class="dropdown">
-       <a href="javascript:void(0)" class="dropbtn">Graphics</a>
-       <div class="dropdown-content">
-         <a href="/sample.html">A Week on Broadway</a>
-         <a href="/firearms.html">The Middle Class</a>
-         <a href="/bloomberg.html">Champion of Culture</a>
-       </div>
-     </li>
-   <li class="dropdown">
-       <a href="javascript:void(0)" class="dropbtn">Arts & Culture</a>
-       <div class="dropdown-content">
-         <a href="/judd.html">The Dimensions of Space</a>
-         <a href="/morgan.html">Madeline in the City</a>
-         <a href="/morgan.html">Delight in the Erudite</a>
-       </div>
-     </li>
-     <li><a href="/contact.html">Contact</a></li>
-   
-   
-              
+   <link href="https://fonts.googleapis.com/css?family=Roboto:500,900,100,300,700,400" rel="stylesheet" type="text/css">
+     <nav class="stroke">
+       <ul>
+         <li><a href="/index.html">Home</a></li>
+         <li><a href="/contact.html">About</a></li>
        </ul>
-    
-     </div>
-   </nav><div class="story-body scrollytelling image-stepper">
+     </nav>
+   
+<div class="story-body scrollytelling image-stepper">
 
 
     <div id="chart-04" class="chart">
